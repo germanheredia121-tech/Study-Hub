@@ -2,8 +2,8 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 7, 7, 10;
-  --background-end-rgb: 7, 7, 10;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
 }
 
 body {
@@ -11,12 +11,21 @@ body {
   background: rgb(var(--background-start-rgb));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal overflow on mobile */
+  overflow-x: hidden;
 }
 
 /* Ensure module content scales correctly */
 .module-content-container img {
   max-width: 100%;
   height: auto;
+}
+
+/* Prevent code blocks from causing horizontal overflow */
+.module-content-container pre,
+.module-content-container code {
+  max-width: 100%;
+  overflow-wrap: break-word;
 }
 
 /* Fix sidebar scrolling */
@@ -41,4 +50,33 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #3f3f50;
+}
+
+/* Safe area for notch/punch-hole phones */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Touch-friendly targets */
+@media (max-width: 767px) {
+
+  button,
+  a,
+  label {
+    min-height: 44px;
+  }
+
+  /* Ensure content doesn't overflow */
+  .module-content-container {
+    overflow-x: hidden;
+  }
+
+  .module-content-container .ide-body {
+    overflow-x: auto;
+  }
 }

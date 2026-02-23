@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Algoritmos & Estructuras de Datos — LeetCode Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafafa;
+    --bg2: #f3f4f6;
+    --bg3: #ffffff;
+    --sidebar: #111118;
+    --sidebar-text: #a0a0b8;
+    --sidebar-active: #ffffff;
+    --border: #e5e7eb;
+    --accent: #2563eb;
+    --accent2: #059669;
+    --accent3: #d97706;
+    --accent4: #dc2626;
+    --accent5: #7c3aed;
+    --text: #111827;
+    --text2: #4b5563;
+    --text3: #9ca3af;
+    --ide-bg: #1e1e2e;
+    --ide-border: #313244;
+    --ide-num: #45475a;
+    --keyword: #cba6f7;
+    --string: #a6e3a1;
+    --number: #fab387;
+    --comment: #6c7086;
+    --type: #89b4fa;
+    --func: #89dceb;
+    --op: #89dceb;
+    --var2: #cdd6f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Sora', sans-serif;
+    font-size: 14.5px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0;
+    width: 240px;
+    height: 100vh;
+    background: var(--sidebar);
+    overflow-y: auto;
+    z-index: 100;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 3px; }
+  .sidebar::-webkit-scrollbar-thumb { background: #313244; }
+
+  .sidebar-logo {
+    padding: 28px 20px 24px;
+    border-bottom: 1px solid #1f1f2e;
+  }
+
+  .logo-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #2563eb22;
+    border: 1px solid #2563eb44;
+    color: #60a5fa;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .sidebar-logo h2 {
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.3;
+  }
+
+  .sidebar-logo p {
+    font-size: 11px;
+    color: #6c7086;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 4px;
+  }
+
+  nav { padding: 12px 0 24px; }
+
+  .nav-cat {
+    padding: 12px 20px 4px;
+    font-size: 9px;
+    font-weight: 700;
+    color: #45475a;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 20px;
+    font-size: 12.5px;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    transition: all 0.15s;
+    cursor: pointer;
+  }
+
+  .nav-link:hover { color: white; background: #1f1f2e; }
+  .nav-link.active { color: white; background: #2563eb22; border-right: 2px solid #2563eb; }
+
+  .nav-link .diff {
+    margin-left: auto;
+    font-size: 9px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 1px 5px;
+    border-radius: 3px;
+  }
+  .diff-easy { background: #05966922; color: #34d399; }
+  .diff-med { background: #d9770622; color: #fbbf24; }
+  .diff-hard { background: #dc262622; color: #f87171; }
+
+  /* MAIN */
+  .main {
+    margin-left: 240px;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--sidebar);
+    color: white;
+    padding: 72px 64px 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '⚡';
+    position: absolute;
+    right: 80px;
+    top: 40px;
+    font-size: 180px;
+    opacity: 0.04;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #60a5fa;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 20px;
+    height: 1px;
+    background: #2563eb;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: white;
+  }
+
+  .hero h1 span { color: #60a5fa; }
+
+  .hero p {
+    font-size: 16px;
+    color: #6c7086;
+    max-width: 560px;
+    margin-bottom: 36px;
+    line-height: 1.7;
+  }
+
+  .complexity-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .complexity-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid;
+  }
+
+  .cp-green { background: #05966915; color: #34d399; border-color: #05966930; }
+  .cp-yellow { background: #d9770615; color: #fbbf24; border-color: #d9770630; }
+  .cp-red { background: #dc262615; color: #f87171; border-color: #dc262630; }
+  .cp-blue { background: #2563eb15; color: #60a5fa; border-color: #2563eb30; }
+
+  /* CONTENT */
+  .content {
+    padding: 0 64px 80px;
+    max-width: 920px;
+  }
+
+  /* MODULE HEADER */
+  .mod-header {
+    padding: 52px 0 28px;
+    margin-bottom: 36px;
+    position: relative;
+  }
+
+  .mod-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 48px; height: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .mod-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .mod-header h2 {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .mod-header p {
+    color: var(--text2);
+    font-size: 14.5px;
+    max-width: 640px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+  }
+
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::before {
+    content: '';
+    width: 3px; height: 18px;
+    background: var(--accent2);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  /* CONCEPT CARD */
+  .concept {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .concept:hover {
+    box-shadow: 0 4px 16px rgba(37,99,235,0.08);
+    border-color: #93c5fd;
+  }
+
+  .concept-header {
+    padding: 12px 18px;
+    background: #f8faff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .concept-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .b-blue { background: #dbeafe; color: #1d4ed8; }
+  .b-green { background: #d1fae5; color: #065f46; }
+  .b-yellow { background: #fef3c7; color: #92400e; }
+  .b-red { background: #fee2e2; color: #991b1b; }
+  .b-purple { background: #ede9fe; color: #5b21b6; }
+
+  /* IDE */
+  .ide { background: var(--ide-bg); }
+
+  .ide-bar {
+    display: flex;
+    align-items: center;
+    padding: 8px 14px;
+    background: #181825;
+    border-bottom: 1px solid var(--ide-border);
+    gap: 6px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #f38ba8; }
+  .dot-y { background: #f9e2af; }
+  .dot-g { background: #a6e3a1; }
+
+  .ide-file {
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: #6c7086;
+  }
+
+  .ide-lang {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: #45475a;
+    background: #1e1e2e;
+    border: 1px solid #313244;
+    padding: 1px 7px;
+    border-radius: 3px;
+  }
+
+  .copy-btn {
+    background: none;
+    border: 1px solid #313244;
+    color: #6c7086;
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    margin-left: 6px;
+  }
+
+  .copy-btn:hover { color: #cdd6f4; border-color: #2563eb; }
+
+  .ide-body {
+    padding: 18px 0;
+    overflow-x: auto;
+  }
+
+  .ide-body::-webkit-scrollbar { height: 4px; }
+  .ide-body::-webkit-scrollbar-thumb { background: #313244; }
+
+  .cl {
+    display: flex;
+    align-items: baseline;
+    min-height: 21px;
+    padding-right: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    line-height: 1.65;
+  }
+
+  .ln {
+    width: 42px;
+    min-width: 42px;
+    text-align: right;
+    padding-right: 18px;
+    color: var(--ide-num);
+    user-select: none;
+    font-size: 11px;
+  }
+
+  .lc { white-space: pre; color: var(--var2); }
+
+  /* syntax */
+  .kw { color: #cba6f7; }
+  .st { color: #a6e3a1; }
+  .nm { color: #fab387; }
+  .cm { color: #6c7086; font-style: italic; }
+  .tp { color: #89b4fa; }
+  .fn { color: #89dceb; }
+  .op { color: #89dceb; }
+  .cl2 { color: #f9e2af; }
+  .dc { color: #fab387; }
+
+  /* DESC */
+  .desc {
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    background: #fafbff;
+  }
+
+  .desc p {
+    font-size: 13.5px;
+    color: var(--text2);
+    line-height: 1.75;
+  }
+
+  .c { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #dbeafe; color: #1d4ed8; padding: 1px 6px; border-radius: 4px; }
+  .cg { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #d1fae5; color: #065f46; padding: 1px 6px; border-radius: 4px; }
+  .cy { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 4px; }
+  .cr { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #fee2e2; color: #991b1b; padding: 1px 6px; border-radius: 4px; }
+
+  /* CALLOUT */
+  .callout {
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    border-left: 3px solid;
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .callout-blue { background: #eff6ff; border-color: #2563eb; color: var(--text2); }
+  .callout-green { background: #f0fdf4; border-color: #059669; color: var(--text2); }
+  .callout-yellow { background: #fffbeb; border-color: #d97706; color: var(--text2); }
+  .callout-red { background: #fef2f2; border-color: #dc2626; color: var(--text2); }
+
+  .callout strong { display: block; margin-bottom: 6px; font-size: 12.5px; font-weight: 700; }
+  .callout-blue strong { color: #2563eb; }
+  .callout-green strong { color: #059669; }
+  .callout-yellow strong { color: #d97706; }
+  .callout-red strong { color: #dc2626; }
+
+  /* TABLE */
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 13px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .tbl th {
+    background: #1e1e2e;
+    color: #89b4fa;
+    font-weight: 600;
+    padding: 9px 14px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  .tbl td {
+    padding: 9px 14px;
+    color: var(--text2);
+    border-top: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .tbl tr:hover td { background: #f8faff; }
+  .tbl td code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #dbeafe; color: #1d4ed8; padding: 1px 5px; border-radius: 3px; }
+
+  /* COMPLEXITY BADGE */
+  .time { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-right: 6px; font-weight: 600; }
+  .time-good { background: #d1fae5; color: #065f46; }
+  .time-ok { background: #fef3c7; color: #92400e; }
+  .time-bad { background: #fee2e2; color: #991b1b; }
+
+  /* PATTERN CARD */
+  .pattern-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+  .pattern-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .pattern-card:hover { border-color: var(--accent); background: #eff6ff; }
+  .pattern-card .p-name { font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 4px; }
+  .pattern-card .p-desc { font-size: 12px; color: var(--text3); }
+  .pattern-card .p-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); }
+
+  /* INTERVIEW */
+  .iq {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .iq-head {
+    padding: 12px 18px;
+    background: #fffbeb;
+    border-bottom: 1px solid #fde68a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .iq-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    background: #fef3c7;
+    color: #92400e;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-weight: 700;
+  }
+
+  .iq-title { font-size: 13.5px; font-weight: 700; color: var(--text); }
+
+  .iq-body { padding: 16px 18px; }
+
+  .iq-q {
+    font-size: 13.5px;
+    color: var(--text2);
+    font-style: italic;
+    padding: 10px 14px;
+    background: #fafafa;
+    border-radius: 6px;
+    border-left: 3px solid #d97706;
+    margin-bottom: 14px;
+  }
+
+  .iq-a { font-size: 13.5px; color: var(--text2); line-height: 1.75; }
+
+  /* SCROLL TOP */
+  .scroll-top {
+    position: fixed;
+    bottom: 28px; right: 28px;
+    width: 38px; height: 38px;
+    background: var(--sidebar);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: all 0.3s;
+    z-index: 200;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .scroll-top.vis { opacity: 1; }
+
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .main { margin-left: 0; }
+    .content { padding: 0 20px 60px; }
+    .hero { padding: 40px 20px; }
+    .hero h1 { font-size: 32px; }
+    .pattern-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-chip">⚡ DSA Guide</div>
+    <h2>Algoritmos &<br>Estructuras</h2>
+    <p>Easy → Medium → Hard</p>
+  </div>
+  <nav>
+    <div class="nav-cat">Fundamentos</div>
+    <a class="nav-link" href="#bigo">Big O Complexity <span class="diff diff-easy">base</span></a>
+    <a class="nav-link" href="#arrays">Arrays & Strings <span class="diff diff-easy">Easy</span></a>
+    <a class="nav-link" href="#linked">Linked Lists <span class="diff diff-med">Med</span></a>
+    <a class="nav-link" href="#stacks">Stacks & Queues <span class="diff diff-med">Med</span></a>
+    <a class="nav-link" href="#hashmaps">Hash Maps & Sets <span class="diff diff-med">Med</span></a>
+
+    <div class="nav-cat">Estructuras Avanzadas</div>
+    <a class="nav-link" href="#trees">Trees & BST <span class="diff diff-med">Med</span></a>
+    <a class="nav-link" href="#graphs">Grafos <span class="diff diff-hard">Hard</span></a>
+    <a class="nav-link" href="#heaps">Heaps <span class="diff diff-hard">Hard</span></a>
+    <a class="nav-link" href="#trie">Trie <span class="diff diff-hard">Hard</span></a>
+
+    <div class="nav-cat">Algoritmos</div>
+    <a class="nav-link" href="#dp">Dynamic Programming <span class="diff diff-hard">Hard</span></a>
+    <a class="nav-link" href="#backtrack">Backtracking <span class="diff diff-hard">Hard</span></a>
+    <a class="nav-link" href="#bsearch">Binary Search <span class="diff diff-med">Med</span></a>
+
+    <div class="nav-cat">Simulacro</div>
+    <a class="nav-link" href="#sim">Problemas Hard <span class="diff diff-hard">Hard</span></a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eyebrow">Guía Completa · LeetCode</div>
+    <h1>Algoritmos &<br><span>Estructuras de Datos</span></h1>
+    <p>Todo lo que necesitás para dominar Easy, Medium y Hard en LeetCode. Desde Big O hasta Dynamic Programming y Backtracking.</p>
+    <div class="complexity-pills">
+      <span class="complexity-pill cp-blue">Big O · Complexity</span>
+      <span class="complexity-pill cp-green">Two Pointers · Sliding Window</span>
+      <span class="complexity-pill cp-yellow">Trees · Graphs · Heaps</span>
+      <span class="complexity-pill cp-red">DP · Backtracking · Hard</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- BIG O -->
+    <div id="bigo" class="mod-header">
+      <div class="mod-num">Módulo 01</div>
+      <h2>Complejidad Algorítmica — Big O</h2>
+      <p>El lenguaje universal para medir eficiencia. Sin entender Big O no podés razonar sobre si tu solución va a pasar el time limit.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Tabla de complejidades</div>
+
+      <table class="tbl">
+        <thead>
+          <tr><th>Notación</th><th>Nombre</th><th>Ejemplo real</th><th>n=100</th><th>Escala</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>O(1)</code></td><td>Constante</td><td>Acceder arr[i], push en stack</td><td>1 op</td><td><span class="time time-good">✓ óptimo</span></td></tr>
+          <tr><td><code>O(log n)</code></td><td>Logarítmica</td><td>Binary Search, BST lookup</td><td>7 ops</td><td><span class="time time-good">✓ excelente</span></td></tr>
+          <tr><td><code>O(n)</code></td><td>Lineal</td><td>Recorrer un array</td><td>100 ops</td><td><span class="time time-good">✓ bueno</span></td></tr>
+          <tr><td><code>O(n log n)</code></td><td>Lineal-log</td><td>Merge Sort, Heap Sort</td><td>700 ops</td><td><span class="time time-ok">~ aceptable</span></td></tr>
+          <tr><td><code>O(n²)</code></td><td>Cuadrática</td><td>Bubble Sort, nested loops</td><td>10.000 ops</td><td><span class="time time-bad">✗ lento</span></td></tr>
+          <tr><td><code>O(2ⁿ)</code></td><td>Exponencial</td><td>Recursión sin memo</td><td>~10³⁰</td><td><span class="time time-bad">✗ imposible</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Reglas para calcular Big O <span class="badge b-blue">fundamental</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">bigo_rules.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># REGLA 1: Un loop → O(n)</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    <span class="fn">print</span>(i)  <span class="cm"># O(n)</span></span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc"><span class="cm"># REGLA 2: Loops anidados → multiplicar O(n²)</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc"><span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n):</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n):  <span class="cm"># O(n²)</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">        <span class="fn">print</span>(i, j)</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc"><span class="cm"># REGLA 3: Dividir el problema → O(log n)</span></span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">left, right = <span class="nm">0</span>, n - <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc"><span class="kw">while</span> left &lt;= right:</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">    mid = (left + right) <span class="op">//</span> <span class="nm">2</span>  <span class="cm"># O(log n)</span></span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">    left = mid + <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc"><span class="cm"># REGLA 4: Recursión sin memo → O(2ⁿ)</span></span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc"><span class="kw">def</span> <span class="fn">fib_malo</span>(n):  <span class="cm"># O(2ⁿ) — nunca usar esto</span></span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">    <span class="kw">if</span> n &lt;= <span class="nm">1</span>: <span class="kw">return</span> n</span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc">    <span class="kw">return</span> <span class="fn">fib_malo</span>(n<span class="nm">-1</span>) + <span class="fn">fib_malo</span>(n<span class="nm">-2</span>)</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Se ignoran constantes: <span class="c">O(2n)</span> → <span class="cg">O(n)</span>. Se ignoran términos menores: <span class="c">O(n² + n)</span> → <span class="cg">O(n²)</span>. Big O siempre describe el <strong>peor caso</strong> a menos que se especifique lo contrario. Lo que importa es el comportamiento cuando n tiende a infinito.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARRAYS -->
+    <div id="arrays" class="mod-header">
+      <div class="mod-num">Módulo 02</div>
+      <h2>Arrays & Strings</h2>
+      <p>La base de casi todo. El 60% de los problemas de LeetCode involucran arrays. Dominá estos patrones primero.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrón: Two Pointers</div>
+
+      <div class="callout callout-blue">
+        <strong>💡 Cuándo usar Two Pointers</strong>
+        Cuando el array está ordenado y necesitás encontrar pares o tripletas que cumplan una condición. Convierte problemas O(n²) en O(n). Señal en el enunciado: "sorted array", "find pair that sums to X", "remove duplicates".
+      </div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Two Sum en array ordenado <span class="badge b-green">O(n) · O(1)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">two_sum_sorted.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Input: [2,7,11,15], target=9 → [0,1]</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">def</span> <span class="fn">two_sum_sorted</span>(nums, target):</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    left, right = <span class="nm">0</span>, <span class="fn">len</span>(nums) - <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    <span class="kw">while</span> left &lt; right:</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">        current = nums[left] + nums[right]</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        <span class="kw">if</span> current == target:</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">            <span class="kw">return</span> [left, right]</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">        <span class="kw">elif</span> current &lt; target:</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">            left += <span class="nm">1</span>   <span class="cm"># necesitamos más: mover izquierda</span></span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        <span class="kw">else</span>:</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">            right -= <span class="nm">1</span>  <span class="cm"># necesitamos menos: mover derecha</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">    <span class="kw">return</span> []</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Dos punteros que se mueven desde los extremos hacia el centro. Si la suma es menor que el target necesitamos un número mayor → movemos el puntero izquierdo. Si es mayor → movemos el derecho. Solo funciona con arrays <strong>ordenados</strong>. <span class="time time-good">O(n) tiempo</span> <span class="time time-good">O(1) espacio</span></p>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">3Sum — tripletas que suman cero <span class="badge b-yellow">O(n²) · O(1)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">three_sum.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="kw">def</span> <span class="fn">three_sum</span>(nums):</span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc">    nums.<span class="fn">sort</span>()  <span class="cm"># CRUCIAL: ordenar primero</span></span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    result = []</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(nums) - <span class="nm">2</span>):</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">        <span class="kw">if</span> i > <span class="nm">0</span> <span class="kw">and</span> nums[i] == nums[i-<span class="nm">1</span>]: <span class="kw">continue</span>  <span class="cm"># skip dup</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        left, right = i + <span class="nm">1</span>, <span class="fn">len</span>(nums) - <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">        <span class="kw">while</span> left &lt; right:</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">            s = nums[i] + nums[left] + nums[right]</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">            <span class="kw">if</span> s == <span class="nm">0</span>:</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">                result.<span class="fn">append</span>([nums[i], nums[left], nums[right]])</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">                <span class="kw">while</span> left &lt; right <span class="kw">and</span> nums[left] == nums[left+<span class="nm">1</span>]: left += <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">                <span class="kw">while</span> left &lt; right <span class="kw">and</span> nums[right] == nums[right-<span class="nm">1</span>]: right -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">                left += <span class="nm">1</span>; right -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">            <span class="kw">elif</span> s &lt; <span class="nm">0</span>: left += <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">            <span class="kw">else</span>: right -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">    <span class="kw">return</span> result</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Fijamos un elemento con el loop exterior, y usamos Two Pointers para el par restante. Lo crítico es <strong>skipear duplicados</strong> en las tres posiciones para no retornar tripletas repetidas. La poda del <span class="c">continue</span> en línea 5 evita procesar el mismo número fijo más de una vez.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrón: Sliding Window</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Minimum Window Substring <span class="badge b-red">Hard · O(s+t)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">min_window.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Input: s="ADOBECODEBANC", t="ABC" → "BANC"</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">from</span> collections <span class="kw">import</span> Counter</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc"><span class="kw">def</span> <span class="fn">min_window</span>(s, t):</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    need = <span class="cl2">Counter</span>(t)    <span class="cm"># cuántos chars necesitamos</span></span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    have, formed = {}, <span class="nm">0</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">    required = <span class="fn">len</span>(need)  <span class="cm"># chars distintos a satisfacer</span></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    left = <span class="nm">0</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    result = <span class="fn">float</span>(<span class="st">"inf"</span>), -<span class="nm">1</span>, -<span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">    <span class="kw">for</span> right <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(s)):</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        char = s[right]</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        have[char] = have.<span class="fn">get</span>(char, <span class="nm">0</span>) + <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">        <span class="kw">if</span> char <span class="kw">in</span> need <span class="kw">and</span> have[char] == need[char]:</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">            formed += <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">        <span class="kw">while</span> formed == required:  <span class="cm"># ventana válida: tratar de reducir</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">            <span class="kw">if</span> right - left + <span class="nm">1</span> &lt; result[<span class="nm">0</span>]:</span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">                result = (right - left + <span class="nm">1</span>, left, right)</span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc">            have[s[left]] -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">            <span class="kw">if</span> s[left] <span class="kw">in</span> need <span class="kw">and</span> have[s[left]] &lt; need[s[left]]:</span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc">                formed -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">            left += <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">    <span class="kw">return</span> <span class="st">""</span> <span class="kw">if</span> result[<span class="nm">0</span>] == <span class="fn">float</span>(<span class="st">"inf"</span>) <span class="kw">else</span> s[result[<span class="nm">1</span>]:result[<span class="nm">2</span>]+<span class="nm">1</span>]</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Patrón de ventana deslizante variable. Expandimos con <span class="c">right</span> hasta tener todos los chars necesarios. Una vez que la ventana es válida (<span class="cg">formed == required</span>), intentamos reducirla moviendo <span class="c">left</span> hasta que deje de ser válida. Guardamos el mínimo en cada contracción. <span class="time time-good">O(s+t)</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- DYNAMIC PROGRAMMING -->
+    <div id="linked" class="mod-header">
+      <div class="mod-num">Módulo 03</div>
+      <h2>Linked Lists</h2>
+      <p>Fundamentales en entrevistas. Te enseñan a pensar con punteros — habilidad que se transfiere a árboles y grafos. El truco del dummy node y fast/slow pointers son los patrones clave.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrón: Fast & Slow Pointers</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Detectar ciclo — Floyd's Algorithm <span class="badge b-yellow">O(n) · O(1)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">detect_cycle.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Slow avanza 1, Fast avanza 2. Si hay ciclo, se encuentran.</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">def</span> <span class="fn">has_cycle</span>(head):</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    slow = fast = head</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    <span class="kw">while</span> fast <span class="kw">and</span> fast.next:</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">        slow = slow.next</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        fast = fast.next.next</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">        <span class="kw">if</span> slow == fast: <span class="kw">return</span> <span class="kw">True</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    <span class="kw">return</span> <span class="kw">False</span></span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc"><span class="cm"># Nodo medio: cuando fast llega al final, slow está en el medio</span></span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc"><span class="kw">def</span> <span class="fn">middle_node</span>(head):</span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">    slow = fast = head</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">    <span class="kw">while</span> fast <span class="kw">and</span> fast.next:</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">        slow = slow.next</span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">        fast = fast.next.next</span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">    <span class="kw">return</span> slow</span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc"><span class="cm"># Reversar lista — el más importante de linked lists</span></span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc"><span class="kw">def</span> <span class="fn">reverse_list</span>(head):</span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">    prev = <span class="kw">None</span></span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">    curr = head</span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc">    <span class="kw">while</span> curr:</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc">        next_node = curr.next   <span class="cm"># 1. guardar next</span></span></div>
+            <div class="cl"><span class="ln">24</span><span class="lc">        curr.next = prev        <span class="cm"># 2. apuntar hacia atrás</span></span></div>
+            <div class="cl"><span class="ln">25</span><span class="lc">        prev = curr             <span class="cm"># 3. avanzar prev</span></span></div>
+            <div class="cl"><span class="ln">26</span><span class="lc">        curr = next_node        <span class="cm"># 4. avanzar curr</span></span></div>
+            <div class="cl"><span class="ln">27</span><span class="lc">    <span class="kw">return</span> prev  <span class="cm"># nuevo head</span></span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Fast & Slow pointers es el patrón definitivo de linked lists. <span class="c">slow</span> avanza 1 paso, <span class="c">fast</span> avanza 2. Si hay un ciclo, eventualmente se encuentran — como dos corredores en una pista circular. Para reversar, siempre en el orden: <span class="cg">guardar next → apuntar atrás → avanzar prev → avanzar curr</span>. Cambiarlo de orden rompe la lista.</p>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Merge K Sorted Lists — Hard con Heap <span class="badge b-red">Hard · O(N log k)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">merge_k_lists.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="kw">import</span> heapq</span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">def</span> <span class="fn">merge_k_lists</span>(lists):</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    heap = []</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    <span class="cm"># Meter el primer nodo de cada lista</span></span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    <span class="kw">for</span> i, node <span class="kw">in</span> <span class="fn">enumerate</span>(lists):</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        <span class="kw">if</span> node:</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">            heapq.heappush(heap, (node.val, i, node))</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    dummy = <span class="cl2">ListNode</span>(<span class="nm">0</span>)</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">    curr = dummy</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">    <span class="kw">while</span> heap:</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        val, i, node = heapq.heappop(heap)  <span class="cm"># el mínimo</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">        curr.next = node</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">        curr = curr.next</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">        <span class="kw">if</span> node.next:</span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">            heapq.heappush(heap, (node.next.val, i, node.next))</span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">    <span class="kw">return</span> dummy.next</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Usamos un min-heap de tamaño k (cantidad de listas). En cada paso, extraemos el nodo mínimo y agregamos el siguiente nodo de esa misma lista. El heap siempre tiene a lo sumo k elementos. <span class="time time-good">O(N log k)</span> donde N = total de nodos. Sin heap sería O(Nk). La tupla <span class="c">(val, i, node)</span> incluye el índice de lista para desempatar cuando hay valores iguales.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== STACKS & QUEUES ===================== -->
+    <div id="stacks" class="mod-header">
+      <div class="mod-num">Módulo 04</div>
+      <h2>Stacks, Queues y Monotonic Stack</h2>
+      <p>Stack (LIFO) y Queue (FIFO) son simples. El Monotonic Stack es el patrón avanzado más pedido en Hard — aparece en problemas de temperaturas, histogramas y agua atrapada.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrón: Monotonic Stack</div>
+
+      <div class="callout callout-blue">
+        <strong>💡 Cuándo usar Monotonic Stack</strong>
+        Señales: "siguiente mayor/menor elemento", "días hasta temperatura más alta", "área máxima en histograma". El stack mantiene elementos en orden monotónico (creciente o decreciente). Cada elemento entra y sale del stack exactamente una vez → O(n).
+      </div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Trapping Rain Water — 3 soluciones <span class="badge b-red">Hard · Icónico</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">trapping_rain.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Input: [0,1,0,2,1,0,1,3,2,1,2,1] → 6</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc"><span class="cm"># SOLUCIÓN 1: Precompute — O(n) time, O(n) space</span></span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc"><span class="kw">def</span> <span class="fn">trap_v1</span>(height):</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    n = <span class="fn">len</span>(height)</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">    left_max = [<span class="nm">0</span>] * n</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    right_max = [<span class="nm">0</span>] * n</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    left_max[<span class="nm">0</span>] = height[<span class="nm">0</span>]</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">    right_max[-<span class="nm">1</span>] = height[-<span class="nm">1</span>]</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n):</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        left_max[i] = <span class="fn">max</span>(left_max[i-<span class="nm">1</span>], height[i])</span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n-<span class="nm">2</span>, -<span class="nm">1</span>, -<span class="nm">1</span>):</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">        right_max[i] = <span class="fn">max</span>(right_max[i+<span class="nm">1</span>], height[i])</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">    <span class="kw">return</span> <span class="fn">sum</span>(<span class="fn">min</span>(left_max[i], right_max[i]) - height[i] <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(n))</span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc"><span class="cm"># SOLUCIÓN 2 (óptima): Two Pointers — O(n) time, O(1) space</span></span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc"><span class="kw">def</span> <span class="fn">trap_v2</span>(height):</span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">    left, right = <span class="nm">0</span>, <span class="fn">len</span>(height) - <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc">    left_max = right_max = water = <span class="nm">0</span></span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">    <span class="kw">while</span> left &lt; right:</span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">        <span class="kw">if</span> height[left] &lt; height[right]:</span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc">            <span class="kw">if</span> height[left] &gt;= left_max: left_max = height[left]</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc">            <span class="kw">else</span>: water += left_max - height[left]</span></div>
+            <div class="cl"><span class="ln">24</span><span class="lc">            left += <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">25</span><span class="lc">        <span class="kw">else</span>:</span></div>
+            <div class="cl"><span class="ln">26</span><span class="lc">            <span class="kw">if</span> height[right] &gt;= right_max: right_max = height[right]</span></div>
+            <div class="cl"><span class="ln">27</span><span class="lc">            <span class="kw">else</span>: water += right_max - height[right]</span></div>
+            <div class="cl"><span class="ln">28</span><span class="lc">            right -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">29</span><span class="lc">    <span class="kw">return</span> water</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>El agua en cada posición es <span class="c">min(max_izquierda, max_derecha) - altura</span>. La solución v1 precomputa estos máximos. La <span class="cg">solución v2 óptima</span> usa dos punteros — en cada paso procesamos el lado más bajo porque el lado más alto garantiza que ese es el techo real. Siempre presentá las dos en entrevista: la v1 primero para mostrar que entendés el problema, luego la v2 para mostrar que podés optimizar.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== HASH MAPS ===================== -->
+    <div id="hashmaps" class="mod-header">
+      <div class="mod-num">Módulo 05</div>
+      <h2>Hash Maps & Sets</h2>
+      <p>La herramienta más poderosa para reducir complejidad. El tradeoff casi siempre es: más memoria → menos tiempo. Si un problema parece O(n²), probablemente tiene solución O(n) con un hash map.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrones fundamentales</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">LRU Cache — Hard de diseño clásico <span class="badge b-red">Hard · O(1) get/put</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">lru_cache.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># HashMap + Doubly Linked List = O(1) get y put</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">class</span> <span class="cl2">LRUNode</span>:</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    <span class="kw">def</span> <span class="fn">__init__</span>(self, key, val):</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">        self.key, self.val = key, val</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">        self.prev = self.next = <span class="kw">None</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc"><span class="kw">class</span> <span class="cl2">LRUCache</span>:</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    <span class="kw">def</span> <span class="fn">__init__</span>(self, capacity):</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">        self.capacity = capacity</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        self.cache = {}  <span class="cm"># key → node</span></span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        self.head = <span class="cl2">LRUNode</span>(<span class="nm">0</span>, <span class="nm">0</span>)  <span class="cm"># dummy head = más viejo</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">        self.tail = <span class="cl2">LRUNode</span>(<span class="nm">0</span>, <span class="nm">0</span>)  <span class="cm"># dummy tail = más reciente</span></span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">        self.head.next = self.tail</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">        self.tail.prev = self.head</span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">    <span class="kw">def</span> <span class="fn">_remove</span>(self, node):</span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc">        node.prev.next = node.next</span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">        node.next.prev = node.prev</span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">    <span class="kw">def</span> <span class="fn">_insert_mru</span>(self, node):  <span class="cm"># insertar antes del tail</span></span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">        prev = self.tail.prev</span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc">        prev.next = node; node.prev = prev</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc">        node.next = self.tail; self.tail.prev = node</span></div>
+            <div class="cl"><span class="ln">24</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">25</span><span class="lc">    <span class="kw">def</span> <span class="fn">get</span>(self, key):</span></div>
+            <div class="cl"><span class="ln">26</span><span class="lc">        <span class="kw">if</span> key <span class="kw">not in</span> self.cache: <span class="kw">return</span> -<span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">27</span><span class="lc">        node = self.cache[key]</span></div>
+            <div class="cl"><span class="ln">28</span><span class="lc">        self.<span class="fn">_remove</span>(node); self.<span class="fn">_insert_mru</span>(node)  <span class="cm"># mover al frente</span></span></div>
+            <div class="cl"><span class="ln">29</span><span class="lc">        <span class="kw">return</span> node.val</span></div>
+            <div class="cl"><span class="ln">30</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">31</span><span class="lc">    <span class="kw">def</span> <span class="fn">put</span>(self, key, val):</span></div>
+            <div class="cl"><span class="ln">32</span><span class="lc">        <span class="kw">if</span> key <span class="kw">in</span> self.cache: self.<span class="fn">_remove</span>(self.cache[key])</span></div>
+            <div class="cl"><span class="ln">33</span><span class="lc">        node = <span class="cl2">LRUNode</span>(key, val)</span></div>
+            <div class="cl"><span class="ln">34</span><span class="lc">        self.cache[key] = node; self.<span class="fn">_insert_mru</span>(node)</span></div>
+            <div class="cl"><span class="ln">35</span><span class="lc">        <span class="kw">if</span> <span class="fn">len</span>(self.cache) > self.capacity:</span></div>
+            <div class="cl"><span class="ln">36</span><span class="lc">            lru = self.head.next  <span class="cm"># el más viejo: justo después del head</span></span></div>
+            <div class="cl"><span class="ln">37</span><span class="lc">            self.<span class="fn">_remove</span>(lru); <span class="kw">del</span> self.cache[lru.key]</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>LRU Cache combina un <span class="cg">HashMap</span> para acceso O(1) por key con una <span class="c">Doubly Linked List</span> para mantener el orden de uso en O(1). Los <span class="c">dummy nodes</span> head y tail eliminan casos especiales al insertar y remover. El nodo más reciente siempre está cerca del tail, el menos reciente cerca del head — al exceder la capacidad, eliminamos el que está junto al head.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== TREES ===================== -->
+    <div id="trees" class="mod-header">
+      <div class="mod-num">Módulo 06</div>
+      <h2>Árboles Binarios y BST</h2>
+      <p>Los árboles aparecen en Easy, Medium y Hard. El 90% de los problemas se resuelven con DFS recursivo o BFS iterativo. Dominá los traversals y los patrones básicos antes de ir a grafos.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Traversals y patrones DFS</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Max Path Sum — Hard icónico <span class="badge b-red">Hard · O(n)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">max_path_sum.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># El path puede empezar y terminar en CUALQUIER nodo</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="kw">def</span> <span class="fn">max_path_sum</span>(root):</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    max_sum = [<span class="fn">float</span>(<span class="st">"-inf"</span>)]</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    <span class="kw">def</span> <span class="fn">dfs</span>(node):</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">        <span class="kw">if not</span> node: <span class="kw">return</span> <span class="nm">0</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        <span class="cm"># Ignorar contribuciones negativas (tomar max con 0)</span></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">        left = <span class="fn">max</span>(<span class="fn">dfs</span>(node.left), <span class="nm">0</span>)</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">        right = <span class="fn">max</span>(<span class="fn">dfs</span>(node.right), <span class="nm">0</span>)</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">        <span class="cm"># Precio del path que pasa por este nodo como "puente"</span></span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        max_sum[<span class="nm">0</span>] = <span class="fn">max</span>(max_sum[<span class="nm">0</span>], node.val + left + right)</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        <span class="cm"># Solo retornar un lado al padre (no puede doblar)</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">        <span class="kw">return</span> node.val + <span class="fn">max</span>(left, right)</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">    <span class="fn">dfs</span>(root)</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">    <span class="kw">return</span> max_sum[<span class="nm">0</span>]</span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc"><span class="cm"># BFS — Level Order Traversal</span></span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc"><span class="kw">from</span> collections <span class="kw">import</span> deque</span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc"><span class="kw">def</span> <span class="fn">level_order</span>(root):</span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc">    <span class="kw">if not</span> root: <span class="kw">return</span> []</span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">    result, queue = [], deque([root])</span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">    <span class="kw">while</span> queue:</span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc">        level = []</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc">        <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="fn">len</span>(queue)):  <span class="cm"># procesar un nivel completo</span></span></div>
+            <div class="cl"><span class="ln">24</span><span class="lc">            node = queue.popleft()</span></div>
+            <div class="cl"><span class="ln">25</span><span class="lc">            level.append(node.val)</span></div>
+            <div class="cl"><span class="ln">26</span><span class="lc">            <span class="kw">if</span> node.left: queue.append(node.left)</span></div>
+            <div class="cl"><span class="ln">27</span><span class="lc">            <span class="kw">if</span> node.right: queue.append(node.right)</span></div>
+            <div class="cl"><span class="ln">28</span><span class="lc">        result.append(level)</span></div>
+            <div class="cl"><span class="ln">29</span><span class="lc">    <span class="kw">return</span> result</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>El truco del Max Path Sum: la función DFS tiene <strong>dos trabajos</strong>. Internamente actualiza el máximo global considerando el path que dobla por el nodo actual (<span class="c">left + node + right</span>). Pero lo que retorna al padre es solo la mejor contribución unilateral (<span class="c">node + max(left, right)</span>) porque un path no puede doblar. El <span class="cg">max con 0</span> descarta ramas negativas — si suman menos que nada, mejor no tomarlas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== GRAPHS ===================== -->
+    <div id="graphs" class="mod-header">
+      <div class="mod-num">Módulo 07</div>
+      <h2>Grafos — DFS, BFS, Union Find, Dijkstra</h2>
+      <p>El tema más amplio y difícil. Dominarlo te pone en posición de resolver cualquier Hard relacionado con conexiones, caminos o dependencias.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrones esenciales</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Union Find — conectividad en O(1) amortizado <span class="badge b-purple">Hard pattern</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">union_find.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="kw">class</span> <span class="cl2">UnionFind</span>:</span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc">    <span class="kw">def</span> <span class="fn">__init__</span>(self, n):</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">        self.parent = <span class="fn">list</span>(<span class="fn">range</span>(n))  <span class="cm"># cada nodo es su propio padre</span></span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">        self.rank = [<span class="nm">0</span>] * n</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">        self.components = n</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    <span class="kw">def</span> <span class="fn">find</span>(self, x):  <span class="cm"># con path compression</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">        <span class="kw">if</span> self.parent[x] != x:</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">            self.parent[x] = self.<span class="fn">find</span>(self.parent[x])</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        <span class="kw">return</span> self.parent[x]</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">    <span class="kw">def</span> <span class="fn">union</span>(self, x, y):  <span class="cm"># con union by rank</span></span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">        px, py = self.<span class="fn">find</span>(x), self.<span class="fn">find</span>(y)</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">        <span class="kw">if</span> px == py: <span class="kw">return</span> <span class="kw">False</span>  <span class="cm"># ya conectados</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">        <span class="kw">if</span> self.rank[px] &lt; self.rank[py]: px, py = py, px</span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">        self.parent[py] = px</span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc">        <span class="kw">if</span> self.rank[px] == self.rank[py]: self.rank[px] += <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">        self.components -= <span class="nm">1</span></span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc">        <span class="kw">return</span> <span class="kw">True</span></span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc"><span class="cm"># Dijkstra — camino más corto ponderado</span></span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc"><span class="kw">import</span> heapq</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc"><span class="kw">def</span> <span class="fn">dijkstra</span>(graph, start, n):  <span class="cm"># graph[u] = [(w, v), ...]</span></span></div>
+            <div class="cl"><span class="ln">24</span><span class="lc">    dist = [<span class="fn">float</span>(<span class="st">"inf"</span>)] * n</span></div>
+            <div class="cl"><span class="ln">25</span><span class="lc">    dist[start] = <span class="nm">0</span></span></div>
+            <div class="cl"><span class="ln">26</span><span class="lc">    heap = [(<span class="nm">0</span>, start)]</span></div>
+            <div class="cl"><span class="ln">27</span><span class="lc">    <span class="kw">while</span> heap:</span></div>
+            <div class="cl"><span class="ln">28</span><span class="lc">        d, u = heapq.heappop(heap)</span></div>
+            <div class="cl"><span class="ln">29</span><span class="lc">        <span class="kw">if</span> d > dist[u]: <span class="kw">continue</span>  <span class="cm"># nodo obsoleto</span></span></div>
+            <div class="cl"><span class="ln">30</span><span class="lc">        <span class="kw">for</span> w, v <span class="kw">in</span> graph[u]:</span></div>
+            <div class="cl"><span class="ln">31</span><span class="lc">            <span class="kw">if</span> dist[u] + w &lt; dist[v]:</span></div>
+            <div class="cl"><span class="ln">32</span><span class="lc">                dist[v] = dist[u] + w</span></div>
+            <div class="cl"><span class="ln">33</span><span class="lc">                heapq.heappush(heap, (dist[v], v))</span></div>
+            <div class="cl"><span class="ln">34</span><span class="lc">    <span class="kw">return</span> dist</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p><strong>Union Find</strong> con <span class="cg">path compression</span> (línea 9) y <span class="cg">union by rank</span> (línea 15) tiene complejidad casi O(1) por operación. Usalo cuando el problema pregunta sobre componentes conexas o si dos nodos están conectados. <strong>Dijkstra</strong> resuelve el camino más corto en grafos ponderados con pesos positivos. El <span class="c">if d > dist[u]: continue</span> es crítico — descarta nodos procesados con mayor distancia que ya encontramos una ruta mejor.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== HEAPS ===================== -->
+    <div id="heaps" class="mod-header">
+      <div class="mod-num">Módulo 08</div>
+      <h2>Heaps & Priority Queues</h2>
+      <p>Un Heap garantiza O(log n) para insertar/eliminar y O(1) para ver el mínimo/máximo. Python solo tiene min-heap — para max-heap se negan los valores.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Patrones con Heap</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Find Median from Data Stream <span class="badge b-red">Hard · O(log n)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">median_stream.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Dos heaps: small (max-heap) guarda mitad inferior</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="cm">#            large (min-heap) guarda mitad superior</span></span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc"><span class="kw">import</span> heapq</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc"><span class="kw">class</span> <span class="cl2">MedianFinder</span>:</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    <span class="kw">def</span> <span class="fn">__init__</span>(self):</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        self.small = []  <span class="cm"># max-heap (negados)</span></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">        self.large = []  <span class="cm"># min-heap</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">    <span class="kw">def</span> <span class="fn">addNum</span>(self, num):</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        heapq.heappush(self.small, -num)</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        <span class="cm"># Balancear: max(small) debe ser <= min(large)</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">        <span class="kw">if</span> self.small <span class="kw">and</span> self.large <span class="kw">and</span> (-self.small[<span class="nm">0</span>] > self.large[<span class="nm">0</span>]):</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">            heapq.heappush(self.large, -heapq.heappop(self.small))</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">        <span class="cm"># Balancear tamaños (small puede tener 1 más)</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">        <span class="kw">if</span> <span class="fn">len</span>(self.small) > <span class="fn">len</span>(self.large) + <span class="nm">1</span>:</span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">            heapq.heappush(self.large, -heapq.heappop(self.small))</span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc">        <span class="kw">if</span> <span class="fn">len</span>(self.large) > <span class="fn">len</span>(self.small):</span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">            heapq.heappush(self.small, -heapq.heappop(self.large))</span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">    <span class="kw">def</span> <span class="fn">findMedian</span>(self):</span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">        <span class="kw">if</span> <span class="fn">len</span>(self.small) > <span class="fn">len</span>(self.large):</span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc">            <span class="kw">return</span> -self.small[<span class="nm">0</span>]</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc">        <span class="kw">return</span> (-self.small[<span class="nm">0</span>] + self.large[<span class="nm">0</span>]) / <span class="nm">2</span></span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>Dos heaps particionan el stream en dos mitades iguales. <span class="cg">small</span> guarda la mitad inferior (máximo accesible en O(1)), <span class="cg">large</span> guarda la mitad superior (mínimo accesible en O(1)). La invariante clave: el máximo de small debe ser ≤ al mínimo de large, y los tamaños difieren a lo sumo en 1. La mediana es entonces trivial: si son iguales, promedio de los dos topes; si no, el tope del más grande.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================== BINARY SEARCH ===================== -->
+    <div id="dp" class="mod-header">
+      <div class="mod-num">Módulo 09</div>
+      <h2>Dynamic Programming</h2>
+      <p>El tema más difícil y el más importante para Hard. La clave es reconocer el patrón, definir el estado, y escribir la recurrencia. Con práctica se vuelve sistemático.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Framework para resolver cualquier DP</div>
+
+      <div class="callout callout-yellow">
+        <strong>🧠 Las 4 preguntas que siempre hacerse</strong>
+        1. ¿El problema tiene <strong>subproblemas solapados</strong>? (se repiten los mismos cálculos)<br>
+        2. ¿Tiene <strong>subestructura óptima</strong>? (solución óptima usa soluciones óptimas de subproblemas)<br>
+        3. ¿Cuál es el <strong>estado</strong>? (qué variables definen completamente un subproblema)<br>
+        4. ¿Cuál es la <strong>transición</strong>? (cómo pasar de subproblemas pequeños al actual)
+      </div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Coin Change — DP clásico <span class="badge b-yellow">Medium · O(n·amount)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">coin_change.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Mínimas monedas para llegar a amount</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="cm"># Input: coins=[1,5,11], amount=15 → 3 (5+5+5)</span></span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc"><span class="kw">def</span> <span class="fn">coin_change</span>(coins, amount):</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    <span class="cm"># dp[i] = mínimas monedas para llegar a i</span></span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    dp = [<span class="fn">float</span>(<span class="st">"inf"</span>)] * (amount + <span class="nm">1</span>)</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">    dp[<span class="nm">0</span>] = <span class="nm">0</span>  <span class="cm"># base case: 0 monedas para llegar a 0</span></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    <span class="kw">for</span> coin <span class="kw">in</span> coins:</span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">        <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(coin, amount + <span class="nm">1</span>):</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">            <span class="cm"># Transición: usar esta moneda o no usarla</span></span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">            dp[i] = <span class="fn">min</span>(dp[i], dp[i - coin] + <span class="nm">1</span>)</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">    <span class="kw">return</span> dp[amount] <span class="kw">if</span> dp[amount] != <span class="fn">float</span>(<span class="st">"inf"</span>) <span class="kw">else</span> -<span class="nm">1</span></span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p><strong>Estado:</strong> <span class="c">dp[i]</span> = mínimas monedas para llegar exactamente a <span class="c">i</span>. <strong>Transición:</strong> para cada moneda, si podemos usarla (<span class="cg">i >= coin</span>), podemos llegar a <span class="c">i</span> desde <span class="c">i-coin</span> usando 1 moneda más. <strong>Base case:</strong> <span class="cg">dp[0] = 0</span> porque no necesitamos monedas para llegar a 0. Es un knapsack <em>unbounded</em> (las monedas se pueden usar múltiples veces).</p>
+        </div>
+      </div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Edit Distance — DP 2D <span class="badge b-red">Hard · O(m×n)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">edit_distance.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Mínimas ops (insert, delete, replace) para convertir word1 en word2</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="cm"># Input: "horse" → "ros" = 3 ops</span></span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc"><span class="kw">def</span> <span class="fn">min_distance</span>(word1, word2):</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    m, n = <span class="fn">len</span>(word1), <span class="fn">len</span>(word2)</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    dp = [[<span class="nm">0</span>] * (n + <span class="nm">1</span>) <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(m + <span class="nm">1</span>)]</span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(m + <span class="nm">1</span>): dp[i][<span class="nm">0</span>] = i  <span class="cm"># delete todo word1</span></span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(n + <span class="nm">1</span>): dp[<span class="nm">0</span>][j] = j  <span class="cm"># insert todo word2</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    <span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, m + <span class="nm">1</span>):</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">        <span class="kw">for</span> j <span class="kw">in</span> <span class="fn">range</span>(<span class="nm">1</span>, n + <span class="nm">1</span>):</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">            <span class="kw">if</span> word1[i-<span class="nm">1</span>] == word2[j-<span class="nm">1</span>]:  <span class="cm"># mismo char = gratis</span></span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">                dp[i][j] = dp[i-<span class="nm">1</span>][j-<span class="nm">1</span>]</span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">            <span class="kw">else</span>:</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">                dp[i][j] = <span class="nm">1</span> + <span class="fn">min</span>(</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">                    dp[i-<span class="nm">1</span>][j],    <span class="cm"># delete</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">                    dp[i][j-<span class="nm">1</span>],    <span class="cm"># insert</span></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">                    dp[i-<span class="nm">1</span>][j-<span class="nm">1</span>]   <span class="cm"># replace</span></span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc">                )</span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">    <span class="kw">return</span> dp[m][n]</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p><strong>Estado:</strong> <span class="c">dp[i][j]</span> = mínimas operaciones para convertir <span class="c">word1[:i]</span> en <span class="c">word2[:j]</span>. <strong>Transición clave:</strong> si los chars son iguales, no cuesta nada (<span class="cg">dp[i-1][j-1]</span>). Si son distintos, tomamos el mínimo de las 3 operaciones posibles más 1. <strong>Base cases:</strong> la primera fila/columna es la cantidad de inserciones/deletions necesarias para convertir el string vacío.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- BACKTRACKING -->
+    <div id="backtrack" class="mod-header">
+      <div class="mod-num">Módulo 10</div>
+      <h2>Backtracking</h2>
+      <p>Búsqueda exhaustiva inteligente. Construye soluciones incrementalmente y "deshace" cuando llega a un callejón sin salida.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Template universal</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">N-Queens — el problema clásico <span class="badge b-red">Hard</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">n_queens.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="kw">def</span> <span class="fn">solve_n_queens</span>(n):</span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc">    result = []</span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc">    cols = <span class="fn">set</span>()      <span class="cm"># columnas con reina</span></span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc">    diag1 = <span class="fn">set</span>()    <span class="cm"># diagonales \ (row-col)</span></span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    diag2 = <span class="fn">set</span>()    <span class="cm"># diagonales / (row+col)</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">    board = [[<span class="st">"."</span>]*n <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(n)]</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    <span class="kw">def</span> <span class="fn">backtrack</span>(row):</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">        <span class="kw">if</span> row == n:  <span class="cm"># solución completa</span></span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">            result.<span class="fn">append</span>([<span class="st">""</span>.<span class="fn">join</span>(r) <span class="kw">for</span> r <span class="kw">in</span> board])</span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">            <span class="kw">return</span></span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">        <span class="kw">for</span> col <span class="kw">in</span> <span class="fn">range</span>(n):</span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">            <span class="kw">if</span> col <span class="kw">in</span> cols <span class="kw">or</span> (row-col) <span class="kw">in</span> diag1 <span class="kw">or</span> (row+col) <span class="kw">in</span> diag2:</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">                <span class="kw">continue</span>  <span class="cm"># posición atacada, skip</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">            <span class="cm"># ELEGIR: colocar reina</span></span></div>
+            <div class="cl"><span class="ln">16</span><span class="lc">            board[row][col] = <span class="st">"Q"</span></span></div>
+            <div class="cl"><span class="ln">17</span><span class="lc">            cols.<span class="fn">add</span>(col); diag1.<span class="fn">add</span>(row-col); diag2.<span class="fn">add</span>(row+col)</span></div>
+            <div class="cl"><span class="ln">18</span><span class="lc">            <span class="cm"># EXPLORAR: siguiente fila</span></span></div>
+            <div class="cl"><span class="ln">19</span><span class="lc">            <span class="fn">backtrack</span>(row + <span class="nm">1</span>)</span></div>
+            <div class="cl"><span class="ln">20</span><span class="lc">            <span class="cm"># DESHACER: quitar reina (backtrack)</span></span></div>
+            <div class="cl"><span class="ln">21</span><span class="lc">            board[row][col] = <span class="st">"."</span></span></div>
+            <div class="cl"><span class="ln">22</span><span class="lc">            cols.<span class="fn">remove</span>(col); diag1.<span class="fn">remove</span>(row-col); diag2.<span class="fn">remove</span>(row+col)</span></div>
+            <div class="cl"><span class="ln">23</span><span class="lc"></span></div>
+            <div class="cl"><span class="ln">24</span><span class="lc">    <span class="fn">backtrack</span>(<span class="nm">0</span>)</span></div>
+            <div class="cl"><span class="ln">25</span><span class="lc">    <span class="kw">return</span> result</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>El template de backtracking siempre tiene 3 pasos: <span class="cg">ELEGIR</span> (agregar al estado), <span class="c">EXPLORAR</span> (llamada recursiva), <span class="cr">DESHACER</span> (quitar del estado). Usamos <span class="c">sets</span> para las columnas y diagonales para verificar ataques en <span class="cg">O(1)</span>. La poda en línea 13 elimina ramas inválidas tempranamente, lo que hace el algoritmo práctico para n ≤ 9.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIMULACRO -->
+
+    <!-- ===================== LINKED LISTS ===================== -->
+    <div id="bsearch" class="mod-header">
+      <div class="mod-num">Módulo 11</div>
+      <h2>Binary Search</h2>
+      <p>Binary Search no es solo para arrays ordenados. El patrón se aplica a cualquier espacio de búsqueda monótono — si una condición es True para X, es True para todos los mayores.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Binary Search en el espacio de respuestas</div>
+
+      <div class="concept">
+        <div class="concept-header">
+          <div class="concept-title">Koko Eating Bananas — patrón avanzado <span class="badge b-yellow">Medium/Hard · O(n log m)</span></div>
+        </div>
+        <div class="ide">
+          <div class="ide-bar">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+            <span class="ide-file">binary_search_answer.py</span>
+            <span class="ide-lang">Python</span>
+            <button class="copy-btn" onclick="copyCode(this)">copiar</button>
+          </div>
+          <div class="ide-body">
+            <div class="cl"><span class="ln">1</span><span class="lc"><span class="cm"># Mínima velocidad k para comer todas las bananas en H horas</span></span></div>
+            <div class="cl"><span class="ln">2</span><span class="lc"><span class="cm"># piles=[3,6,7,11], h=8 → 4</span></span></div>
+            <div class="cl"><span class="ln">3</span><span class="lc"><span class="kw">import</span> math</span></div>
+            <div class="cl"><span class="ln">4</span><span class="lc"><span class="kw">def</span> <span class="fn">min_eating_speed</span>(piles, h):</span></div>
+            <div class="cl"><span class="ln">5</span><span class="lc">    <span class="kw">def</span> <span class="fn">can_finish</span>(speed):  <span class="cm"># ¿puede comer todo en h horas?</span></span></div>
+            <div class="cl"><span class="ln">6</span><span class="lc">        <span class="kw">return</span> <span class="fn">sum</span>(math.<span class="fn">ceil</span>(p / speed) <span class="kw">for</span> p <span class="kw">in</span> piles) &lt;= h</span></div>
+            <div class="cl"><span class="ln">7</span><span class="lc">    <span class="cm"># Búsqueda binaria sobre el espacio de velocidades [1, max(piles)]</span></span></div>
+            <div class="cl"><span class="ln">8</span><span class="lc">    left, right = <span class="nm">1</span>, <span class="fn">max</span>(piles)</span></div>
+            <div class="cl"><span class="ln">9</span><span class="lc">    <span class="kw">while</span> left &lt; right:</span></div>
+            <div class="cl"><span class="ln">10</span><span class="lc">        mid = (left + right) <span class="op">//</span> <span class="nm">2</span></span></div>
+            <div class="cl"><span class="ln">11</span><span class="lc">        <span class="kw">if</span> <span class="fn">can_finish</span>(mid):</span></div>
+            <div class="cl"><span class="ln">12</span><span class="lc">            right = mid      <span class="cm"># puede funcionar, buscar menor</span></span></div>
+            <div class="cl"><span class="ln">13</span><span class="lc">        <span class="kw">else</span>:</span></div>
+            <div class="cl"><span class="ln">14</span><span class="lc">            left = mid + <span class="nm">1</span>   <span class="cm"># muy lento, necesitamos más</span></span></div>
+            <div class="cl"><span class="ln">15</span><span class="lc">    <span class="kw">return</span> left</span></div>
+          </div>
+        </div>
+        <div class="desc">
+          <p>La clave del patrón: no buscamos en el array sino en el <strong>espacio de respuestas posibles</strong>. La función <span class="cg">can_finish(speed)</span> es monótona — si puedo terminar a velocidad k, también puedo a k+1. Eso hace el espacio de búsqueda apto para binary search. Este patrón aplica a: "mínimo tamaño de grupo", "mínimo tiempo", "capacidad mínima de barco" — cualquier pregunta del tipo "¿cuál es el mínimo X tal que sea posible?"</p>
+        </div>
+      </div>
+    </div>
+    <div id="sim" class="mod-header">
+      <div class="mod-num">Módulo 13</div>
+      <h2>Simulacro — Problemas Hard</h2>
+      <p>Problemas Hard reales con soluciones completas. Intentá resolverlos solo antes de ver la solución.</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Guía de patrones — señales en el enunciado</div>
+
+      <table class="tbl">
+        <thead>
+          <tr><th>Señal en el enunciado</th><th>Patrón a usar</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>"Subarray contiguo, suma/máximo"</td><td><code>Sliding Window</code> o <code>Prefix Sum</code></td></tr>
+          <tr><td>"Par que suma X en array ordenado"</td><td><code>Two Pointers</code></td></tr>
+          <tr><td>"Camino más corto, grafo no ponderado"</td><td><code>BFS</code></td></tr>
+          <tr><td>"Camino más corto, grafo ponderado"</td><td><code>Dijkstra + heap</code></td></tr>
+          <tr><td>"Todas las combinaciones/permutaciones"</td><td><code>Backtracking</code></td></tr>
+          <tr><td>"Subproblemas repetidos, optimización"</td><td><code>Dynamic Programming</code></td></tr>
+          <tr><td>"K-ésimo mayor/menor"</td><td><code>Heap de tamaño k</code> o <code>Quick Select</code></td></tr>
+          <tr><td>"Buscar en espacio ordenado"</td><td><code>Binary Search</code></td></tr>
+          <tr><td>"Conectividad entre grupos"</td><td><code>Union Find</code></td></tr>
+          <tr><td>"Búsqueda de prefijos, palabras"</td><td><code>Trie</code></td></tr>
+          <tr><td>"Siguiente mayor elemento, temperaturas"</td><td><code>Monotonic Stack</code></td></tr>
+          <tr><td>"XOR, bits, potencias de 2"</td><td><code>Bit Manipulation</code></td></tr>
+        </tbody>
+      </table>
+
+      <div class="iq">
+        <div class="iq-head">
+          <span class="iq-num">Hard 01</span>
+          <span class="iq-title">Longest Increasing Path in Matrix</span>
+        </div>
+        <div class="iq-body">
+          <div class="iq-q">Dado un m×n integer matrix, retornar la longitud del camino creciente más largo. Podés moverte en 4 direcciones. No podés salir de la matriz.</div>
+          <div class="iq-a">
+            <strong style="color: var(--accent2); font-size: 12px;">✅ Patrón: DFS + Memoization</strong><br><br>
+            Estado: <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#dbeafe;color:#1d4ed8;padding:1px 5px;border-radius:3px;">dp[r][c]</code> = longitud del camino más largo empezando en (r,c).<br>
+            Transición: <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#dbeafe;color:#1d4ed8;padding:1px 5px;border-radius:3px;">dp[r][c] = 1 + max(dp de vecinos con valor mayor)</code>.<br>
+            Cada celda se calcula una sola vez gracias al memo → <strong>O(m×n)</strong> tiempo y espacio.
+          </div>
+        </div>
+      </div>
+
+      <div class="iq">
+        <div class="iq-head">
+          <span class="iq-num">Hard 02</span>
+          <span class="iq-title">Trapping Rain Water</span>
+        </div>
+        <div class="iq-body">
+          <div class="iq-q">Input: [0,1,0,2,1,0,1,3,2,1,2,1] → 6. Calcular cuánta agua queda atrapada.</div>
+          <div class="iq-a">
+            <strong style="color: var(--accent2); font-size: 12px;">✅ Tres enfoques (mencionar del peor al mejor)</strong><br><br>
+            <strong>O(n²):</strong> Para cada posición calcular max_left y max_right con loops → agua = min(max_left, max_right) - height[i].<br><br>
+            <strong>O(n) tiempo, O(n) espacio:</strong> Precomputar arrays left_max y right_max.<br><br>
+            <strong>O(n) tiempo, O(1) espacio (óptima):</strong> Two pointers. Mover el puntero del lado más bajo — la cantidad de agua en esa posición es <code style="font-family:'JetBrains Mono',monospace;font-size:12px;background:#dbeafe;color:#1d4ed8;padding:1px 5px;border-radius:3px;">max_del_lado - height[i]</code>.
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-green">
+        <strong>🎯 Checklist para el día de la entrevista</strong>
+        ✅ Leé el problema completo antes de escribir una sola línea<br>
+        ✅ Clarificá constraints: ¿negativos? ¿input vacío? ¿duplicados?<br>
+        ✅ Pensá en voz alta — el entrevistador evalúa tu proceso, no solo la solución<br>
+        ✅ Empezá con brute force, mencioná su complejidad, luego optimizá<br>
+        ✅ Escribí código limpio con nombres descriptivos<br>
+        ✅ Testeá con el ejemplo, luego con edge cases: [], [1], todos iguales<br>
+        ✅ Analizá la complejidad final: time Y space<br>
+        ✅ Si te trabás, hablá: "necesito O(1) para búsquedas → hash map"
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<button class="scroll-top" id="st" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll', () => {
+  document.getElementById('st').classList.toggle('vis', window.scrollY > 300);
+
+  const links = document.querySelectorAll('.nav-link');
+  const sections = document.querySelectorAll('[id]');
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur = s.id; });
+  links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
+});
+
+function copyCode(btn) {
+  const ide = btn.closest('.ide');
+  const lines = ide.querySelectorAll('.lc');
+  const text = Array.from(lines).map(l => l.textContent).join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ ok';
+    setTimeout(() => btn.textContent = 'copiar', 2000);
+  });
+}
+</script>
+</body>
+</html>
