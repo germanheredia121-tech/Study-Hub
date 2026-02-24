@@ -106,10 +106,12 @@ export default function ModuleViewer({ html, css, className }: ModuleViewerProps
                         word-break: break-word !important;
                         overflow-wrap: break-word !important;
                     }
-                    #module-content-root .data-table {
+                    #module-content-root .data-table,
+                    #module-content-root .tbl {
                         display: block !important;
                         overflow-x: auto !important;
                         max-width: 100% !important;
+                        -webkit-overflow-scrolling: touch;
                     }
 
                     /* Desktop: wider padding */
@@ -207,6 +209,9 @@ export default function ModuleViewer({ html, css, className }: ModuleViewerProps
                         #module-content-root .tag {
                             font-size: 11px !important;
                             padding: 1px 4px !important;
+                        }
+                        #module-content-root .tbl {
+                            min-width: 500px !important; 
                         }
                     }
                 `;
