@@ -22,13 +22,27 @@ function extractModule(filePath: string, startId: string, nextId?: string): stri
         if (mainEnd !== -1) endIndex = mainEnd;
     }
 
-    return content.slice(startIndex, endIndex).trim();
+    let moduleHtml = content.slice(startIndex, endIndex).trim();
+
+    // Strip the static HTML quizzes
+    const quizIndex = moduleHtml.indexOf('<div class="quiz-block"');
+    if (quizIndex !== -1) {
+        // Find the preceding HTML comment if it exists to cleanly remove <!-- QUIZ MODULE XX -->
+        const commentIndex = moduleHtml.lastIndexOf('<!-- QUIZ', quizIndex);
+        if (commentIndex !== -1 && (quizIndex - commentIndex) < 100) {
+            moduleHtml = moduleHtml.slice(0, commentIndex).trim();
+        } else {
+            moduleHtml = moduleHtml.slice(0, quizIndex).trim();
+        }
+    }
+
+    return moduleHtml;
 }
 
 const dsaPath = path.join(process.cwd(), 'public/dsa_leetcode_completo.html');
 const flutterPath = path.join(process.cwd(), 'public/flutter_guide_completo.html');
 
-const dsaModuleIds = ['bigo', 'arrays', 'linked', 'stacks', 'hashmaps', 'trees', 'graphs', 'heaps', 'trie', 'dp', 'backtrack', 'bsearch', 'sim'];
+const dsaModuleIds = ['bigo', 'arrays', 'linked', 'stacks', 'hashmaps', 'trees', 'graphs', 'heaps', 'trie', 'dp', 'backtrack', 'bsearch', 'sim', 'topo', 'segtree', 'graphs_adv', 'strings_adv', 'bits_adv', 'sorting_adv', 'hard_complete'];
 const flutterModuleIds = ['mod1', 'mod2', 'mod3', 'mod4', 'mod5', 'mod6', 'mod7', 'mod8', 'mod9', 'mod10', 'mod11', 'mod12', 'mod13', 'mod14', 'mod15', 'mod16', 'mod17'];
 
 const dsaModules: Record<string, string> = {};

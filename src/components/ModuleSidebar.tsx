@@ -63,10 +63,9 @@ export default function ModuleSidebar({ modules, path, title }: SidebarProps) {
                 />
             )}
 
-            {/* Sidebar */}
             <aside
                 className={`
-                    sidebar fixed inset-y-0 left-0 z-50 w-[280px] md:w-64 bg-black border-r border-white/10
+                    sidebar fixed inset-y-0 left-0 z-[300] w-[280px] md:w-64 bg-black border-r border-white/10
                     transform ${isOpen ? 'translate-x-0' : '-translate-x-full'}
                     md:translate-x-0 transition-transform duration-300 ease-in-out
                     flex flex-col overflow-hidden

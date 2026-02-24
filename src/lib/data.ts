@@ -156,6 +156,62 @@ export const DSA_MODULES: Module[] = [
             { question: 'En "Longest Increasing Path in a Matrix", ¿qué previene ciclos?', options: ['Un set de visitados', 'La condición de "estrictamente creciente"', 'Un contador de pasos', 'No se puede prevenir'], correctAnswer: 1 },
             { question: 'Si tienes que buscar un patrón de texto en un flujo gigante, ¿qué usarías?', options: ['HashMap', 'Trie o KMP Algorithm', 'Binary Search', 'Bubble Sort'], correctAnswer: 1 }
         ]
+    },
+    {
+        id: 'topo',
+        title: 'Topological Sort',
+        slug: 'topological-sort',
+        quiz: [
+            { question: '¿Cuál es la complejidad de Kahn\'s Algorithm?', options: ['O(V)', 'O(E)', 'O(V+E)', 'O(V^2)'], correctAnswer: 2 }
+        ]
+    },
+    {
+        id: 'segtree',
+        title: 'Segment Trees y Fenwick Trees',
+        slug: 'segment-fenwick-trees',
+        quiz: [
+            { question: '¿Cuál es la complejidad de query en un Segment Tree?', options: ['O(1)', 'O(log n)', 'O(n)', 'O(n log n)'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'graphs_adv',
+        title: 'Algoritmos de Grafos Avanzados',
+        slug: 'grafos-avanzados',
+        quiz: [
+            { question: '¿Qué algoritmo usarías para un grafo con pesos negativos?', options: ['Dijkstra', 'BFS', 'Bellman-Ford', 'Kruskal'], correctAnswer: 2 }
+        ]
+    },
+    {
+        id: 'strings_adv',
+        title: 'String Algorithms Avanzados',
+        slug: 'strings-avanzados',
+        quiz: [
+            { question: '¿Cuál es la complejidad del algoritmo KMP?', options: ['O(n*m)', 'O(n+m)', 'O(n^2)', 'O(log n)'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'bits_adv',
+        title: 'Bit Manipulation Profundo',
+        slug: 'bit-manipulation-profundo',
+        quiz: [
+            { question: '¿Qué hace la operación n & (n-1)?', options: ['Multiplica por 2', 'Elimina el bit menos significativo encendido', 'Aísla el bit menos significativo', 'Nada'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'sorting_adv',
+        title: 'Quick Select y Sorting Avanzado',
+        slug: 'quick-select-sorting-avanzado',
+        quiz: [
+            { question: '¿Cuál es el tiempo promedio de Quick Select?', options: ['O(n)', 'O(n log n)', 'O(n^2)', 'O(log n)'], correctAnswer: 0 }
+        ]
+    },
+    {
+        id: 'hard_complete',
+        title: 'Problemas Hard Completos',
+        slug: 'problemas-hard-completos',
+        quiz: [
+            { question: 'En DP en intervalos (ej. Burst Balloons), ¿qué iteramos típicamente primero?', options: ['Izquierda a derecha', 'Derecha a izquierda', 'Tamaño del intervalo', 'Cualquiera'], correctAnswer: 2 }
+        ]
     }
 ];
 

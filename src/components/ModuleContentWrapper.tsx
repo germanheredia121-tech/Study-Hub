@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import { Module, StudyPath } from '@/lib/types';
 import ModuleViewer from './ModuleViewer';
 import Quiz from './Quiz';
@@ -16,6 +17,7 @@ interface ModuleContentWrapperProps {
 
 export default function ModuleContentWrapper({ module, htmlContent, css, path }: ModuleContentWrapperProps) {
     const router = useRouter();
+    const [isQuizMode, setIsQuizMode] = useState(false);
 
     const handleComplete = () => {
         const modules = path === 'dsa' ? DSA_MODULES : FLUTTER_MODULES;
@@ -29,17 +31,42 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
         }
     };
 
+    if (isQuizMode) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[calc(100vh-64px)] p-4 md:p-8 w-full animate-in fade-in duration-500">
+                <div className="w-full max-w-2xl relative">
+                    <button
+                        onClick={() => setIsQuizMode(false)}
+                        className="absolute -top-12 left-0 text-[#888888] hover:text-white transition-colors text-sm font-medium flex items-center gap-2"
+                    >
+                        <span>←</span> Volver a la lectura
+                    </button>
+                    <Quiz
+                        questions={module.quiz}
+                        moduleId={module.id}
+                        path={path}
+                        onComplete={handleComplete}
+                    />
+                </div>
+            </div>
+        );
+    }
+
     return (
-        <div className="p-4 pt-16 md:p-8 md:pt-8 pb-24 md:pb-32 max-w-5xl mx-auto">
+        <div className="p-4 pt-16 md:p-8 md:pt-8 pb-32 max-w-5xl mx-auto animate-in fade-in">
             <ModuleViewer html={htmlContent} css={css} />
 
-            <div className={`mt-20 border-t ${path === 'flutter' ? 'border-white/10' : 'border-gray-200'} pt-12`}>
-                <Quiz
-                    questions={module.quiz}
-                    moduleId={module.id}
-                    path={path}
-                    onComplete={handleComplete}
-                />
+            <div className="mt-20 pt-12 flex flex-col items-center border-t border-white/10 text-center space-y-6">
+                <div className="space-y-2">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">Validación de Conocimiento</h2>
+                    <p className="text-[#888888]">Demuestra lo que has aprendido para desbloquear el siguiente módulo.</p>
+                </div>
+                <button
+                    onClick={() => setIsQuizMode(true)}
+                    className="bg-white text-black hover:bg-gray-200 active:bg-gray-300 font-medium px-8 py-3 rounded-md transition-colors w-full md:w-auto min-w-[200px]"
+                >
+                    Empezar Quiz
+                </button>
             </div>
         </div>
     );
