@@ -53,7 +53,7 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
     }
 
     return (
-        <div className="p-4 pt-16 md:p-8 md:pt-8 pb-32 max-w-5xl mx-auto animate-in fade-in">
+        <div className="px-3 pt-16 md:p-8 pb-32 max-w-5xl mx-auto animate-in fade-in module-content-container">
             <ModuleViewer html={htmlContent} css={css} />
 
             <div className="mt-20 pt-12 flex flex-col items-center border-t border-white/10 text-center space-y-6">

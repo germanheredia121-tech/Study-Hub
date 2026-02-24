@@ -161,10 +161,16 @@ export default function ModuleViewer({ html, css, className }: ModuleViewerProps
                             padding: 5px 8px !important;
                             font-size: 10px !important;
                         }
-                        #module-content-root .line-num {
-                            min-width: 24px !important;
-                            padding-right: 6px !important;
+                        #module-content-root .line-num,
+                        #module-content-root .ln {
+                            min-width: 28px !important;
+                            padding-right: 8px !important;
                             font-size: 10px !important;
+                        }
+                        #module-content-root .code-line,
+                        #module-content-root .cl {
+                            min-width: max-content !important;
+                            padding-right: 12px !important;
                         }
                         #module-content-root .quiz-block {
                             margin: 20px 0 12px !important;
