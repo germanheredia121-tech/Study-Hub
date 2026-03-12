@@ -1,11 +1,11 @@
 
-export const getProgress = (path: 'dsa' | 'flutter') => {
+export const getProgress = (path: 'dsa' | 'flutter' | 'fullstack') => {
     if (typeof window === 'undefined') return {};
     const stored = localStorage.getItem(`study_progress_${path}`);
     return stored ? JSON.parse(stored) : {};
 };
 
-export const markModuleComplete = (path: 'dsa' | 'flutter', moduleId: string) => {
+export const markModuleComplete = (path: 'dsa' | 'flutter' | 'fullstack', moduleId: string) => {
     const current = getProgress(path);
     current[moduleId] = true;
     localStorage.setItem(`study_progress_${path}`, JSON.stringify(current));
@@ -13,7 +13,7 @@ export const markModuleComplete = (path: 'dsa' | 'flutter', moduleId: string) =>
     window.dispatchEvent(new Event('progress_updated'));
 };
 
-export const isModuleUnlocked = (path: 'dsa' | 'flutter', moduleId: string, modules: any[]) => {
+export const isModuleUnlocked = (path: 'dsa' | 'flutter' | 'fullstack', moduleId: string, modules: any[]) => {
     const index = modules.findIndex(m => m.id === moduleId);
     if (index === 0) return true;
     const prevModule = modules[index - 1];

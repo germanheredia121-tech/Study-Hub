@@ -379,3 +379,186 @@ export const FLUTTER_MODULES: Module[] = [
         ]
     }
 ];
+
+export const FS_MODULES: Module[] = [
+    {
+        id: 'fs1',
+        title: 'JavaScript Fundamentos',
+        slug: 'js-fundamentals',
+        quiz: [
+            { question: '¿Cuál es la diferencia de scope entre var y let?', options: ['Ambos tienen scope de bloque', 'var tiene scope de función, let tiene scope de bloque', 'let tiene scope de función', 'No hay diferencia'], correctAnswer: 1 },
+            { question: '¿Qué valores son falsy en JavaScript?', options: ['Solo false y null', 'false, 0, "", null, undefined, NaN', 'Solo undefined', 'Todos los primitivos'], correctAnswer: 1 },
+            { question: '¿Qué retorna [] === []?', options: ['true', 'false', 'undefined', 'Error'], correctAnswer: 1 },
+            { question: '¿Qué es un closure?', options: ['Una función que recuerda variables del scope donde fue creada', 'Un tipo de loop', 'Un error de JavaScript', 'Una variable global'], correctAnswer: 0 },
+            { question: '¿Qué hace el operador ?. (optional chaining)?', options: ['Compara valores', 'Corta el acceso si el valor es null/undefined', 'Asigna un valor por defecto', 'Nada'], correctAnswer: 1 },
+            { question: '¿Qué diferencia hay entre ?? y ||?', options: ['Ninguna', '?? solo considera null/undefined, || considera todos los falsy', '|| es más estricto', '?? solo usa strings'], correctAnswer: 1 },
+            { question: '¿Qué complejidad tiene el Event Loop de JavaScript?', options: ['Multi-threaded', 'Single-threaded con non-blocking I/O', 'Dual-threaded', 'No tiene event loop'], correctAnswer: 1 },
+            { question: '¿Qué hace async/await?', options: ['Ejecuta código en paralelo', 'Permite escribir código asíncrono como síncrono', 'Bloquea el hilo principal', 'Solo para fetch'], correctAnswer: 1 },
+            { question: '¿Qué hace Promise.all?', options: ['Ejecuta una sola promesa', 'Ejecuta todas en paralelo, falla si una falla', 'Ejecuta en secuencia', 'Solo para arrays'], correctAnswer: 1 },
+            { question: '¿Cuál es la diferencia entre import y require?', options: ['Son iguales', 'import es ES Modules (estático), require es CommonJS (dinámico)', 'require es más rápido', 'import no existe en Node'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs2',
+        title: 'TypeScript Esencial',
+        slug: 'typescript-esencial',
+        quiz: [
+            { question: '¿Cuál es el problema de usar any?', options: ['Es más lento', 'Desactiva el type checker y pierdes los beneficios de TS', 'No existe en TypeScript', 'Solo afecta en runtime'], correctAnswer: 1 },
+            { question: '¿Qué hace unknown en TypeScript?', options: ['Es igual a any', 'Requiere type narrowing antes de usar', 'Solo para números', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cuándo usar interface vs type?', options: ['Siempre interface', 'interface para objetos, type para unions y utilidades', 'Siempre type', 'Son intercambiables sin diferencia'], correctAnswer: 1 },
+            { question: '¿Qué es un Generic en TypeScript?', options: ['Un tipo fijo', 'Un parámetro de tipo que se infiere o especifica', 'Solo para arrays', 'Un tipo deprecated'], correctAnswer: 1 },
+            { question: '¿Qué hace Partial<T>?', options: ['Hace todo required', 'Hace todas las propiedades opcionales', 'Elimina propiedades', 'Copia el tipo'], correctAnswer: 1 },
+            { question: '¿Qué hace Pick<T, K>?', options: ['Elimina propiedades', 'Selecciona solo las propiedades K de T', 'Copia todo', 'No existe'], correctAnswer: 1 },
+            { question: '¿Los tipos de TypeScript existen en runtime?', options: ['Sí', 'No, se eliminan al compilar', 'Solo en desarrollo', 'Depende'], correctAnswer: 1 },
+            { question: '¿Qué es type narrowing?', options: ['Reducir el tamaño del tipo', 'Reducir el tipo a uno más específico con condicionales o type guards', 'Borrar tipos', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué hace Omit<T, K>?', options: ['Elige K de T', 'Crea un tipo sin las propiedades K', 'Copia T', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cuándo usar type assertion (as)?', options: ['Siempre que sea posible', 'Cuando sabés más que el compilador (API, DOM), con precaución', 'Nunca', 'Solo para any'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs3',
+        title: 'HTML & CSS Producción',
+        slug: 'html-css',
+        quiz: [
+            { question: '¿Qué es la div-itis?', options: ['Usar muchos divs sin estructura semántica', 'Un error de React', 'Un framework CSS', 'No existe'], correctAnswer: 0 },
+            { question: '¿Qué hace box-sizing: border-box?', options: ['Aumenta el padding', 'Incluye padding y border en el width', 'Solo afecta margin', 'No hace nada'], correctAnswer: 1 },
+            { question: '¿Cuándo usar Flexbox vs Grid?', options: ['Siempre Grid', 'Flexbox para una dimensión, Grid para dos', 'Siempre Flexbox', 'Son iguales'], correctAnswer: 1 },
+            { question: '¿Qué es mobile-first?', options: ['Diseñar solo para móvil', 'Empezar con estilos base móvil y agregar media queries para desktop', 'Ignorar desktop', 'Un framework'], correctAnswer: 1 },
+            { question: '¿Qué elemento HTML es para navegación?', options: ['div', 'nav', 'menu', 'header'], correctAnswer: 1 },
+            { question: '¿Qué es rem en CSS?', options: ['Relativo al viewport', 'Relativo al font-size del root', 'Relativo al padre', 'Un valor fijo'], correctAnswer: 1 },
+            { question: '¿Qué hace auto-fill en Grid?', options: ['Llena automáticamente', 'Crea columnas automáticas que caben en el espacio', 'Es un error', 'Solo para flex'], correctAnswer: 1 },
+            { question: '¿Qué elemento es para contenido principal?', options: ['div', 'section', 'main', 'content'], correctAnswer: 2 },
+            { question: '¿Qué es una variable CSS (custom property)?', options: ['Una constante en JS', '--nombre: valor; para reutilizar en el CSS', 'Solo en preprocesadores', 'No existe'], correctAnswer: 1 },
+            { question: '¿Por qué colapsan los márgenes?', options: ['Es un bug', 'Comportamiento del CSS: márgenes verticales adyacentes se fusionan', 'Solo en flexbox', 'Por el box model'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs4',
+        title: 'React Core',
+        slug: 'react-core',
+        quiz: [
+            { question: '¿Qué es JSX?', options: ['HTML puro', 'Syntactic sugar para React.createElement', 'Un lenguaje nuevo', 'Solo para componentes'], correctAnswer: 1 },
+            { question: '¿Las props en React son mutables?', options: ['Sí', 'No, son inmutables', 'Solo en class components', 'Depende'], correctAnswer: 1 },
+            { question: '¿Qué causa un re-render en React?', options: ['Cualquier cambio', 'Cambio de estado (useState) o props', 'Solo props', 'Solo eventos'], correctAnswer: 1 },
+            { question: '¿Puedes mutar el estado directamente?', options: ['Sí', 'No, siempre usar setState', 'Solo en class components', 'Solo en arrays'], correctAnswer: 1 },
+            { question: '¿Cuándo corre useEffect?', options: ['Solo al montar', 'Según el array de dependencias', 'Nunca', 'Solo al desmontar'], correctAnswer: 1 },
+            { question: '¿Para qué sirve useRef?', options: ['Para estado', 'Para referencias DOM o valores que no causan re-render', 'Para efectos', 'Solo para formularios'], correctAnswer: 1 },
+            { question: '¿Qué regla tienen los Hooks?', options: ['Solo en class components', 'Orden constante, no en condicionales o loops', 'Pueden estar en cualquier orden', 'Solo useMemo'], correctAnswer: 1 },
+            { question: '¿Cuándo usar useMemo?', options: ['Siempre', 'Para cálculos costosos que necesitan memorización', 'Nunca', 'Solo para objetos'], correctAnswer: 1 },
+            { question: '¿Qué es el prop drilling?', options: ['Un bug', 'Pasar props por muchos niveles de componentes', 'Un patrón de React', 'Solo para context'], correctAnswer: 1 },
+            { question: '¿Qué resuelve useContext?', options: ['Performance', 'Estado global sin prop drilling', 'Solo temas', 'Nada'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs5',
+        title: 'Node.js & Express',
+        slug: 'node-express',
+        quiz: [
+            { question: '¿Por qué Node.js es single-threaded?', options: ['Por limitación', 'Usa event loop para I/O no bloqueante', 'Es multi-threaded', 'Solo en desarrollo'], correctAnswer: 1 },
+            { question: '¿Qué es un middleware en Express?', options: ['Un plugin', 'Función que recibe req, res, next y procesa la request', 'Solo para auth', 'Un error handler'], correctAnswer: 1 },
+            { question: '¿Por qué importa el orden de los middlewares?', options: ['No importa', 'Se ejecutan en orden secuencial', 'Solo el primero corre', 'Solo para performance'], correctAnswer: 1 },
+            { question: '¿Cuántos parámetros tiene el middleware de error?', options: ['2', '3', '4 (err, req, res, next)', '1'], correctAnswer: 2 },
+            { question: '¿Qué convención HTTP para crear un recurso?', options: ['GET', 'POST', 'PUT', 'PATCH'], correctAnswer: 1 },
+            { question: '¿Qué status code para "no autorizado"?', options: ['400', '401', '403', '404'], correctAnswer: 1 },
+            { question: '¿Cómo guardar passwords?', options: ['En texto plano', 'Con bcrypt (hash)', 'Con md5', 'Encriptado reversible'], correctAnswer: 1 },
+            { question: '¿Qué hace dotenv?', options: ['Carga variables de entorno desde .env', 'Es un framework', 'Solo para producción', 'No existe'], correctAnswer: 0 },
+            { question: '¿Qué es JWT?', options: ['Un framework', 'Token firmado con payload (userId, exp)', 'Solo para cookies', 'Un lenguaje'], correctAnswer: 1 },
+            { question: '¿Qué es CORS?', options: ['Un framework', 'Política del navegador para requests cross-origin', 'Solo para APIs', 'Un error de Node'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs6',
+        title: 'SQL & PostgreSQL',
+        slug: 'sql-postgresql',
+        quiz: [
+            { question: '¿Qué diferencia hay entre INNER JOIN y LEFT JOIN?', options: ['Ninguna', 'INNER: solo coincidencias; LEFT: todos de la izquierda', 'LEFT es más rápido', 'INNER incluye más filas'], correctAnswer: 1 },
+            { question: '¿Qué es el error N+1?', options: ['Un error de sintaxis', 'Un query + N queries por cada resultado (ej. por cada usuario)', 'Solo en NoSQL', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué hace GROUP BY?', options: ['Ordena', 'Agrupa filas por criterio', 'Filtra', 'Elimina duplicados'], correctAnswer: 1 },
+            { question: '¿Cuándo usar HAVING vs WHERE?', options: ['Son iguales', 'WHERE filtra filas, HAVING filtra grupos', 'HAVING es más rápido', 'Solo WHERE existe'], correctAnswer: 1 },
+            { question: '¿Qué significa ACID?', options: ['Un framework', 'Atomicidad, Consistencia, Aislamiento, Durabilidad', 'Solo para NoSQL', 'Un tipo de base'], correctAnswer: 1 },
+            { question: '¿Para qué sirven los índices?', options: ['Para ordenar', 'Para acelerar búsquedas en columnas', 'Para backup', 'Solo decorativos'], correctAnswer: 1 },
+            { question: '¿Qué es una foreign key?', options: ['Una clave primaria', 'Referencia a otra tabla', 'Un índice único', 'Un constraint de tipo'], correctAnswer: 1 },
+            { question: '¿Qué hace BEGIN en SQL?', options: ['Inicia una transacción', 'Comienza un script', 'Crea una tabla', 'Nada'], correctAnswer: 0 },
+            { question: '¿Qué es una junction table?', options: ['Una tabla de unión para relaciones N:M', 'Una tabla temporal', 'Un tipo de índice', 'No existe'], correctAnswer: 0 },
+            { question: '¿Qué hace ROLLBACK?', options: ['Deshace la transacción', 'Borra la tabla', 'Revierte el último commit', 'Nada'], correctAnswer: 0 }
+        ]
+    },
+    {
+        id: 'fs7',
+        title: 'APIs REST & Data Fetching',
+        slug: 'rest-data-fetching',
+        quiz: [
+            { question: '¿fetch rechaza en errores 4xx/5xx?', options: ['Sí', 'No, hay que chequear res.ok', 'Solo en 5xx', 'Depende'], correctAnswer: 1 },
+            { question: '¿Qué es CORS?', options: ['Un framework', 'Política del navegador para requests cross-origin', 'Solo para APIs', 'Un error de Node'], correctAnswer: 1 },
+            { question: '¿Qué hace useQuery de TanStack Query?', options: ['Solo mutations', 'Fetch con cache, loading, error automáticos', 'Reemplaza fetch', 'Solo para GET'], correctAnswer: 1 },
+            { question: '¿Qué hace invalidateQueries?', options: ['Borra el cache', 'Marca queries como stale para refetch', 'Cierra la conexión', 'No existe'], correctAnswer: 1 },
+            { question: '¿Dónde guardar el token?', options: ['Solo en localStorage', 'localStorage vs httpOnly cookie: httpOnly más seguro para XSS', 'Solo en memoria', 'En el HTML'], correctAnswer: 1 },
+            { question: '¿Qué es AbortController?', options: ['Un framework', 'Para cancelar requests fetch', 'Solo para axios', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cuáles son los 3 estados de una llamada async?', options: ['pending, done, error', 'loading, error, data', 'fetch, success, fail', 'init, run, end'], correctAnswer: 1 },
+            { question: '¿Para qué sirven los interceptors de axios?', options: ['Solo para logging', 'Para interceptar requests/responses (ej. agregar token)', 'Para cancelar', 'No existen'], correctAnswer: 1 },
+            { question: '¿Qué es un optimistic update?', options: ['Actualizar UI antes de confirmar con el servidor', 'Esperar siempre al servidor', 'Un tipo de cache', 'No existe'], correctAnswer: 0 },
+            { question: '¿Qué header para enviar JSON?', options: ['Content-Type: application/json', 'Accept: json', 'Type: json', 'JSON: true'], correctAnswer: 0 }
+        ]
+    },
+    {
+        id: 'fs8',
+        title: 'Testing',
+        slug: 'testing',
+        quiz: [
+            { question: '¿Qué filosofía sigue Testing Library?', options: ['Testear implementación', 'Testear comportamiento desde perspectiva del usuario', 'Solo unit tests', 'Solo mocks'], correctAnswer: 1 },
+            { question: '¿Qué es mejor: userEvent o fireEvent?', options: ['Son iguales', 'userEvent simula mejor al usuario real', 'fireEvent siempre', 'Solo fireEvent existe'], correctAnswer: 1 },
+            { question: '¿Cuándo usar jest.mock()?', options: ['Nunca', 'Para mockear módulos (fetch, APIs)', 'Solo para componentes', 'Solo en desarrollo'], correctAnswer: 1 },
+            { question: '¿Qué es la pirámide de testing?', options: ['Más unitarios, menos e2e', 'Más e2e', 'Solo unitarios', 'Solo integración'], correctAnswer: 0 },
+            { question: '¿Qué query usar para elementos por rol?', options: ['getByClass', 'getByRole', 'getById', 'getByTag'], correctAnswer: 1 },
+            { question: '¿Qué hace Supertest?', options: ['Testing de componentes', 'Testing de APIs HTTP (Express)', 'Solo para React', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué es un mock?', options: ['Un error', 'Simulación de una dependencia para tests aislados', 'Un tipo de test', 'Solo para APIs'], correctAnswer: 1 },
+            { question: '¿Qué hace beforeEach?', options: ['Corre después de cada test', 'Corre antes de cada test', 'Solo una vez', 'Solo para async'], correctAnswer: 1 },
+            { question: '¿Qué matcher para verificar que un elemento existe?', options: ['toBe()', 'toBeInTheDocument()', 'toExist()', 'toRender()'], correctAnswer: 1 },
+            { question: '¿Cuándo NO testear?', options: ['Siempre testear todo', 'Cuando el costo no justifica el beneficio o es código trivial', 'No hay excepciones', 'Solo en producción'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs9',
+        title: 'Docker & Deploy',
+        slug: 'docker-deploy',
+        quiz: [
+            { question: '¿Qué es una imagen Docker?', options: ['Un contenedor', 'Plantilla read-only para crear contenedores', 'Un volumen', 'Un comando'], correctAnswer: 1 },
+            { question: '¿Qué es un contenedor?', options: ['Una imagen', 'Instancia en ejecución de una imagen', 'Un volumen', 'Un comando'], correctAnswer: 1 },
+            { question: '¿Qué hace .dockerignore?', options: ['Nada', 'Excluye archivos del contexto de build (node_modules, .env)', 'Solo para producción', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué es un multi-stage build?', options: ['Múltiples imágenes en una', 'Build en una imagen, run en otra más ligera', 'Solo para Node', 'No existe'], correctAnswer: 1 },
+            { question: '¿Para qué sirve docker-compose?', options: ['Solo para una app', 'Orquestar múltiples servicios (app + DB)', 'Solo para desarrollo', 'Solo para producción'], correctAnswer: 1 },
+            { question: '¿Qué hace depends_on?', options: ['Orden de arranque de servicios', 'Dependencias de npm', 'Solo para DB', 'No existe'], correctAnswer: 0 },
+            { question: '¿Qué son los volúmenes en Docker?', options: ['Solo para logs', 'Persistencia de datos entre reinicios', 'Solo para cache', 'No existen'], correctAnswer: 1 },
+            { question: '¿Dónde guardar variables de producción?', options: ['En el código', 'En variables de entorno del host o secrets', 'En el Dockerfile', 'En git'], correctAnswer: 1 },
+            { question: '¿Qué hace GitHub Actions?', options: ['Solo backups', 'CI/CD: automatizar tests y deploys', 'Solo para issues', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cuál es la instrucción por defecto en Dockerfile para ejecutar?', options: ['RUN', 'ENTRYPOINT', 'CMD', 'EXEC'], correctAnswer: 2 }
+        ]
+    },
+    {
+        id: 'fs10',
+        title: 'Entrevistas Full Stack',
+        slug: 'entrevistas-fullstack',
+        quiz: [
+            { question: '¿Qué es el Event Loop?', options: ['Un loop de eventos en React', 'Mecanismo que permite JS single-threaded manejar async', 'Solo en Node', 'Un error'], correctAnswer: 1 },
+            { question: '¿Qué es un closure?', options: ['Un bug', 'Función que recuerda variables del scope donde fue creada', 'Solo en React', 'Un tipo de loop'], correctAnswer: 1 },
+            { question: '¿REST vs GraphQL?', options: ['Son iguales', 'REST: recursos/verbos HTTP; GraphQL: query language, flexible', 'GraphQL reemplaza REST', 'Solo REST existe'], correctAnswer: 1 },
+            { question: '¿Cómo funciona JWT?', options: ['Solo en cookies', 'Token firmado con payload, servidor verifica firma sin guardar sesión', 'Es un framework', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué es CORS?', options: ['Un framework', 'Política del navegador para requests cross-origin', 'Solo para APIs', 'Un error'], correctAnswer: 1 },
+            { question: '¿Por qué las reglas de los Hooks?', options: ['Por performance', 'React depende del orden de llamadas para asociar estado', 'Por seguridad', 'No hay razón'], correctAnswer: 1 },
+            { question: '¿Qué es el Virtual DOM?', options: ['Un framework', 'Representación en memoria del DOM para diff eficiente', 'Solo en Vue', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cuándo usar SQL vs NoSQL?', options: ['Siempre SQL', 'SQL: datos relacionales; NoSQL: flexible, documental, etc.', 'Siempre NoSQL', 'Son iguales'], correctAnswer: 1 },
+            { question: '¿Qué son los índices en base de datos?', options: ['Backups', 'Estructuras que aceleran búsquedas', 'Solo para primary keys', 'No existen'], correctAnswer: 1 },
+            { question: '¿Qué significa ACID?', options: ['Un framework', 'Atomicidad, Consistencia, Aislamiento, Durabilidad', 'Solo para NoSQL', 'Un tipo de base'], correctAnswer: 1 },
+            { question: '¿Cómo describir un proyecto en entrevista?', options: ['Solo tecnologías', 'Problema que resolvía + solución técnica + resultado', 'Solo el código', 'No importa'], correctAnswer: 1 },
+            { question: '¿Qué es prop drilling?', options: ['Un bug de React', 'Pasar props por muchos niveles', 'Solo para context', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué hace useEffect?', options: ['Solo fetch', 'Side effects (fetch, suscripciones) con control de dependencias', 'Reemplaza useState', 'Solo al montar'], correctAnswer: 1 },
+            { question: '¿Qué es el callback hell?', options: ['Un error', 'Callbacks anidados que hacen código ilegible', 'Solo en Node', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué hace Promise.all?', options: ['Una sola promesa', 'Ejecuta todas en paralelo, falla si una falla', 'Ejecuta en secuencia', 'Solo para arrays'], correctAnswer: 1 },
+            { question: '¿Cuál es la diferencia entre let y const?', options: ['Solo el nombre', 'const no permite reasignación', 'let es más rápido', 'No hay diferencia'], correctAnswer: 1 },
+            { question: '¿Qué es un middleware en Express?', options: ['Un plugin', 'Función (req, res, next) que procesa la request', 'Solo para auth', 'Un error handler'], correctAnswer: 1 },
+            { question: '¿Qué hace bcrypt?', options: ['Encripta reversiblemente', 'Hash de passwords (una vía)', 'Solo para tokens', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué es el error N+1?', options: ['Un error de sintaxis', '1 query + N queries por cada resultado', 'Solo en NoSQL', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué es un Generic en TypeScript?', options: ['Un tipo fijo', 'Parámetro de tipo que se infiere o especifica', 'Solo para arrays', 'Deprecated'], correctAnswer: 1 }
+        ]
+    }
+];

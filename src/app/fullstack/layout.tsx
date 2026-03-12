@@ -1,18 +1,18 @@
 
 import ModuleSidebar from '@/components/ModuleSidebar';
-import { DSA_MODULES } from '@/lib/data';
+import { FS_MODULES } from '@/lib/data';
 
-export default function DSALayout({
+export default function FullstackLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <div className="flex min-h-screen bg-[var(--bg)] text-[var(--text)] overflow-hidden">
+        <div className="flex min-h-screen bg-[var(--bg)] overflow-hidden">
             <ModuleSidebar
-                modules={DSA_MODULES}
-                path="dsa"
-                title="DSA & LeetCode"
+                modules={FS_MODULES}
+                path="fullstack"
+                title="Full Stack Web"
             />
             <main className="flex-1 min-w-0 ml-0 md:ml-64 min-h-screen bg-[var(--bg)] overflow-x-hidden">
                 {children}

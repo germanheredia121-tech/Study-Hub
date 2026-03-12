@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía Completa Full Stack Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f0f13;
+      --bg2: #16161d;
+      --bg3: #1e1e28;
+      --card: #1a1a24;
+      --border: #2a2a38;
+      --accent: #3B82F6;
+      --accent2: #06d6a0;
+      --accent3: #f7c06a;
+      --accent4: #f96b6b;
+      --text: #e8e8f0;
+      --text2: #9898b0;
+      --text3: #5c5c78;
+      --ide-bg: #12121a;
+      --ide-line: #1f1f2e;
+      --ide-num: #3d3d55;
+      --keyword: #c792ea;
+      --string: #c3e88d;
+      --number: #f78c6c;
+      --comment: #546e7a;
+      --type: #82aaff;
+      --func: #82aaff;
+      --var: #eeffff;
+      --tag: #f07178;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 15px; line-height: 1.7; overflow-x: hidden; }
+    .content { padding: 0 60px 80px; max-width: 900px; }
+    .module-header { padding: 56px 0 32px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+    .module-number { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+    .module-header h2 { font-size: 32px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .module-header p { color: var(--text2); font-size: 15px; max-width: 660px; }
+    .section { margin-bottom: 56px; }
+    .section-title { font-size: 20px; font-weight: 600; color: var(--text); margin-bottom: 24px; padding-bottom: 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .section-title .dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; flex-shrink: 0; }
+    .concept { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 20px; transition: border-color 0.2s; }
+    .concept:hover { border-color: rgba(59, 130, 246, 0.4); }
+    .concept-header { padding: 14px 20px; background: rgba(59, 130, 246, 0.06); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .concept-title { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .concept-title .badge { font-size: 10px; font-family: 'DM Mono', monospace; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+    .badge-fs { background: rgba(59, 130, 246, 0.15); color: var(--accent); }
+    .badge-important { background: rgba(247, 192, 106, 0.15); color: var(--accent3); }
+    .ide { background: var(--ide-bg); position: relative; }
+    .ide-topbar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: #0d0d15; border-bottom: 1px solid var(--border); }
+    .ide-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .ide-dot.red { background: #f96b6b; }
+    .ide-dot.yellow { background: #f7c06a; }
+    .ide-dot.green { background: #06d6a0; }
+    .ide-filename { margin-left: 8px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text3); }
+    .ide-body { padding: 20px 0; overflow-x: auto; }
+    .code-line { display: flex; align-items: baseline; min-height: 22px; padding: 0 20px 0 0; font-family: 'DM Mono', monospace; font-size: 13px; line-height: 1.7; }
+    .line-num { width: 44px; min-width: 44px; text-align: right; color: var(--ide-num); padding-right: 20px; user-select: none; font-size: 12px; }
+    .line-content { white-space: pre; color: var(--var); }
+    .kw { color: var(--keyword); }
+    .str { color: var(--string); }
+    .num { color: var(--number); }
+    .cmt { color: var(--comment); font-style: italic; }
+    .tp { color: var(--type); }
+    .fn { color: #82aaff; }
+    .concept-desc { padding: 16px 20px; border-top: 1px solid var(--border); background: rgba(255,255,255,0.01); }
+    .concept-desc p { font-size: 13.5px; color: var(--text2); line-height: 1.7; }
+    .concept-desc .tag { display: inline; font-family: 'DM Mono', monospace; font-size: 12px; background: rgba(59,130,246,0.12); color: var(--accent); padding: 1px 6px; border-radius: 4px; margin: 0 1px; }
+    .concept-explain { padding: 16px 20px; background: rgba(59,130,246,0.04); border-bottom: 1px solid var(--border); font-size: 13.5px; color: var(--text2); line-height: 1.85; }
+    .explain-label { font-size: 10px; font-weight: 700; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-bottom: 10px; }
+    .concept-explain p { margin-bottom: 10px; }
+    .concept-explain .problem { background: rgba(249,107,107,0.06); border-left: 3px solid var(--accent4); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 13px; color: #ff9a9a; }
+    .concept-explain .problem::before { content: "✕ Sin esto: "; font-weight: 700; }
+    .concept-explain .solution { background: rgba(6,214,160,0.06); border-left: 3px solid var(--accent2); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 13px; color: var(--accent2); }
+    .concept-explain .solution::before { content: "✅ Con esto: "; font-weight: 700; }
+    .concept-explain .analogy { background: rgba(247,192,106,0.08); border-left: 3px solid var(--accent3); padding: 10px 14px; border-radius: 0 6px 6px 0; margin: 10px 0; font-size: 13px; color: var(--accent3); }
+    .concept-explain .analogy::before { content: "💡 Analogía: "; font-weight: 700; }
+    .concept-explain code { font-family: 'DM Mono', monospace; font-size: 12px; background: rgba(59,130,246,0.12); color: var(--accent); padding: 1px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<div class="content">
+
+  <!-- ===================== MÓDULO 01 — JavaScript Fundamentos ===================== -->
+  <div id="fs1" class="module-header">
+    <div class="module-number">Módulo 01</div>
+    <h2>JavaScript Fundamentos</h2>
+    <p>El lenguaje que corre en el navegador y en Node. Sin dominar variables, tipos, funciones, asincronía y módulos, todo lo que construyas encima (React, Node) será frágil.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Variables y Scope</div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">var vs let vs const <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Antes de ES6 solo existía <code>var</code>. Las variables declaradas con <code>var</code> se "elevan" (hoisting) al inicio de la función, no del bloque. Eso permitía usar una variable antes de declararla y generaba bugs imposibles de rastrear.</p>
+        <div class="problem">Declarás <code>var i</code> en un loop, pero por el scope de función la misma <code>i</code> se reutiliza en callbacks. Los timeouts imprimen el valor final de <code>i</code> para todos. En producción: datos incorrectos, reportes de analytics equivocados.</div>
+        <div class="solution"><code>let</code> y <code>const</code> tienen scope de bloque. Cada iteración del loop tiene su propia variable. El callback captura el valor correcto. No más bugs de "la variable cambió antes de que se ejecutara".</div>
+        <div class="analogy">Es como tener cajas numeradas (bloques). Con <code>var</code> había una sola caja compartida; con <code>let</code> cada habitación tiene su propia caja. No podés confundir qué guardaste dónde.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">scope.js</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="cmt">// var: scope de función — i se comparte</span></span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content"><span class="kw">for</span> (<span class="kw">var</span> i = <span class="num">0</span>; i < <span class="num">3</span>; i++) {</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content">  setTimeout(() => <span class="fn">console</span>.<span class="fn">log</span>(i), <span class="num">100</span>); <span class="cmt">// 3, 3, 3</span></span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">}</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-content"><span class="cmt">// let: scope de bloque — cada i es distinta</span></span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-content"><span class="kw">for</span> (<span class="kw">let</span> j = <span class="num">0</span>; j < <span class="num">3</span>; j++) {</span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-content">  setTimeout(() => <span class="fn">console</span>.<span class="fn">log</span>(j), <span class="num">100</span>); <span class="cmt">// 0, 1, 2</span></span></div>
+          <div class="code-line"><span class="line-num">8</span><span class="line-content">}</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">let</span> y <span class="tag">const</span> son block-scoped. • <span class="tag">const</span> no reasigna la referencia, pero sí podés mutar objetos/arrays. • Usá <span class="tag">const</span> por defecto, <span class="tag">let</span> cuando necesites reasignar.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Temporal Dead Zone <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Entre el inicio del bloque y la línea donde declarás <code>let</code> o <code>const</code>, la variable existe pero no podés accederla. Es la "zona muerta temporal". Si intentás leerla antes, JS lanza <code>ReferenceError</code>.</p>
+        <div class="problem">Con <code>var</code> obtenías <code>undefined</code> — silencioso, difícil de debuggear. Con <code>let</code>/<code>const</code> falla de inmediato.</div>
+        <div class="solution">El error te obliga a declarar antes de usar. No hay "undefined" silencioso. El código se rompe donde está el bug, no tres funciones más abajo.</div>
+        <div class="analogy">Es como un contrato: la variable existe desde que entrás al bloque, pero no podés usarla hasta que la firmás (declarás). Si intentás usarla antes, el contrato no es válido.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• TDZ solo aplica a <span class="tag">let</span> y <span class="tag">const</span>. • <span class="tag">var</span> devuelve undefined por hoisting. • Siempre declarar en la parte superior del scope.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Tipos y Coerción</div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Tipos primitivos y de referencia <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Los primitivos (number, string, boolean, null, undefined, symbol) se copian por valor. Los objetos y arrays se copian por referencia. <code>[] === []</code> es <code>false</code> porque son dos referencias distintas en memoria.</p>
+        <div class="problem">Modificás un objeto que pasaste como prop a un componente hijo. El padre también cambia. React no detecta el cambio correctamente. Re-renders fantasmas o datos corruptos.</div>
+        <div class="solution">Entender que la comparación de objetos es por referencia. Para comparar contenido: spread, structuredClone, o librerías como lodash. Para inmutabilidad: no mutar, crear copias.</div>
+        <div class="analogy">Los primitivos son fotocopias: cada una es independiente. Los objetos son direcciones de casas: si dos variables apuntan a la misma casa, cambiar el interior afecta a ambas.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">===</span> compara referencias en objetos. • Usar spread o <span class="tag">structuredClone</span> para copias. • Inmutabilidad evita bugs en React.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Coerción implícita y truthy/falsy <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>JavaScript convierte tipos automáticamente en contextos como <code>if (x)</code> o <code>"5" + 3</code>. Los valores "falsy" son: <code>false</code>, <code>0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>. Todo lo demás es truthy.</p>
+        <div class="problem">Un input vacío devuelve <code>""</code>. <code>if (userInput)</code> falla para string vacío pero <code>0</code> también es falsy — un contador en cero podría ocultar un formulario. El "billion dollar mistake" de JS.</div>
+        <div class="solution">Usar comparaciones explícitas: <code>value === null</code>, <code>value === undefined</code>, <code>value === ""</code>. Para "tiene valor": <code>value != null && value !== ""</code>. Evitar <code>if (x)</code> cuando 0 o "" son válidos.</div>
+        <div class="analogy">Es como un guardia que interpreta: "no hay nadie" puede significar puerta cerrada, lista vacía o cero personas. Tenés que ser explícito sobre qué "nada" estás buscando.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">0</span>, <span class="tag">""</span>, <span class="tag">null</span>, <span class="tag">undefined</span>, <span class="tag">NaN</span> son falsy. • <span class="tag">??</span> (nullish coalescing) solo considera null/undefined. • Preferir <span class="tag">===</span> sobre <span class="tag">==</span>.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">null vs undefined vs NaN <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Tres formas de "no hay nada" con significados distintos: <code>undefined</code> = no se asignó; <code>null</code> = asignado intencionalmente como vacío; <code>NaN</code> = resultado de una operación matemática inválida.</p>
+        <div class="problem">Mezclarlos genera lógica rota: <code>typeof null</code> es "object" (bug histórico). <code>NaN === NaN</code> es false. APIs que devuelven null vs undefined inconsistentemente.</div>
+        <div class="solution">Usar <code>??</code> para null/undefined. Para NaN: <code>Number.isNaN(x)</code>. En APIs: elegir uno (null o undefined) y ser consistente. Optional chaining <code>?.</code> evita crashes.</div>
+        <div class="analogy">undefined = "nunca puse nada en la caja". null = "puse un cartel que dice vacío". NaN = "intenté calcular algo y el resultado no tiene sentido".</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">??</span> para default cuando null/undefined. • <span class="tag">Number.isNaN()</span> para detectar NaN. • <span class="tag">?.</span> evita errores en cadenas.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Funciones</div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Declaración vs expresión vs arrow function <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Función declarada: <code>function foo() {}</code> — hoisted, tiene su propio <code>this</code>. Función expresión: <code>const foo = function() {}</code> — no hoisted. Arrow: <code>() => {}</code> — no tiene <code>this</code> propio, hereda del scope.</p>
+        <div class="problem">En un callback de evento, <code>this</code> apunta al elemento DOM. Si usás <code>function</code> perdés el contexto de tu clase. Si usás arrow, <code>this</code> es el componente React. Confusión total en entrevistas.</div>
+        <div class="solution">Arrow functions heredan <code>this</code> del scope léxico. Perfectas para callbacks. Las declaradas tienen su propio <code>this</code> según quién las invoque. Elegir según el contexto.</div>
+        <div class="analogy">La función declarada es un empleado que pregunta "¿quién me llamó?" cada vez. La arrow es uno que ya sabe "trabajo para este jefe" desde que nació.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Arrow no tiene <span class="tag">this</span>, <span class="tag">arguments</span>, ni se puede usar como constructor. • Hoisting: declaradas sí, expresiones y arrow no. • Callbacks: preferir arrow.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Closures <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Una función que "recuerda" las variables del scope donde fue creada, incluso después de que ese scope ya no exista. Es el concepto más preguntado en entrevistas JS.</p>
+        <div class="problem">Sin entender closures: no entendés por qué un event handler sigue viendo un valor viejo. O por qué un factory function puede crear contadores independientes. Código que "debería funcionar" y no funciona.</div>
+        <div class="solution">La función mantiene una referencia al "entorno" (closure) donde nació. Cada llamada a <code>createCounter()</code> crea un nuevo closure con su propio <code>count</code>. Datos privados, factories, callbacks.</div>
+        <div class="analogy">Es como una mochila que la función se lleva: guarda las variables del lugar donde nació. Donde sea que vaya, tiene acceso a lo que puso en la mochila.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">closure.js</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="kw">function</span> <span class="fn">createCounter</span>() {</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content">  <span class="kw">let</span> count = <span class="num">0</span>; <span class="cmt">// cada createCounter tiene su propio count</span></span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content">  <span class="kw">return</span> () => ++count;</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">}</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-content"><span class="kw">const</span> c1 = <span class="fn">createCounter</span>();</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-content"><span class="fn">c1</span>(); <span class="cmt">// 1</span></span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-content"><span class="fn">c1</span>(); <span class="cmt">// 2 — closure mantiene count</span></span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• Closure = función + referencias al scope externo. • Usado en: callbacks, factories, datos privados. • Cuidado con closures en loops (ya resuelto con let).</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Callbacks y callback hell <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Antes de Promises, la asincronía se manejaba con callbacks. Encadenar varias operaciones async generaba callbacks anidados (callback hell): código ilegible, difícil de mantener y de manejar errores.</p>
+        <div class="problem">Obtener usuario, luego sus pedidos, luego el detalle de cada pedido. Tres niveles de anidación. Errores que no se propagan. Código que se inclina hacia la derecha hasta desaparecer.</div>
+        <div class="solution">Promises y async/await. En lugar de callbacks anidados, encadenás <code>.then()</code> o usás <code>await</code> en secuencia. El código se lee como síncrono. Errores con try/catch.</div>
+        <div class="analogy">Callbacks son como dar instrucciones por teléfono: "cuando termines, llamame y te digo el siguiente paso". Promises son como una lista de tareas: hacés una, marcás, pasás a la siguiente.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Callback hell motivó Promises. • <span class="tag">async/await</span> es syntactic sugar sobre Promises. • Siempre manejar errores con <span class="tag">try/catch</span> o <span class="tag">.catch()</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Arrays y Objetos</div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">map, filter, reduce <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Métodos que transforman arrays sin mutar el original. <code>map</code> transforma cada elemento. <code>filter</code> filtra por condición. <code>reduce</code> reduce a un solo valor. Reemplazan la mayoría de los for loops imperativos.</p>
+        <div class="problem">For loops con push, índices que se desfasan al filtrar, acumuladores inicializados mal. Código verboso que oculta la intención. Bugs al mutar el array original sin querer.</div>
+        <div class="solution">Código declarativo: "quiero un array de nombres" → <code>users.map(u => u.name)</code>. "Los activos" → <code>users.filter(u => u.active)</code>. "La suma" → <code>nums.reduce((a,b) => a+b, 0)</code>. Intención clara, sin mutación.</div>
+        <div class="analogy">map = pasás cada item por una máquina y sale transformado. filter = un colador que deja pasar solo lo que cumple. reduce = una balanza que va sumando peso hasta dar el total.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">map</span> retorna nuevo array. • <span class="tag">reduce</span> necesita valor inicial (segundo arg). • Preferir sobre for cuando la intención es transformar/filtrar/acumular.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Destructuring y spread/rest <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Destructuring extrae propiedades o elementos en variables. Spread (<code>...</code>) expande. Rest recolecta el resto. Con valores por defecto: <code>const { name = "Anónimo" } = user</code>.</p>
+        <div class="problem">Acceder a propiedades anidadas con <code>obj.a.b.c</code> crashea si <code>b</code> es undefined. Copiar objetos con asignación solo copia la referencia. Mutación accidental en todo el código.</div>
+        <div class="solution">Destructuring con default: <code>const { b = {} } = a</code>. Spread para copiar: <code>{ ...obj }</code> o <code>[...arr]</code>. Rest en parámetros: <code>(a, ...rest) =></code>. Código más seguro y legible.</div>
+        <div class="analogy">Destructuring es desarmar un paquete y poner cada cosa en su lugar. Spread es volver a empaquetar. Rest es "todo lo que sobra va en esta bolsa".</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">??</span> para default cuando null/undefined. • Spread en objetos: propiedades posteriores sobrescriben. • Rest debe ser el último parámetro.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Optional chaining (?.) y nullish coalescing (??) <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p><code>?.</code> cortocircuita si el valor es null/undefined: <code>user?.address?.city</code> no crashea si user o address son null. <code>??</code> usa el valor de la derecha solo cuando el de la izquierda es null o undefined.</p>
+        <div class="problem">Antes: <code>user && user.address && user.address.city</code> — verboso. O <code>value || "default"</code> que falla cuando value es 0 o "". Crash en producción al acceder a API que devolvió null.</div>
+        <div class="solution">Una línea: <code>user?.address?.city ?? "Desconocido"</code>. El crash que eliminás: TypeError al leer propiedad de undefined. El default correcto: 0 y "" son valores válidos, ?? solo reemplaza null/undefined.</div>
+        <div class="analogy">Optional chaining es como preguntar "¿existe la puerta? ¿existe la habitación?" antes de entrar. Nullish coalescing es "si no hay nada (null/undefined), usá esto otro".</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">?.</span> retorna undefined si algo en la cadena es null/undefined. • <span class="tag">??</span> vs <span class="tag">||</span>: ?? solo para null/undefined. • Usar en APIs y props opcionales.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Asincronía</div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Event Loop <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>JavaScript es single-threaded. El Event Loop permite que operaciones asíncronas (setTimeout, fetch, I/O) no bloqueen el hilo principal. Las callbacks se encolan y se ejecutan cuando el call stack está vacío.</p>
+        <div class="problem">Sin entender el event loop: "¿por qué mi setTimeout(0) no corre ya?". O código síncrono pesado que congela la UI. O pensar que async = paralelo cuando en JS todo es un solo hilo.</div>
+        <div class="solution">Call stack → ejecuta código. Web APIs (o libuv en Node) manejan I/O. Callback queue recibe las callbacks. Event loop: cuando el stack está vacío, pasa una callback del queue al stack. Microtasks (Promises) tienen prioridad sobre macrotasks (setTimeout).</div>
+        <div class="analogy">Un mozo (event loop) que atiende una mesa (call stack). Cuando la mesa está vacía, trae el siguiente pedido de la cocina (queue). Los pedidos urgentes (Promises) van primero.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• JS es single-threaded. • Microtasks antes que macrotasks. • <span class="tag">setTimeout(fn, 0)</span> no es inmediato, espera al siguiente tick.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Promises y async/await <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Promise representa un valor futuro (pending → fulfilled o rejected). <code>async/await</code> permite escribir código asíncrono como si fuera síncrono. <code>await</code> pausa hasta que la Promise se resuelva.</p>
+        <div class="problem">Callbacks anidados, errores que no se capturan, código que salta de función en función. Difícil de leer y de debuggear.</div>
+        <div class="solution">async/await: código lineal, try/catch para errores. Detrás de escena sigue siendo Promises. La legibilidad mejora drásticamente. Es el estándar en código moderno.</div>
+        <div class="analogy">Promise es un ticket de lavandería: "cuando esté listo te aviso". await es esperar en la puerta hasta que te llamen. async es "esta función va a tener que esperar en algún momento".</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">async.js</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="kw">async function</span> <span class="fn">fetchUser</span>(id) {</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content">  <span class="kw">try</span> {</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content">    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/${id}`</span>);</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">    <span class="kw">if</span> (!res.<span class="fn">ok</span>) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">'Fail'</span>);</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-content">    <span class="kw">return await</span> res.<span class="fn">json</span>();</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-content">  } <span class="kw">catch</span> (e) { <span class="fn">console</span>.<span class="fn">error</span>(e); }</span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-content">}</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">async</span> siempre retorna Promise. • <span class="tag">await</span> solo dentro de async. • <span class="tag">fetch</span> no rechaza en 4xx/5xx — chequear <span class="tag">res.ok</span>.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Promise.all vs race vs allSettled <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p><code>Promise.all</code>: todas en paralelo, falla si una falla. <code>Promise.race</code>: la primera que termina (éxito o error). <code>Promise.allSettled</code>: todas terminan, devuelve estado de cada una.</p>
+        <div class="problem">Hacer 5 fetches en secuencia con await: lento. Hacerlos en paralelo sin control: una falla y perdés todo. Necesitás saber cuáles fallaron sin abortar el resto.</div>
+        <div class="solution">all: cuando necesitás todas (ej. datos para un dashboard). race: timeouts, "la respuesta más rápida". allSettled: cuando querés resultados parciales (ej. múltiples APIs, mostrar lo que sí llegó).</div>
+        <div class="analogy">all = esperar a que todos los invitados lleguen a la fiesta. race = el primero que toca la puerta gana. allSettled = anotar quién llegó y quién no, sin cancelar la fiesta.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">all</span>: rechaza si alguna rechaza. • <span class="tag">allSettled</span>: siempre resuelve con array de {status, value/reason}. • <span class="tag">race</span>: útil para timeouts.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Módulos</div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">CommonJS vs ES Modules <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>CommonJS: <code>require()</code> y <code>module.exports</code> — síncrono, usado en Node clásico. ES Modules: <code>import</code> y <code>export</code> — estándar, estático, usado en navegadores y Node moderno.</p>
+        <div class="problem">Conviven en el ecosistema. Un paquete en npm usa require, tu proyecto usa import. Errores de "Cannot use import outside a module". Configuración de package.json type: "module".</div>
+        <div class="solution">En proyectos nuevos: ES Modules. En Node: "type": "module" en package.json o extensión .mjs. Named exports permiten tree-shaking. Default export para un solo valor principal.</div>
+        <div class="analogy">CommonJS es como ir al almacén cada vez que necesitás algo. ES Modules es como tener la lista de compras antes de salir: el bundler sabe exactamente qué necesita.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">import</span> es estático (parseado al cargar). • <span class="tag">require</span> es dinámico. • Named exports mejor para tree-shaking.</p>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Named exports vs default exports <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Named: <code>export const foo</code> — importas con <code>{ foo }</code>. Default: <code>export default Foo</code> — importas con cualquier nombre. Un módulo puede tener varios named y un solo default.</p>
+        <div class="problem">Default export permite renombrar al importar: confusión en equipos. "¿Cómo se llama el componente que exporta este archivo?". Refactors que rompen imports en toda la app.</div>
+        <div class="solution">Named exports: el nombre es explícito, el IDE autocompleta, mejor para tree-shaking. Default para el "export principal" de un archivo (ej. un componente React). Convención: en React, default para componentes de página.</div>
+        <div class="analogy">Named es como un menú con platos nombrados. Default es el "plato del día" — puede ser lo que sea, pero el restaurante solo tiene uno por día.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Named: más explícito, mejor DX. • Default: útil para componentes/una sola cosa. • Consistencia en el equipo importa más que la elección.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 02 — TypeScript Esencial ===================== -->
+  <div id="fs2" class="module-header">
+    <div class="module-number">Módulo 02</div>
+    <h2>TypeScript Esencial</h2>
+    <p>JavaScript con tipos. Detecta errores antes de que lleguen a producción. El estándar en proyectos React y Node serios.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Por qué TypeScript</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">El costo real de errores de tipo <span class="badge badge-fs">TS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Un bug de tipo en producción: función que esperaba string recibe number. Resultado: NaN, undefined, crash. En una app de pagos: montos incorrectos. En una de citas: fechas rotas. El fix cuesta 10x más que prevenirlo.</p>
+        <div class="problem">Sin tipos, el error aparece cuando el usuario hace la acción específica. QA no lo encuentra. El cliente reporta. Hotfix urgente. Pérdida de confianza.</div>
+        <div class="solution">TypeScript marca el error en el IDE, en el momento de escribir. El compilador rechaza el build. No llega a producción. Inversión en tipos = menos bugs = menos costos.</div>
+        <div class="analogy">Es como revisar el contrato antes de firmar vs descubrir la cláusula mala cuando te demandan. TypeScript es el abogado que lee todo antes.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Errores de tipo en runtime cuestan 10-100x más. • TS compila a JS — no es magia, es una capa. • Adopción gradual: renombrar .js a .ts.</p>
+      </div>
+    </div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Cómo TypeScript se compila a JS <span class="badge badge-fs">TS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>TypeScript es un superset: todo JS válido es TS válido. El compilador (tsc) borra los tipos y emite JS. Los tipos no existen en runtime. Es una capa de verificación estática.</p>
+        <div class="problem">Pensar que los tipos "protegen" en runtime. No. Si el dato viene de una API sin validar, TS no puede ayudarte en ejecución.</div>
+        <div class="solution">Compilación elimina tipos. Para runtime: validar con Zod o similar. TS + Zod = tipos en compile-time y validación en runtime.</div>
+        <div class="analogy">TS es el inspector de construcción que revisa los planos antes de construir. Una vez construida la casa (JS), él ya no está. Los planos no son la casa.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">tsc</span> compila .ts → .js. • Tipos desaparecen en el output. • Validar datos externos en runtime.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Tipos Básicos</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">any vs unknown vs never <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p><code>any</code> desactiva el checker — cualquier cosa pasa. <code>unknown</code> es "no sé qué es, tengo que verificar". <code>never</code> es "nunca ocurre" (funciones que no retornan, exhaustividad).</p>
+        <div class="problem">any es trampa: te deja compilar código que crashea. Un any en una función propaga y contagia. Perdés todos los beneficios de TS.</div>
+        <div class="solution">unknown cuando el tipo viene de fuera: API, DOM. Hacés type narrowing antes de usar. never para exhaustividad en switch. Evitar any: usar unknown o genéricos.</div>
+        <div class="analogy">any es "confío en vos" (peligroso). unknown es "mostrame el DNI antes". never es "esta puerta no lleva a ningún lado".</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">any</span> = escape hatch, usar con cuidado. • <span class="tag">unknown</span> + type guard antes de usar. • <span class="tag">never</span> en exhaustividad.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Interfaces y Types</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">interface vs type <span class="badge badge-fs">TS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Ambos definen formas de objetos. <code>interface</code> puede extenderse con declaration merging. <code>type</code> puede ser unions, primitivos, tuples. En la práctica: interface para objetos, type para unions y utilidades.</p>
+        <div class="problem">Mezclarlos sin criterio. type para todo cuando interface es más legible para objetos. interface para unions (no se puede).</div>
+        <div class="solution">interface para contratos de objetos (props, API responses). type para unions (|), intersections (&), y utilidades (Pick, Omit). La respuesta definitiva: preferir interface para objetos, type para unions.</div>
+        <div class="analogy">interface es como un formulario de contrato estándar. type es como un contrato a medida que puede combinar varios formularios.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• interface: declaration merging, extends. • type: unions, primitivos, tuples. • Readonly y Optional con <span class="tag">?</span>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Generics</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">El problema sin generics <span class="badge badge-fs">TS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Sin generics: una función que retorna array pierde el tipo del elemento. <code>function first(arr: any[]): any</code> — el tipo se pierde. O duplicás la función para cada tipo.</p>
+        <div class="problem">Código duplicado o tipo perdido. <code>const x = first(users)</code> → x es any. No autocompletado. No type safety.</div>
+        <div class="solution">Generics: <code>function first&lt;T&gt;(arr: T[]): T</code>. El tipo se infiere. first(users) retorna User. El patrón más preguntado en entrevistas TS.</div>
+        <div class="analogy">Generic es como un molde: "voy a darle forma a lo que me pases, pero no sé qué material hasta que me lo des".</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">&lt;T&gt;</span> es el parámetro de tipo. • Constraints con <span class="tag">extends</span>. • Inferencia automática cuando es posible.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Utility Types</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Partial, Pick, Omit, Record <span class="badge badge-fs">TS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Tipos que transforman otros tipos. Partial hace todo opcional. Pick selecciona campos. Omit elimina campos. Record crea objeto con keys y valores tipados.</p>
+        <div class="problem">Crear manualmente tipos para "actualización parcial" o "solo estos campos". Duplicación de tipos. Mantenimiento pesado.</div>
+        <div class="solution">Partial&lt;User&gt; para updates. Pick&lt;User, 'id'|'name'&gt; para proyecciones. Omit&lt;User, 'password'&gt; para excluir. Record&lt;string, number&gt; para mapas. Los más usados en proyectos reales.</div>
+        <div class="analogy">Son como herramientas de carpintería: no construís una nueva pieza desde cero, transformás la que tenés.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">Partial</span>, <span class="tag">Required</span>, <span class="tag">Readonly</span></p>
+        <p>• <span class="tag">ReturnType</span>, <span class="tag">Parameters</span> para funciones.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 03 — HTML & CSS Producción ===================== -->
+  <div id="fs3" class="module-header">
+    <div class="module-number">Módulo 03</div>
+    <h2>HTML & CSS Producción</h2>
+    <p>El fundamento de toda web. Semántica, layout, responsive. Sin esto, React es solo divs con esteroides.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> HTML Semántico</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">div-itis y sus consecuencias <span class="badge badge-fs">HTML</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Todo en divs: sin estructura. Los lectores de pantalla no entienden la jerarquía. Google no sabe qué es importante. Mantener código de divs anidados es un infierno.</p>
+        <div class="problem">SEO pobre, accesibilidad rota, mantenibilidad cero. Cambiar un layout es adivinar qué div hace qué.</div>
+        <div class="solution">header, main, section, article, nav, aside, footer. Cada uno tiene significado. Los lectores de pantalla navegan por landmarks. Google entiende la estructura.</div>
+        <div class="analogy">div-itis es como escribir un libro sin capítulos ni párrafos: todo en un bloque. Los elementos semánticos son la estructura de un libro real.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">main</span> para contenido principal. • <span class="tag">nav</span> para navegación. • <span class="tag">label</span> asociado a inputs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Box Model y Flexbox</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">box-sizing: border-box <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Por defecto: width + padding + border = tamaño total. Con border-box: width incluye padding y border. El ancho que ponés es el ancho real.</p>
+        <div class="problem">width: 100% + padding = overflow. Layouts que se rompen. Cálculos manuales para compensar.</div>
+        <div class="solution">* { box-sizing: border-box; } al inicio de toda hoja de CSS. O en el reset. Por qué toda hoja empieza con esto.</div>
+        <div class="analogy">content-box: comprás una caja de 100cm y le agregás relleno — la caja crece. border-box: la caja es 100cm total, el relleno va adentro.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Content, padding, border, margin. • border-box = width incluye todo. • flex-grow, flex-shrink, flex-basis.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> CSS Grid y Responsive</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Cuándo Grid, cuándo Flexbox <span class="badge badge-fs">CSS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Flexbox: una dimensión (fila o columna). Grid: dos dimensiones (filas y columnas). La regla: Flexbox para componentes (header, card), Grid para layouts de página.</p>
+        <div class="problem">Usar Flexbox para layouts 2D: hacks con flex-wrap. Usar Grid para un botón con icono: overkill.</div>
+        <div class="solution">Flexbox: navegación, cards, centrado. Grid: layout principal, galerías, dashboards. auto-fill/auto-fit para responsive sin media queries.</div>
+        <div class="analogy">Flexbox es una fila de sillas. Grid es un cuaderno de cuadrícula. ¿Organizás una fila o una tabla?</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Mobile-first: base móvil, media queries para desktop. • rem vs em. • Variables CSS para theming.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 04 — React Core ===================== -->
+  <div id="fs4" class="module-header">
+    <div class="module-number">Módulo 04</div>
+    <h2>React Core</h2>
+    <p>Componentes, estado, efectos, hooks. La base de la UI moderna. Sin entender el modelo mental de React, todo es magia negra.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Fundamentos</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">JSX y componentes funcionales <span class="badge badge-fs">React</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>JSX es syntactic sugar para React.createElement. Los componentes funcionales ganaron sobre las clases: menos boilerplate, hooks, mejor optimización.</p>
+        <div class="problem">Pensar que JSX es HTML. No: es JavaScript. className, no class. Las props son inmutables.</div>
+        <div class="solution">Componente = función que retorna JSX. Props = parámetros. Flujo unidireccional: datos bajan, eventos suben. Prop drilling cuando hay muchos niveles.</div>
+        <div class="analogy">JSX es como escribir HTML pero con superpoderes: podés meter variables, loops, condicionales. Todo se compila a llamadas a funciones.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Props inmutables. • Componentes = funciones. • key en listas para evitar bugs.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Estado y Efectos</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">useState y useEffect <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>useState: estado que causa re-render al cambiar. No mutar directamente. useEffect: side effects (fetch, suscripciones). Dependencias: el array de deps controla cuándo corre.</p>
+        <div class="problem">Mutación directa: setUser(user.name = 'x'). No re-render. useEffect sin deps: loop infinito. Deps incorrectas: closures stale.</div>
+        <div class="solution">Siempre setState con nuevo valor. useEffect: dependencias exactas. Cleanup en return para suscripciones. useRef para valores que no causan re-render.</div>
+        <div class="analogy">useState es el cuaderno del componente: cuando escribís algo nuevo, el componente se redibuja. useEffect es "cuando X cambie, hacé Y".</div>
+      </div>
+      <div class="concept-desc">
+        <p>• No mutar estado. • Reglas de Hooks: orden constante, no en condicionales. • useRef para DOM o valores persistentes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Context y Patrones</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">useContext y Custom Hooks <span class="badge badge-fs">React</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Context: estado global sin librería. Custom Hooks: extraer lógica reutilizable (useState + useEffect en una función).</p>
+        <div class="problem">Prop drilling: pasar props por 5 niveles. Context para todo: re-renders innecesarios.</div>
+        <div class="solution">Context para tema, auth, idioma. Custom hooks para lógica de fetch, formularios, timers. Compound components para componentes flexibles.</div>
+        <div class="analogy">Context es como un altavoz: cualquiera en la sala escucha. Custom Hook es una receta que guardás para reutilizar.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Context + Provider. • Custom Hooks: use + nombre. • React Hook Form + Zod para formularios.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 05 — Node.js & Express ===================== -->
+  <div id="fs5" class="module-header">
+    <div class="module-number">Módulo 05</div>
+    <h2>Node.js & Express</h2>
+    <p>El backend en JavaScript. Event loop, non-blocking I/O. Express: routing, middlewares, REST API. El stack que usa el 80% de las startups.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Node.js Core</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Event loop y non-blocking I/O <span class="badge badge-fs">Node</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Node es single-threaded. El event loop permite manejar miles de conexiones: cuando una operación I/O espera, el hilo atiende otras. No threading tradicional.</p>
+        <div class="problem">Código síncrono bloquea todo. Un loop pesado congela el servidor. No hay paralelismo real para CPU.</div>
+        <div class="solution">I/O no bloqueante: callbacks, Promises. Para CPU intensiva: worker threads o separar servicios. Streams para archivos grandes.</div>
+        <div class="analogy">Un mozo que atiende muchas mesas: mientras espera un pedido de la cocina, sirve a otras. No hay un mozo por mesa.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• require, module.exports. • fs, path, os. • Streams para archivos grandes.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Express</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Middlewares y request/response cycle <span class="badge badge-fs">Express</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Request llega → middlewares en orden (auth, body parser, router) → response. Middleware: función que recibe req, res, next. next() pasa al siguiente.</p>
+        <div class="problem">Orden incorrecto: body parser después del router. Auth sin next(): la request se queda colgada. Error handler con 4 params (err, req, res, next).</div>
+        <div class="solution">Orden: CORS, body parser, router, error handler al final. Middleware de auth: verificar token, next() o 401. Error handler: middleware de 4 parámetros.</div>
+        <div class="analogy">Middlewares son como filtros de agua: cada uno hace algo (quitar cloro, quitar sedimentos) y pasa al siguiente. El orden importa.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• app.use para middleware global. • router.get/post/put/delete. • params, query, body.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> REST API y Auth</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">JWT y convenciones REST <span class="badge badge-fs">API</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>REST: recursos como sustantivos (GET /users), verbos HTTP. JWT: token firmado con payload (userId, exp). Access token corto, refresh token largo. bcrypt para passwords.</p>
+        <div class="problem">Passwords en texto plano. Tokens sin expiración. Endpoints inconsistentes (/users vs /user).</div>
+        <div class="solution">bcrypt.hash para guardar. JWT con exp. Refresh token en httpOnly cookie. Status codes correctos: 200, 201, 400, 401, 404, 500.</div>
+        <div class="analogy">JWT es como un pase de evento: tiene tu nombre, fecha de expiración, y una firma que no se puede falsificar.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• dotenv para variables de entorno. • .gitignore para .env. • Validación con Zod.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 06 — SQL & PostgreSQL ===================== -->
+  <div id="fs6" class="module-header">
+    <div class="module-number">Módulo 06</div>
+    <h2>SQL & PostgreSQL</h2>
+    <p>Datos relacionales. Tablas, JOINs, agregaciones, transacciones. La base de la mayoría de las apps.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Fundamentos y JOINs</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">INNER JOIN vs LEFT JOIN <span class="badge badge-fs">SQL</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>INNER: solo filas que coinciden en ambas tablas. LEFT: todas las de la izquierda, null si no hay coincidencia. El corazón del modelo relacional.</p>
+        <div class="problem">Usar INNER cuando necesitás LEFT: perdés registros. El error N+1: un query por cada usuario para obtener sus pedidos.</div>
+        <div class="solution">LEFT cuando el "padre" puede no tener "hijos". JOIN con agregación o subquery para evitar N+1. Índices en foreign keys.</div>
+        <div class="analogy">INNER es como una fiesta: solo entran los que tienen pareja. LEFT es como una lista: todos los de la izquierda, con o sin pareja.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• GROUP BY: agrupar por criterio. • HAVING: filtrar grupos. • Índices en columnas de búsqueda.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Transacciones</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">ACID y transacciones <span class="badge badge-fs">SQL</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>ACID: Atomicidad (todo o nada), Consistencia, Aislamiento, Durabilidad. BEGIN, COMMIT, ROLLBACK. En fintech: transferencia = debitar + acreditar en una transacción.</p>
+        <div class="problem">Operaciones sin transacción: si falla la segunda, la primera queda aplicada. Dinero que desaparece o se duplica.</div>
+        <div class="solution">BEGIN para iniciar. Todas las operaciones. COMMIT si todo bien. ROLLBACK si algo falla. Evitar deadlocks: orden consistente de locks.</div>
+        <div class="analogy">Transacción es como un contrato: o se firman todas las páginas o ninguna. No hay medio contrato.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• BEGIN, COMMIT, ROLLBACK. • Deadlocks: mismo orden de locks. • Pool de conexiones.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 07 — APIs REST & Data Fetching ===================== -->
+  <div id="fs7" class="module-header">
+    <div class="module-number">Módulo 07</div>
+    <h2>APIs REST & Data Fetching</h2>
+    <p>HTTP, fetch, axios, TanStack Query. Cómo consumir APIs desde el frontend. CORS, cache, estados de carga.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> HTTP y Fetch</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">fetch vs axios y CORS <span class="badge badge-fs">HTTP</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>fetch: nativo, no rechaza en 4xx/5xx. axios: rechaza en error, interceptors. CORS: el navegador bloquea requests cross-origin salvo que el servidor envíe headers correctos.</p>
+        <div class="problem">fetch: if (!res.ok) throw. CORS en desarrollo: el backend no envía Access-Control-Allow-Origin. "Blocked by CORS" sin entender por qué.</div>
+        <div class="solution">Backend: app.use(cors()). fetch: siempre chequear res.ok. Axios: interceptors para token. AbortController para cancelar.</div>
+        <div class="analogy">CORS es como el guardia del club: el navegador pregunta "¿puedo entrar?" y el servidor responde con los headers. Sin permiso, no pasa.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Los 3 estados: loading, error, data. • fetch no rechaza en 4xx. • Content-Type: application/json.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> TanStack Query</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">useQuery y useMutation <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>TanStack Query: cache automático, refetch, estados (loading, error, data). useQuery para GET. useMutation para POST/PUT/DELETE con invalidación de cache.</p>
+        <div class="problem">fetch manual: loading state, error state, cache. Código repetido en cada componente. No hay sincronización entre ventanas.</div>
+        <div class="solution">useQuery: key, fetcher. Cache por key. useMutation: onSuccess, invalidateQueries. Optimistic updates para UX fluida.</div>
+        <div class="analogy">Es como un bibliotecario: pedís un libro (query), él lo busca, lo cachea, y si alguien más lo pide lo tiene listo. Si lo actualizás (mutation), invalida el cache.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• queryKey para cache. • invalidateQueries después de mutation. • localStorage vs httpOnly para tokens.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 08 — Testing ===================== -->
+  <div id="fs8" class="module-header">
+    <div class="module-number">Módulo 08</div>
+    <h2>Testing</h2>
+    <p>Jest, React Testing Library, Supertest. Tests que no se rompen con cada refactor. Pirámide de testing.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Filosofía y Jest</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Testear comportamiento, no implementación <span class="badge badge-fs">JS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Testing Library: tests desde la perspectiva del usuario. Qué ve, qué hace. No: "¿llamó a setState?". Sí: "¿muestra el mensaje después de hacer click?".</p>
+        <div class="problem">Tests que buscan clases internas, implementación. Refactor rompe tests. Tests frágiles que no aportan confianza.</div>
+        <div class="solution">getByRole, getByLabelText. userEvent sobre fireEvent. Mock de fetch/axios. No testear detalles de implementación.</div>
+        <div class="analogy">Testear implementación es como revisar si el chef usó exactamente 3 cucharadas. Testear comportamiento es probar si la comida está bien.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• describe, it, expect. • jest.fn(), jest.mock(). • beforeEach para setup.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 09 — Docker & Deploy ===================== -->
+  <div id="fs9" class="module-header">
+    <div class="module-number">Módulo 09</div>
+    <h2>Docker & Deploy</h2>
+    <p>Contenedores, Dockerfile, docker-compose. Deploy en Railway, Render, Vercel. CI/CD con GitHub Actions.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Docker y Deploy</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Imagen vs Contenedor y Dockerfile <span class="badge badge-fs">Docker</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Imagen = plantilla. Contenedor = instancia en ejecución. Dockerfile: FROM, WORKDIR, COPY, RUN, CMD. .dockerignore para no copiar node_modules.</p>
+        <div class="problem">"En mi máquina funciona". Dependencias distintas, Node version distinta. Deploy que falla.</div>
+        <div class="solution">Docker: mismo ambiente en todos lados. Multi-stage: build en una imagen, run en otra más ligera. Layer caching: orden de instrucciones para velocidad.</div>
+        <div class="analogy">Imagen es la receta. Contenedor es el plato servido. Dockerfile es la receta escrita. Todos cocinan lo mismo.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• docker-compose para app + DB. • Volúmenes para persistencia. • Railway, Render, Vercel.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== MÓDULO 10 — Entrevistas Full Stack ===================== -->
+  <div id="fs10" class="module-header">
+    <div class="module-number">Módulo 10</div>
+    <h2>Entrevistas Técnicas Full Stack</h2>
+    <p>Las 20 preguntas más comunes. Live coding. System design básico. Cómo describir tu portafolio. Badge de certificación.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Preguntas Frecuentes</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Event loop, closures, REST vs GraphQL, JWT, CORS <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Las preguntas que hacen en Globant, Mercado Libre, Naranja X. Event loop: single-thread, event queue, microtasks. Closures: función que recuerda su scope. REST: recursos, verbos HTTP. JWT: token firmado. CORS: política del navegador.</p>
+        <div class="problem">Responder sin ejemplos concretos. "Es un token" sin explicar firma, expiración. Perder la entrevista por no saber comunicar.</div>
+        <div class="solution">Estructura: qué es, qué problema resuelve, ejemplo concreto. "JWT es un token que contiene payload (userId, exp) firmado. El servidor verifica la firma sin guardar sesión. Resuelve stateless auth."</div>
+        <div class="analogy">Preparar respuestas es como tener un elevator pitch: 30 segundos claros que demuestran que entendés.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• SQL vs NoSQL: cuándo cada uno. • Hooks: reglas, por qué. • Virtual DOM, índices, ACID.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Portafolio y CV</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Cómo describir un proyecto en 2 minutos <span class="badge badge-fs">FS</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Estructura: problema que resolvía, solución técnica, resultado. "Era una app de pedidos. Usé React + Node + PostgreSQL. Implementé auth con JWT. Redujimos el tiempo de carga un 40%."</p>
+        <div class="problem">"Es un proyecto full stack" — no dice nada. Red flags: no poder explicar decisiones, no saber qué harías diferente.</div>
+        <div class="solution">Problema/solución/resultado. Las 3 preguntas que siempre hacen: qué harías diferente, mayor desafío, cómo lo testearías.</div>
+        <div class="analogy">Es como vender un producto: no describís los ingredientes, describís el beneficio que le da al usuario.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Badge "Full Stack Web Certified" al completar. • 20 preguntas finales mezclando todos los módulos.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

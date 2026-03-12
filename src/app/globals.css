@@ -1,18 +1,57 @@
 @import "tailwindcss";
 
-:root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+@custom-variant dark (&:where(html.dark, html.dark *));
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Light mode (default) — aplicado en html */
+html {
+  color-scheme: light;
+  --bg: #F5F2EC;
+  --surface: #EDEAE3;
+  --surface-2: #E4E0D8;
+  --border: rgba(0, 0, 0, 0.08);
+  --text: #1A1916;
+  --text-2: #6B6860;
+  --text-3: #A8A49C;
+  --accent: #B8962A;
+  --accent-dim: rgba(184, 150, 42, 0.10);
+  --accent-border: rgba(184, 150, 42, 0.25);
+  --accent-glow: rgba(184, 150, 42, 0.15);
+}
+
+/* Dark mode — aplicado cuando html tiene class="dark" */
+html.dark {
+  color-scheme: dark;
+  --bg: #0F0F0F;
+  --surface: #161616;
+  --surface-2: #1C1C1C;
+  --border: rgba(255, 255, 255, 0.08);
+  --text: #F0EDE8;
+  --text-2: #8A8780;
+  --text-3: #4A4845;
+  --accent: #E8C547;
+  --accent-dim: rgba(232, 197, 71, 0.12);
+  --accent-border: rgba(232, 197, 71, 0.25);
+  --accent-glow: rgba(232, 197, 71, 0.20);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.2s ease, color 0.2s ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* Prevent horizontal overflow on mobile */
   overflow-x: hidden;
+}
+
+/* Glass effect */
+.glass {
+  background: var(--accent-dim);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--accent-border);
 }
 
 /* Ensure module content scales correctly */
@@ -33,7 +72,7 @@ body {
   transition: transform 0.3s ease-in-out;
 }
 
-/* Custom scrollbar for better aesthetics */
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -44,12 +83,12 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #2a2a38;
+  background: var(--surface-2);
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f50;
+  background: var(--text-3);
 }
 
 /* Safe area for notch/punch-hole phones */
@@ -64,20 +103,15 @@ body {
 
 /* Touch-friendly targets */
 @media (max-width: 767px) {
-
   button,
   a,
   label {
     min-height: 44px;
   }
-
-  /* Ensure content doesn't overflow horizontally on the main wrapper */
   .module-content-container {
     overflow-x: hidden;
     max-width: 100vw;
   }
-
-  /* Force internal elements to surrender their overly-thick desktop paddings on mobile */
   .module-content-container .content,
   .module-content-container .mod-header,
   .module-content-container .hero,
@@ -85,28 +119,21 @@ body {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
-
   .module-content-container .concept-explain {
     padding: 12px 12px !important;
   }
-
   .module-content-container .ide-bar {
     padding: 8px 10px !important;
   }
-
   .module-content-container .ide-body {
     padding: 12px 0 !important;
     overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
   }
-
-  /* Prevent code lines from squishing text; force them to trigger the horizontal scroll bar */
   .module-content-container .cl {
     min-width: max-content !important;
     padding-right: 12px !important;
   }
-
-  /* Reset max-width bounds on blocks */
   .module-content-container .ide,
   .module-content-container .concept {
     max-width: 100vw !important;
@@ -114,19 +141,20 @@ body {
   }
 }
 
+/* Concept explain - uses theme vars */
 .concept-explain {
   padding: 16px 20px;
-  background: #111118;
-  border-bottom: 1px solid #1f1f2e;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
   font-size: 13.5px;
-  color: #cdd6f4;
+  color: var(--text-2);
   line-height: 1.8;
 }
 
 .concept-explain .explain-title {
   font-size: 11px;
   font-weight: 700;
-  color: #6b7280;
+  color: var(--text-3);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   font-family: 'JetBrains Mono', monospace;
@@ -142,7 +170,7 @@ body {
 }
 
 .concept-explain .analogy {
-  background: #1e1e2e;
+  background: var(--surface-2);
   border-left: 3px solid #d97706;
   padding: 10px 14px;
   border-radius: 0 6px 6px 0;
@@ -157,7 +185,7 @@ body {
 }
 
 .concept-explain .why-matters {
-  background: #1e1e2e;
+  background: var(--surface-2);
   border-left: 3px solid #059669;
   padding: 10px 14px;
   border-radius: 0 6px 6px 0;
@@ -175,6 +203,7 @@ body {
   list-style: none;
   padding: 0;
   margin: 10px 0;
+  counter-reset: step-counter;
 }
 
 .concept-explain .step-list li {
@@ -189,8 +218,8 @@ body {
   position: absolute;
   left: 0;
   top: 4px;
-  background: #2563eb;
-  color: white;
+  background: var(--accent);
+  color: #0F0F0F;
   width: 16px;
   height: 16px;
   border-radius: 50%;
@@ -200,8 +229,4 @@ body {
   align-items: center;
   justify-content: center;
   font-family: 'JetBrains Mono', monospace;
-}
-
-.concept-explain .step-list {
-  counter-reset: step-counter;
 }

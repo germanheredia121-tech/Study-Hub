@@ -491,8 +491,21 @@
   .tbl tr:hover td { background: #0a0a0a; }
   .tbl td code { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: #dbeafe; color: #1d4ed8; padding: 1px 5px; border-radius: 3px; }
 
+  /* Columnas fijas para evitar corte de Notación/Nombre/Escala */
+  .tbl td:nth-child(1),
+  .tbl th:nth-child(1) { white-space: nowrap; min-width: 85px; width: 1%; }
+  .tbl td:nth-child(1) code { white-space: nowrap; }
+  .tbl td:nth-child(2),
+  .tbl th:nth-child(2) { white-space: nowrap; min-width: 95px; width: 1%; }
+  .tbl td:nth-child(4),
+  .tbl th:nth-child(4) { white-space: nowrap; min-width: 100px; width: 1%; }
+  .tbl td:nth-child(3),
+  .tbl th:nth-child(3) { min-width: 180px; }
+  .tbl-wrapper { overflow-x: auto; margin: 20px 0; -webkit-overflow-scrolling: touch; }
+  .tbl-wrapper .tbl { margin-bottom: 0; min-width: 500px; }
+
   /* COMPLEXITY BADGE */
-  .time { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-right: 6px; font-weight: 600; }
+  .time { display: inline-flex; align-items: center; gap: 4px; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 4px; margin-right: 6px; font-weight: 600; white-space: nowrap; }
   .time-good { background: #d1fae5; color: #065f46; }
   .time-ok { background: #fef3c7; color: #92400e; }
   .time-bad { background: #fee2e2; color: #991b1b; }
@@ -763,19 +776,21 @@
           <div class="explain-title">EXPLICACIÓN TEÓRICA EXHAUSTIVA</div>
           <p><strong>¿Por qué ignorar constantes?</strong> Si tienes un algoritmo que hace <code>2 * N</code> operaciones (o sea, <code>O(2n)</code>), decimos que es estrictamente <code>O(N)</code>. Porque si N es un trillón, ese "x2" no cambia la forma geométrica del crecimiento en la gráfica matemática; sigue siendo una línea recta (lineal). La regla de oro en Big O es que las constantes no importan: <code>O(2n) -> O(n)</code> y <code>O(n + 500) -> O(n)</code>.</p>
           
-          <table class="tbl" style="margin-top:20px;">
-            <thead>
-              <tr><th>Notación</th><th>Nombre</th><th>Explicación profunda de concepto</th><th>Escala</th></tr>
-            </thead>
-            <tbody>
-              <tr><td><code>O(1)</code></td><td>Constante</td><td>El tiempo no depende del input en lo absoluto. <strong>Ejemplo: Acceder a un elemento en un array por su índice <code>arr[i]</code></strong>, pushear a un stack, buscar en un hash map válido. Siempre hace ~1 operación rápida e instantánea.</td><td><span class="time time-good">✓ óptimo</span></td></tr>
-              <tr><td><code>O(log n)</code></td><td>Logarítmica</td><td>El problema se <strong>divide por la mitad</strong> en cada paso. Eres un cirujano descartando grandes porciones de datos inútiles (ej: algoritmos como <strong>Binary Search</strong> sobre arreglos ordenados).</td><td><span class="time time-good">✓ excelente</span></td></tr>
-              <tr><td><code>O(n)</code></td><td>Lineal</td><td>Tienes que mirar cada elemento del arreglo al menos una sola vez de frente (ej: un simple <code>for loop</code> recorriendo un array entero para buscar el máximo elemento).</td><td><span class="time time-good">✓ bueno</span></td></tr>
-              <tr><td><code>O(n log n)</code></td><td>Lineal-log</td><td>Conocida como la complejidad <strong>típica de ordenamiento</strong> algorítmico eficiente (como Merge Sort o Heap Sort). Combina iterar sobre los elementos (N) multiplicando las particiones logarítmicas (log n).</td><td><span class="time time-ok">~ aceptable</span></td></tr>
-              <tr><td><code>O(n²)</code></td><td>Cuadrática</td><td>Tienes <strong>dos bucles anidados que recorren "n"</strong> internamente de manera iterativa. Por cada elemento en el arreglo iterado, vuelves a iterar sobre los otros N elementos. (Ejemplo trágico: Bubble Sort).</td><td><span class="time time-bad">✗ lento</span></td></tr>
-              <tr><td><code>O(2ⁿ)</code></td><td>Exponencial</td><td>El número de operaciones se duplica ciegamente cada vez que añades un simple dato más al input. Típico de evaluar un <strong>algoritmo de recursión simple como Fibonacci sin memoización</strong>. Un desastre de redimiento.</td><td><span class="time time-bad">✗ imposible</span></td></tr>
-            </tbody>
-          </table>
+          <div class="tbl-wrapper">
+            <table class="tbl" style="margin-top:20px;">
+              <thead>
+                <tr><th>Notación</th><th>Nombre</th><th>Explicación profunda de concepto</th><th>Escala</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>O(1)</code></td><td>Constante</td><td>El tiempo no depende del input en lo absoluto. <strong>Ejemplo: Acceder a un elemento en un array por su índice <code>arr[i]</code></strong>, pushear a un stack, buscar en un hash map válido. Siempre hace ~1 operación rápida e instantánea.</td><td><span class="time time-good">✓ óptimo</span></td></tr>
+                <tr><td><code>O(log n)</code></td><td>Logarítmica</td><td>El problema se <strong>divide por la mitad</strong> en cada paso. Eres un cirujano descartando grandes porciones de datos inútiles (ej: algoritmos como <strong>Binary Search</strong> sobre arreglos ordenados).</td><td><span class="time time-good">✓ excelente</span></td></tr>
+                <tr><td><code>O(n)</code></td><td>Lineal</td><td>Tienes que mirar cada elemento del arreglo al menos una sola vez de frente (ej: un simple <code>for loop</code> recorriendo un array entero para buscar el máximo elemento).</td><td><span class="time time-good">✓ bueno</span></td></tr>
+                <tr><td><code>O(n log n)</code></td><td>Lineal-log</td><td>Conocida como la complejidad <strong>típica de ordenamiento</strong> algorítmico eficiente (como Merge Sort o Heap Sort). Combina iterar sobre los elementos (N) multiplicando las particiones logarítmicas (log n).</td><td><span class="time time-ok">~ aceptable</span></td></tr>
+                <tr><td><code>O(n²)</code></td><td>Cuadrática</td><td>Tienes <strong>dos bucles anidados que recorren "n"</strong> internamente de manera iterativa. Por cada elemento en el arreglo iterado, vuelves a iterar sobre los otros N elementos. (Ejemplo trágico: Bubble Sort).</td><td><span class="time time-bad">✗ lento</span></td></tr>
+                <tr><td><code>O(2ⁿ)</code></td><td>Exponencial</td><td>El número de operaciones se duplica ciegamente cada vez que añades un simple dato más al input. Típico de evaluar un <strong>algoritmo de recursión simple como Fibonacci sin memoización</strong>. Un desastre de redimiento.</td><td><span class="time time-bad">✗ imposible</span></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

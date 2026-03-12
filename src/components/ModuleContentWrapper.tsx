@@ -1,12 +1,13 @@
-
 'use client';
 
 import { useState } from 'react';
 import { Module, StudyPath } from '@/lib/types';
 import ModuleViewer from './ModuleViewer';
 import Quiz from './Quiz';
+import InteractiveExercise from './InteractiveExercise';
 import { useRouter } from 'next/navigation';
-import { DSA_MODULES, FLUTTER_MODULES } from '@/lib/data';
+import { DSA_MODULES, FLUTTER_MODULES, FS_MODULES } from '@/lib/data';
+import { getExercisesForModule } from '@/lib/interactive-exercises';
 
 interface ModuleContentWrapperProps {
     module: Module;
@@ -20,7 +21,7 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
     const [isQuizMode, setIsQuizMode] = useState(false);
 
     const handleComplete = () => {
-        const modules = path === 'dsa' ? DSA_MODULES : FLUTTER_MODULES;
+        const modules = path === 'dsa' ? DSA_MODULES : path === 'flutter' ? FLUTTER_MODULES : FS_MODULES;
         const currentIndex = modules.findIndex(m => m.id === module.id);
         const nextModule = modules[currentIndex + 1];
 
@@ -37,9 +38,9 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
                 <div className="w-full max-w-2xl relative">
                     <button
                         onClick={() => setIsQuizMode(false)}
-                        className="absolute -top-12 left-0 text-[#888888] hover:text-white transition-colors text-sm font-medium flex items-center gap-2"
+                        className="absolute -top-12 left-0 text-[#888888] hover:text-[#0F0F0F] transition-colors text-sm font-medium flex items-center gap-2"
                     >
-                        <span>←</span> Volver a la lectura
+                        <span className="material-icons text-sm">arrow_back</span> Volver a la lectura
                     </button>
                     <Quiz
                         questions={module.quiz}
@@ -52,18 +53,40 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
         );
     }
 
+    const exercises = path === 'fullstack' ? getExercisesForModule(module.id) : [];
+
     return (
         <div className="px-3 pt-16 md:p-8 pb-32 max-w-5xl mx-auto animate-in fade-in module-content-container">
             <ModuleViewer html={htmlContent} css={css} />
 
-            <div className="mt-20 pt-12 flex flex-col items-center border-t border-white/10 text-center space-y-6">
+            {exercises.length > 0 && (
+                <div className="mt-16 space-y-2">
+                    <h2 className="text-xl md:text-2xl font-bold tracking-tight text-[#0F0F0F]">
+                        Ejercicios Interactivos
+                    </h2>
+                    <p className="text-[#888888] text-sm mb-6">
+                        Practicá cada concepto escribiendo código. Opcional pero recomendado.
+                    </p>
+                    <div className="space-y-8">
+                        {exercises.map((ex) => (
+                            <InteractiveExercise
+                                key={ex.id}
+                                exercise={ex}
+                                moduleId={module.id}
+                            />
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            <div className="mt-20 pt-12 flex flex-col items-center border-t border-[var(--border)] text-center space-y-6">
                 <div className="space-y-2">
-                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-white">Validación de Conocimiento</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-[#0F0F0F]">Validación de Conocimiento</h2>
                     <p className="text-[#888888]">Demuestra lo que has aprendido para desbloquear el siguiente módulo.</p>
                 </div>
                 <button
                     onClick={() => setIsQuizMode(true)}
-                    className="bg-white text-black hover:bg-gray-200 active:bg-gray-300 font-medium px-8 py-3 rounded-md transition-colors w-full md:w-auto min-w-[200px]"
+                    className="bg-[var(--accent)] text-[#0F0F0F] hover:opacity-90 font-medium px-8 py-3 rounded-full transition-colors w-full md:w-auto min-w-[200px] shadow-lg "
                 >
                     Empezar Quiz
                 </button>

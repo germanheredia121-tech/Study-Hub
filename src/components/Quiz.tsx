@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { QuizQuestion, StudyPath } from '@/lib/types';
 import { markModuleComplete } from '@/lib/utils';
+import { recordActivity } from '@/lib/dashboard-utils';
 
 interface QuizProps {
     questions: QuizQuestion[];
@@ -42,15 +43,15 @@ export default function Quiz({ questions, moduleId, path, onComplete }: QuizProp
 
     if (currentStep === 'intro') {
         return (
-            <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-5 md:p-8 text-center space-y-4 md:space-y-6">
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 md:p-8 text-center space-y-4 md:space-y-6">
                 <h3 className="text-xl md:text-2xl font-bold tracking-tight">Validación de Módulo</h3>
-                <p className="text-[#888888] text-sm md:text-base font-light">
+                <p className="text-[var(--text-2)] text-sm md:text-base font-light">
                     Debes obtener un score de al menos 90% para desbloquear el siguiente módulo.
                     ({questions.length} preguntas)
                 </p>
                 <button
                     onClick={() => setCurrentStep('active')}
-                    className="bg-white hover:bg-gray-200 active:bg-gray-300 text-black px-6 py-2.5 md:px-8 md:py-3 rounded-md font-medium transition-colors text-sm md:text-base min-h-[44px]"
+                    className="bg-[var(--accent)] hover:opacity-90 text-[#0F0F0F] px-6 py-2.5 md:px-8 md:py-3 rounded-full font-medium transition-colors text-sm md:text-base min-h-[44px] shadow-lg shadow-[var(--accent)]/20"
                 >
                     Comenzar Quiz
                 </button>
@@ -60,36 +61,37 @@ export default function Quiz({ questions, moduleId, path, onComplete }: QuizProp
 
     if (currentStep === 'result') {
         return (
-            <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-5 md:p-8 text-center space-y-4 md:space-y-6">
-                <div className={`text-5xl md:text-6xl ${passed ? 'text-white' : 'text-[#888888]'}`}>
-                    {passed ? '✅' : '❌'}
+            <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-5 md:p-8 text-center space-y-4 md:space-y-6">
+                <div className={`${passed ? 'text-emerald-500' : 'text-[var(--text-2)]'}`}>
+                    <span className={`material-icons ${passed ? 'text-emerald-500' : 'text-[var(--text-2)]'}`} style={{ fontSize: '3.5rem' }}>{passed ? 'check_circle' : 'cancel'}</span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold tracking-tight">{passed ? '¡Módulo Superado!' : 'Sigue Intentando'}</h3>
-                <p className="text-lg md:text-xl text-[#888888]">Tu score: <span className="font-bold text-white">{score.toFixed(0)}%</span></p>
+                <p className="text-lg md:text-xl text-[var(--text-2)]">Tu score: <span className="font-bold text-[var(--text)]">{score.toFixed(0)}%</span></p>
 
                 {passed ? (
                     <div className="space-y-4">
-                        <p className="text-[#888888] text-sm md:text-base font-light">Has desbloqueado el siguiente contenido.</p>
+                        <p className="text-[var(--text-2)] text-sm md:text-base font-light">Has desbloqueado el siguiente contenido.</p>
                         <button
                             onClick={() => {
                                 markModuleComplete(path, moduleId);
+                                recordActivity();
                                 onComplete();
                             }}
-                            className="bg-white hover:bg-gray-200 active:bg-gray-300 text-black px-6 py-2.5 md:px-8 md:py-3 rounded-md font-medium transition-colors text-sm md:text-base min-h-[44px]"
+                            className="bg-[var(--accent)] hover:opacity-90 text-[#0F0F0F] px-6 py-2.5 md:px-8 md:py-3 rounded-full font-medium transition-colors text-sm md:text-base min-h-[44px] shadow-lg shadow-[var(--accent)]/20"
                         >
                             Continuar al Siguiente
                         </button>
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        <p className="text-[#888888] text-sm md:text-base font-light">Necesitas 90% para avanzar.</p>
+                        <p className="text-[var(--text-2)] text-sm md:text-base font-light">Necesitas 90% para avanzar.</p>
                         <button
                             onClick={() => {
                                 setCurrentStep('intro');
                                 setCurrentQuestionIndex(0);
                                 setAnswers([]);
                             }}
-                            className="bg-transparent border border-white/20 hover:bg-white/5 active:bg-white/10 text-white px-6 py-2.5 md:px-8 md:py-3 rounded-md font-medium transition-colors text-sm md:text-base min-h-[44px]"
+                            className="bg-transparent border border-[var(--border)] hover:bg-[var(--surface-2)] text-[var(--text)] px-6 py-2.5 md:px-8 md:py-3 rounded-md font-medium transition-colors text-sm md:text-base min-h-[44px]"
                         >
                             Reintentar
                         </button>
@@ -102,8 +104,8 @@ export default function Quiz({ questions, moduleId, path, onComplete }: QuizProp
     const currentQuestion = questions[currentQuestionIndex];
 
     return (
-        <div className="bg-[#0a0a0a] border border-white/10 rounded-xl p-4 md:p-8 space-y-5 md:space-y-8">
-            <div className="flex justify-between items-center text-xs md:text-sm font-mono text-[#888888]">
+        <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 md:p-8 space-y-5 md:space-y-8">
+            <div className="flex justify-between items-center text-xs md:text-sm font-mono text-[var(--text-2)]">
                 <span>PREGUNTA {currentQuestionIndex + 1} DE {questions.length}</span>
                 <span>{((currentQuestionIndex / questions.length) * 100).toFixed(0)}%</span>
             </div>
@@ -118,10 +120,10 @@ export default function Quiz({ questions, moduleId, path, onComplete }: QuizProp
                         <button
                             key={idx}
                             onClick={() => handleAnswer(idx)}
-                            className="text-left bg-black border border-white/10 hover:border-white/30 active:border-white/50 hover:bg-white/5 p-3 md:p-4 rounded-lg transition-all text-sm md:text-base min-h-[44px] group flex items-start gap-3"
+                            className="text-left bg-[var(--surface-2)] border border-[var(--border)] hover:border-[var(--accent-border)] p-3 md:p-4 rounded-lg transition-all text-sm md:text-base min-h-[44px] group flex items-start gap-3"
                         >
-                            <span className="inline-block flex-shrink-0 font-mono text-[#888888] group-hover:text-white transition-colors">{String.fromCharCode(65 + idx)})</span>
-                            <span className="text-[#ececec] group-hover:text-white transition-colors">{option}</span>
+                            <span className="inline-block flex-shrink-0 font-mono text-[var(--text-2)] group-hover:text-[var(--accent)] transition-colors">{String.fromCharCode(65 + idx)})</span>
+                            <span className="text-[var(--text)] transition-colors">{option}</span>
                         </button>
                     ))}
                 </div>

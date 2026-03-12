@@ -41,9 +41,11 @@ function extractModule(filePath: string, startId: string, nextId?: string): stri
 
 const dsaPath = path.join(process.cwd(), 'public/dsa_leetcode_completo.html');
 const flutterPath = path.join(process.cwd(), 'public/flutter_guide_completo.html');
+const fullstackPath = path.join(process.cwd(), 'public/fullstack_guide_completo.html');
 
 const dsaModuleIds = ['bigo', 'arrays', 'linked', 'stacks', 'hashmaps', 'trees', 'graphs', 'heaps', 'trie', 'dp', 'backtrack', 'bsearch', 'sim', 'topo', 'segtree', 'graphs_adv', 'strings_adv', 'bits_adv', 'sorting_adv', 'hard_complete'];
 const flutterModuleIds = ['mod1', 'mod2', 'mod3', 'mod4', 'mod5', 'mod6', 'mod7', 'mod8', 'mod9', 'mod10', 'mod11', 'mod12', 'mod13', 'mod14', 'mod15', 'mod16', 'mod17'];
+const fullstackModuleIds = ['fs1', 'fs2', 'fs3', 'fs4', 'fs5', 'fs6', 'fs7', 'fs8', 'fs9', 'fs10'];
 
 const dsaModules: Record<string, string> = {};
 dsaModuleIds.forEach((id, i) => {
@@ -55,6 +57,11 @@ flutterModuleIds.forEach((id, i) => {
     flutterModules[id] = extractModule(flutterPath, id, flutterModuleIds[i + 1]);
 });
 
+const fullstackModules: Record<string, string> = {};
+fullstackModuleIds.forEach((id, i) => {
+    fullstackModules[id] = extractModule(fullstackPath, id, fullstackModuleIds[i + 1]);
+});
+
 // Also extract CSS
 const getCss = (html: string) => {
     const start = html.indexOf('<style>') + 7;
@@ -64,13 +71,16 @@ const getCss = (html: string) => {
 
 const dsaCss = getCss(fs.readFileSync(dsaPath, 'utf-8'));
 const flutterCss = getCss(fs.readFileSync(flutterPath, 'utf-8'));
+const fullstackCss = getCss(fs.readFileSync(fullstackPath, 'utf-8'));
 
 fs.writeFileSync('src/lib/module-content.ts', `
 export const dsaCss = \`${dsaCss.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`;
 export const flutterCss = \`${flutterCss.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`;
+export const fullstackCss = \`${fullstackCss.replace(/`/g, '\\`').replace(/\${/g, '\\${')}\`;
 
 export const dsaModuleContent: Record<string, string> = ${JSON.stringify(dsaModules, null, 2)};
 export const flutterModuleContent: Record<string, string> = ${JSON.stringify(flutterModules, null, 2)};
+export const fullstackModuleContent: Record<string, string> = ${JSON.stringify(fullstackModules, null, 2)};
 `);
 
 console.log("Module content extracted successfully.");
