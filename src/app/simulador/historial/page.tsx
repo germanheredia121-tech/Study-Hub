@@ -5,6 +5,7 @@ import Link from 'next/link';
 import {
   getInterviewHistory,
   getHistoryStats,
+  getAreasToImprove,
   type InterviewRecord,
 } from '@/lib/interview-simulator-utils';
 
@@ -22,10 +23,12 @@ function formatTime(seconds: number): string {
 export default function HistorialPage() {
   const [history, setHistory] = useState<InterviewRecord[]>([]);
   const [stats, setStats] = useState({ total: 0, successRate: 0, avgTimeUsed: 0, avgDuration: 0 });
+  const [areasToImprove, setAreasToImprove] = useState<{ type: string; text: string }[]>([]);
 
   useEffect(() => {
     setHistory(getInterviewHistory());
     setStats(getHistoryStats());
+    setAreasToImprove(getAreasToImprove());
   }, []);
 
   return (
@@ -51,6 +54,7 @@ export default function HistorialPage() {
       {history.length === 0 ? (
         <p className="text-[var(--text-2)] mb-6">Aún no completaste ninguna entrevista simulada.</p>
       ) : (
+        <>
         <ul className="space-y-4">
           {history.map((r) => (
             <li
@@ -89,6 +93,24 @@ export default function HistorialPage() {
             </li>
           ))}
         </ul>
+
+        {areasToImprove.length > 0 && (
+          <div className="mt-8 rounded-lg border border-amber-500/30 bg-amber-500/10 p-4">
+            <h3 className="font-semibold mb-3 text-[var(--text)] flex items-center gap-2">
+              <span className="material-icons text-lg">trending_up</span>
+              Áreas a mejorar
+            </h3>
+            <ul className="space-y-2 text-sm text-[var(--text-2)]">
+              {areasToImprove.map((a, i) => (
+                <li key={i} className="flex items-center gap-2">
+                  <span className="text-amber-400">→</span>
+                  {a.text}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        </>
       )}
 
       <div className="mt-8">

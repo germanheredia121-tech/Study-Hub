@@ -12,4 +12,4 @@ export interface Module {
   quiz: QuizQuestion[];
 }
 
-export type StudyPath = 'dsa' | 'flutter' | 'fullstack';
+export type StudyPath = 'dsa' | 'flutter' | 'fullstack' | 'nextjs' | 'database' | 'english' | 'jobhunting';

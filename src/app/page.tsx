@@ -57,8 +57,8 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
               <div>
-                <p className="text-2xl font-bold text-[var(--text)]">3 Tracks</p>
-                <p className="text-sm text-[var(--text-2)]">Algoritmos · Flutter · Full Stack Web</p>
+                <p className="text-2xl font-bold text-[var(--text)]">7 Tracks</p>
+                <p className="text-sm text-[var(--text-2)]">DSA · Flutter · Full Stack · Next.js · DB · Inglés · Trabajo</p>
               </div>
               <div>
                 <p className="text-2xl font-bold text-[var(--text)]">35+ Ejercicios</p>
@@ -108,7 +108,7 @@ export default function Home() {
             Elegí tu camino
           </h2>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
             {/* DSA */}
             <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-xl hover:shadow-lg hover:border-[var(--accent-border)] transition-all">
               <span className="inline-block px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold mb-4">DSA</span>
@@ -174,6 +174,28 @@ export default function Home() {
                 <span className="material-icons text-sm">arrow_forward</span>
               </Link>
             </div>
+
+            {/* Next.js */}
+            <div className="p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] backdrop-blur-xl hover:shadow-lg hover:border-[var(--accent-border)] transition-all">
+              <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold mb-4">NJ</span>
+              <h3 className="text-xl font-bold text-[var(--text)] mb-2">Next.js Moderno</h3>
+              <p className="text-[var(--text-2)] text-sm mb-6">
+                App Router, Server Components, Caching, Server Actions, Auth y Core Web Vitals. El framework React para producción.
+              </p>
+              <ul className="space-y-2 text-sm text-[var(--text-2)] mb-6">
+                <li className="flex items-center gap-2"><span className="material-icons text-sm text-[var(--accent)]">check_circle</span> 6 módulos de App Router a Performance</li>
+                <li className="flex items-center gap-2"><span className="material-icons text-sm text-[var(--accent)]">check_circle</span> Server vs Client Components</li>
+                <li className="flex items-center gap-2"><span className="material-icons text-sm text-[var(--accent)]">check_circle</span> Server Actions y Auth moderna</li>
+                <li className="flex items-center gap-2"><span className="material-icons text-sm text-[var(--accent)]">check_circle</span> Quiz eliminatorio en cada módulo</li>
+              </ul>
+              <Link
+                href="/nextjs/app-router-vs-pages"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--accent-dim)] text-[var(--accent)] font-medium hover:bg-[var(--accent)] hover:text-[#0F0F0F] transition-all"
+              >
+                Comenzar
+                <span className="material-icons text-sm">arrow_forward</span>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -191,11 +213,11 @@ export default function Home() {
                   La mayoría de los recursos están en inglés, cuestan dinero, o te enseñan con videos que olvidás a los 10 minutos. StudyHub está en español, es gratuito, y no podés avanzar hasta demostrar que realmente entendiste.
                 </p>
                 <ul className="space-y-4">
-                  {[
-                    'Sin videos que se olvidan — solo texto que obliga a pensar',
-                    'Sin avance automático — el 100% en el quiz desbloquea el siguiente',
-                    'Sin teoría sin práctica — cada concepto tiene ejercicio de código',
-                  ].map((item) => (
+                {[
+                  'Sin videos que se olvidan — solo texto que obliga a pensar',
+                  'Sin avance automático — el 100% en el quiz desbloquea el siguiente',
+                  'Sin teoría sin práctica — cada concepto tiene ejercicio de código',
+                ].map((item) => (
                     <li key={item} className="flex items-start gap-3 text-[var(--text-2)]">
                       <span className="material-icons text-[var(--accent)] text-xl shrink-0 mt-0.5">check_circle</span>
                       {item}
@@ -205,7 +227,7 @@ export default function Home() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { num: '3 Tracks', label: 'Completos y en español' },
+                  { num: '7 Tracks', label: 'Completos y en español' },
                   { num: '100%', label: 'Requerido para avanzar' },
                   { num: '35+', label: 'Ejercicios LeetCode' },
                   { num: '0$', label: 'Para siempre gratuito' },
@@ -258,6 +280,10 @@ export default function Home() {
               <Link href="/dsa/big-o" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">DSA & LeetCode</Link>
               <Link href="/flutter/dart-base" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">Flutter Expert</Link>
               <Link href="/fullstack/js-fundamentals" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">Full Stack Web</Link>
+              <Link href="/nextjs/app-router-vs-pages" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">Next.js</Link>
+              <Link href="/database/sql-vs-nosql" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">Base de Datos</Link>
+              <Link href="/english/vocabulario-tecnico" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">Inglés Técnico</Link>
+              <Link href="/jobhunting/cv-linkedin" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">Conseguir Trabajo</Link>
               <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" className="text-[var(--text-2)] hover:text-[var(--text)] transition-colors">GitHub</a>
             </div>
             <p className="text-xs text-[var(--text-3)] mt-8">© 2026 StudyHub — Open Source bajo licencia MIT</p>

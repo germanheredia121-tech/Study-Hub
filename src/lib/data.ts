@@ -560,5 +560,225 @@ export const FS_MODULES: Module[] = [
             { question: '¿Qué es el error N+1?', options: ['Un error de sintaxis', '1 query + N queries por cada resultado', 'Solo en NoSQL', 'No existe'], correctAnswer: 1 },
             { question: '¿Qué es un Generic en TypeScript?', options: ['Un tipo fijo', 'Parámetro de tipo que se infiere o especifica', 'Solo para arrays', 'Deprecated'], correctAnswer: 1 }
         ]
+    },
+    {
+        id: 'fs11',
+        title: 'GraphQL',
+        slug: 'graphql',
+        quiz: [
+            { question: '¿Qué ventaja tiene GraphQL sobre REST?', options: ['Es más rápido', 'Cliente pide exactamente los campos que necesita, evita over/under-fetching', 'Reemplaza REST siempre', 'Es más simple'], correctAnswer: 1 },
+            { question: '¿Qué es un resolver en GraphQL?', options: ['Un tipo', 'Función que obtiene el dato para un campo', 'Un schema', 'Un query'], correctAnswer: 1 },
+            { question: '¿Qué es N+1 en GraphQL?', options: ['Un bug', 'Problema de resolvers que hacen 1+N queries', 'Solo en REST', 'No existe'], correctAnswer: 1 },
+            { question: '¿Qué hace DataLoader?', options: ['Carga datos', 'Batching y caching para evitar N+1', 'Reemplaza GraphQL', 'Solo para Apollo'], correctAnswer: 1 },
+            { question: '¿Cuándo usar GraphQL vs REST?', options: ['Siempre GraphQL', 'GraphQL: apps complejas, múltiples clientes; REST: más simple', 'Siempre REST', 'Son iguales'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'fs12',
+        title: 'Seguridad Web',
+        slug: 'seguridad-web',
+        quiz: [
+            { question: '¿Qué es XSS?', options: ['Un framework', 'Inyección de script malicioso en la página', 'Solo en React', 'Un tipo de SQL injection'], correctAnswer: 1 },
+            { question: '¿Qué es CSRF?', options: ['Un virus', 'Cross-Site Request Forgery: request desde otro sitio con tu sesión', 'Solo en APIs', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cómo prevenir XSS?', options: ['No usar JS', 'Sanitizar input, escapar output, Content-Security-Policy', 'Solo en backend', 'Usar HTTPS'], correctAnswer: 1 },
+            { question: '¿Dónde guardar secrets?', options: ['En el código', 'Variables de entorno, nunca en git', 'En el frontend', 'En la DB'], correctAnswer: 1 },
+            { question: '¿Qué es rate limiting?', options: ['Límite de velocidad', 'Limitar requests por IP/usuario para evitar abuse', 'Solo para APIs', 'Cache'], correctAnswer: 1 }
+        ]
     }
 ];
+
+export const NEXTJS_MODULES: Module[] = [
+    {
+        id: 'nj1',
+        title: 'App Router vs Pages Router',
+        slug: 'app-router-vs-pages',
+        quiz: [
+            { question: '¿Qué problema principal resuelve App Router que Pages Router no tenía?', options: ['Mejor SEO', 'Layouts anidados, streaming y Server Components por defecto', 'Más rápido en desarrollo', 'Sintaxis más simple'], correctAnswer: 1 },
+            { question: 'En App Router, ¿dónde va el archivo para la ruta /dashboard/settings?', options: ['pages/dashboard/settings.tsx', 'app/dashboard/settings/page.tsx', 'app/dashboard/settings.tsx', 'pages/dashboard/settings/page.tsx'], correctAnswer: 1 },
+            { question: '¿Cuándo tiene sentido seguir usando Pages Router?', options: ['Nunca, está deprecado', 'Proyectos legacy grandes donde la migración no justifica el costo', 'Solo para APIs', 'Cuando no usás React'], correctAnswer: 1 },
+            { question: '¿Qué convención de App Router permite layouts compartidos sin re-render?', options: ['layout.tsx que envuelve a los hijos', 'getLayout en _app', 'Middleware', 'Ninguna'], correctAnswer: 0 },
+            { question: 'En Pages Router, ¿cómo se hace data fetching en el servidor?', options: ['getServerSideProps', 'useEffect con fetch', 'Solo getStaticProps', 'No se puede'], correctAnswer: 0 }
+        ]
+    },
+    {
+        id: 'nj2',
+        title: 'Server Components vs Client Components',
+        slug: 'server-vs-client-components',
+        quiz: [
+            { question: '¿Cuál es el error más común con "use client"?', options: ['Ponerlo en archivos que no usan hooks', 'Ponerlo en todo el árbol cuando solo un hijo necesita interactividad', 'Olvidar importar React', 'Usarlo en layout.tsx'], correctAnswer: 1 },
+            { question: '¿Qué NO podés hacer en un Server Component?', options: ['Fetch de datos directo', 'Acceder a bases de datos', 'Usar useState o useEffect', 'Leer variables de entorno'], correctAnswer: 2 },
+            { question: '¿Cómo decidís si un componente debe ser Client?', options: ['Siempre Client por las dudas', 'Solo si usa hooks, event handlers, o APIs del navegador', 'Solo para formularios', 'Cuando tiene más de 100 líneas'], correctAnswer: 1 },
+            { question: '¿Puede un Server Component importar y renderizar un Client Component?', options: ['No, nunca', 'Sí, como hijo', 'Solo si está en el mismo archivo', 'Solo con dynamic import'], correctAnswer: 1 },
+            { question: '¿Qué pasa con el bundle si ponés "use client" en la raíz de un módulo grande?', options: ['Nada', 'Todo ese módulo y sus imports van al cliente', 'Solo ese archivo', 'Se optimiza automáticamente'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'nj3',
+        title: 'Caching en Next.js',
+        slug: 'caching-nextjs',
+        quiz: [
+            { question: '¿Cuáles son los 4 tipos de cache en Next.js?', options: ['Browser, CDN, DB, Memory', 'Request Memoization, Data Cache, Full Route Cache, Router Cache', 'Solo Data Cache', 'Cache, No-Cache, Revalidate, Dynamic'], correctAnswer: 1 },
+            { question: '¿Cómo rompés el Data Cache de un fetch?', options: ['No se puede', 'Con cache: "no-store" o revalidate: 0 en el fetch', 'Borrando node_modules', 'Solo con router.refresh()'], correctAnswer: 1 },
+            { question: '¿Qué es el Router Cache?', options: ['Cache del servidor', 'Cache en el cliente que guarda el resultado de navegaciones previas', 'Cache de API routes', 'No existe'], correctAnswer: 1 },
+            { question: '¿Cuándo se usa la Full Route Cache?', options: ['Siempre', 'En builds estáticos: páginas sin dynamic functions se cachean', 'Solo en desarrollo', 'Nunca en producción'], correctAnswer: 1 },
+            { question: '¿Qué error típico en producción causa "datos viejos" después de un deploy?', options: ['Falta de revalidate en fetch', 'Usar getStaticProps', 'Demasiados Client Components', 'Variables de entorno mal configuradas'], correctAnswer: 0 }
+        ]
+    },
+    {
+        id: 'nj4',
+        title: 'Server Actions',
+        slug: 'server-actions',
+        quiz: [
+            { question: '¿Cuándo reemplaza una Server Action a una API Route?', options: ['Nunca', 'Cuando la acción es mutación de datos desde un formulario o evento, sin necesidad de endpoint REST', 'Siempre', 'Solo para GET'], correctAnswer: 1 },
+            { question: '¿Cómo manejás errores en una Server Action?', options: ['Solo con try/catch', 'try/catch + return { error } o revalidatePath, el cliente recibe el resultado', 'No se pueden manejar', 'Con throw siempre'], correctAnswer: 1 },
+            { question: '¿Cómo mostrás estado de loading durante una Server Action?', options: ['useState manual', 'useFormStatus de react-dom o useTransition', 'No se puede', 'Solo con Suspense'], correctAnswer: 1 },
+            { question: '¿Necesitás crear una API Route para un formulario que crea un usuario?', options: ['Sí, siempre', 'No, una Server Action puede hacer la mutación directa', 'Solo si usás fetch', 'Depende del framework'], correctAnswer: 1 },
+            { question: '¿Qué hace revalidatePath después de una mutación?', options: ['Nada', 'Invalida el cache de esa ruta para que el próximo request traiga datos frescos', 'Borra la página', 'Solo en desarrollo'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'nj5',
+        title: 'Autenticación moderna',
+        slug: 'auth-nextjs',
+        quiz: [
+            { question: '¿Qué ofrece NextAuth v5 / Auth.js?', options: ['Solo login con email', 'Providers (Google, GitHub, etc), session management, callbacks, adapters para DB', 'Solo JWT', 'No existe'], correctAnswer: 1 },
+            { question: '¿Dónde protegés rutas en Next.js?', options: ['Solo en cada page', 'Middleware que verifica la sesión antes de que llegue a la página', 'En getServerSideProps', 'No se puede'], correctAnswer: 1 },
+            { question: '¿Qué es un adapter en Auth.js?', options: ['Un plugin de UI', 'Conecta Auth con tu DB (Prisma, Drizzle) para guardar usuarios y sesiones', 'Un tipo de provider', 'No existe'], correctAnswer: 1 },
+            { question: '¿Clerk vs NextAuth?', options: ['Son iguales', 'Clerk es hosted/managed, NextAuth es self-hosted y más flexible', 'Clerk es solo para empresas', 'NextAuth está deprecado'], correctAnswer: 1 },
+            { question: '¿Cómo obtenés la sesión en un Server Component?', options: ['useSession()', 'auth() de next-auth que retorna la sesión en el servidor', 'Solo en Client con useSession', 'localStorage'], correctAnswer: 1 }
+        ]
+    },
+    {
+        id: 'nj6',
+        title: 'Performance y Core Web Vitals',
+        slug: 'performance-web-vitals',
+        quiz: [
+            { question: '¿Qué mide LCP (Largest Contentful Paint)?', options: ['Tiempo hasta primer click', 'Tiempo hasta que el contenido principal visible está pintado', 'Tiempo de carga total', 'Número de requests'], correctAnswer: 1 },
+            { question: '¿Qué mide CLS (Cumulative Layout Shift)?', options: ['Velocidad de scroll', 'Inestabilidad visual: cuánto se mueven los elementos inesperadamente', 'Tamaño del bundle', 'Tiempo de JavaScript'], correctAnswer: 1 },
+            { question: '¿Cómo optimizás imágenes en Next.js?', options: ['Solo con width/height', 'next/image con lazy loading, formatos modernos y tamaños responsive', 'No se puede', 'Solo en producción'], correctAnswer: 1 },
+            { question: '¿Qué hace el componente next/font?', options: ['Nada', 'Optimiza fuentes: self-hosting, no layout shift, subsetting', 'Solo descarga fuentes', 'Solo para Google Fonts'], correctAnswer: 1 },
+            { question: '¿Qué métrica de Lighthouse indica que la página es "usable"?', options: ['Solo FCP', 'LCP, FID, CLS combinados en "Good"', 'Solo TTI', 'Número de recursos'], correctAnswer: 1 }
+        ]
+    }
+];
+
+export const DB_MODULES: Module[] = [
+    { id: 'db1', title: 'SQL vs NoSQL', slug: 'sql-vs-nosql', quiz: [
+        { question: '¿Cuándo elegir SQL sobre NoSQL?', options: ['Siempre', 'Cuando necesitás transacciones ACID y relaciones complejas', 'Nunca', 'Solo para analytics'], correctAnswer: 1 },
+        { question: '¿Qué ventaja tiene un documento NoSQL?', options: ['Siempre más rápido', 'Schema flexible, escalado horizontal fácil', 'Mejor para JOINs', 'Más barato'], correctAnswer: 1 },
+        { question: '¿Qué es CAP theorem?', options: ['Un framework', 'Consistency, Availability, Partition tolerance: no podés tener las 3', 'Solo para SQL', 'No existe'], correctAnswer: 1 },
+        { question: '¿Cuándo usar Redis?', options: ['Como base principal', 'Cache, sesiones, colas en memoria', 'Solo para logs', 'Reemplaza PostgreSQL'], correctAnswer: 1 },
+        { question: '¿Qué es un índice en una base de datos?', options: ['Backup', 'Estructura que acelera búsquedas en columnas', 'Solo primary key', 'Cache'], correctAnswer: 1 }
+    ]},
+    { id: 'db2', title: 'PostgreSQL avanzado', slug: 'postgresql-avanzado', quiz: [
+        { question: '¿Qué hace EXPLAIN ANALYZE?', options: ['Borra datos', 'Ejecuta el query y muestra el plan de ejecución real', 'Solo explica sintaxis', 'Crea índices'], correctAnswer: 1 },
+        { question: '¿Cuándo un índice no ayuda?', options: ['Siempre ayuda', 'En tablas muy chicas o columnas con baja cardinalidad', 'En SELECT', 'En INSERT'], correctAnswer: 1 },
+        { question: '¿Qué es un índice compuesto?', options: ['Varios índices', 'Índice sobre múltiples columnas en orden', 'Índice en cluster', 'No existe'], correctAnswer: 1 },
+        { question: '¿Qué hace VACUUM en PostgreSQL?', options: ['Borra la tabla', 'Recupera espacio de filas muertas', 'Copia datos', 'Crea backup'], correctAnswer: 1 },
+        { question: '¿Qué es connection pooling?', options: ['Un tipo de DB', 'Reutilizar conexiones en lugar de crear nuevas', 'Solo para desarrollo', 'Cache de queries'], correctAnswer: 1 }
+    ]},
+    { id: 'db3', title: 'ORMs — Prisma y Drizzle', slug: 'orms-prisma-drizzle', quiz: [
+        { question: '¿Qué ventaja tiene Prisma?', options: ['Más rápido que SQL directo', 'Type-safe, migraciones, schema como código', 'No usa SQL', 'Es más simple que Drizzle'], correctAnswer: 1 },
+        { question: '¿Qué es Drizzle?', options: ['Un framework', 'ORM ligero, SQL-like, type-safe', 'Solo para PostgreSQL', 'Deprecated'], correctAnswer: 1 },
+        { question: '¿Qué hace prisma migrate?', options: ['Borra datos', 'Genera y aplica migraciones de esquema', 'Solo backup', 'Optimiza queries'], correctAnswer: 1 },
+        { question: '¿Cuándo evitar un ORM?', options: ['Siempre usarlo', 'Queries complejos, reportes, cuando el ORM genera SQL ineficiente', 'Solo en producción', 'Nunca'], correctAnswer: 1 },
+        { question: '¿Qué es el N+1 problem con ORMs?', options: ['Un bug del ORM', '1 query + N por cada resultado por lazy loading', 'Solo en Prisma', 'No existe'], correctAnswer: 1 }
+    ]},
+    { id: 'db4', title: 'Redis y caching', slug: 'redis-caching', quiz: [
+        { question: '¿Qué estructura de datos usa Redis?', options: ['Solo strings', 'Strings, hashes, lists, sets, sorted sets', 'Solo JSON', 'Solo arrays'], correctAnswer: 1 },
+        { question: '¿Cuándo usar cache aside?', options: ['Nunca', 'App lee cache, si miss lee DB y escribe cache', 'Solo Redis', 'Solo en desarrollo'], correctAnswer: 1 },
+        { question: '¿Qué es TTL en Redis?', options: ['Un comando', 'Time To Live: expiración automática de keys', 'Tipo de dato', 'No existe'], correctAnswer: 1 },
+        { question: '¿Qué problema resuelve cache invalidation?', options: ['Performance', 'Datos viejos en cache cuando la fuente cambia', 'Memoria', 'Seguridad'], correctAnswer: 1 },
+        { question: '¿Redis es persistente?', options: ['No', 'Sí, con RDB snapshots o AOF', 'Solo en cluster', 'Solo en cloud'], correctAnswer: 1 }
+    ]},
+    { id: 'db5', title: 'Migraciones y versionado', slug: 'migraciones-versionado', quiz: [
+        { question: '¿Por qué versionar migraciones?', options: ['No es necesario', 'Reproducibilidad, rollback, trabajo en equipo', 'Solo en producción', 'Solo para backup'], correctAnswer: 1 },
+        { question: '¿Qué hace una migración "down"?', options: ['Baja el servidor', 'Revierte los cambios de la migración', 'Borra todo', 'No existe'], correctAnswer: 1 },
+        { question: '¿Cuándo hacer migración destructiva?', options: ['Siempre que haga falta', 'Con precaución, backup, ventana de mantenimiento', 'Nunca', 'Solo en dev'], correctAnswer: 1 },
+        { question: '¿Qué es una migración squashed?', options: ['Un error', 'Combinar varias migraciones en una', 'Solo para SQL', 'No existe'], correctAnswer: 1 },
+        { question: '¿Dónde guardar el estado de migraciones?', options: ['En código', 'En tabla _migrations o similar en la DB', 'En git', 'En env'], correctAnswer: 1 }
+    ]},
+];
+
+export const ENGLISH_MODULES: Module[] = [
+    { id: 'en1', title: 'Vocabulario técnico esencial', slug: 'vocabulario-tecnico', quiz: [
+        { question: '¿Qué significa "debug"?', options: ['Borrar código', 'Encontrar y corregir errores', 'Optimizar', 'Documentar'], correctAnswer: 1 },
+        { question: '¿Qué es un "bug"?', options: ['Un insecto', 'Error o defecto en el software', 'Feature', 'Test'], correctAnswer: 1 },
+        { question: '¿Qué significa "deploy"?', options: ['Desarrollar', 'Desplegar a producción', 'Borrar', 'Testear'], correctAnswer: 1 },
+        { question: '¿Qué es "refactor"?', options: ['Reescribir todo', 'Mejorar código sin cambiar comportamiento', 'Borrar código', 'Agregar features'], correctAnswer: 1 },
+        { question: '¿Qué significa "scalable"?', options: ['Rápido', 'Que puede crecer sin colapsar', 'Barato', 'Complejo'], correctAnswer: 1 }
+    ]},
+    { id: 'en2', title: 'Comunicación en entrevistas', slug: 'comunicacion-entrevistas', quiz: [
+        { question: '¿Qué hacer cuando no sabés la respuesta?', options: ['Inventar', 'Decir "I don\'t know" y explicar cómo lo investigarías', 'Callarse', 'Cambiar de tema'], correctAnswer: 1 },
+        { question: '¿Por qué "think out loud" en coding interviews?', options: ['Para llenar silencio', 'El entrevistador evalúa tu proceso de pensamiento', 'Es obligatorio', 'Para impresionar'], correctAnswer: 1 },
+        { question: '¿Qué significa "walk me through"?', options: ['Caminar', 'Explicame paso a paso', 'Irte', 'Resumir'], correctAnswer: 1 },
+        { question: '¿Cómo pedir un hint sin sonar mal?', options: ['No pedir nunca', '"Could you give me a nudge in the right direction?"', 'Decir que no sabés', 'Pedir la solución'], correctAnswer: 1 },
+        { question: '¿Qué es "trade-off"?', options: ['Un error', 'Compromiso: ganar algo perdiendo otra cosa', 'Optimización', 'Un bug'], correctAnswer: 1 }
+    ]},
+    { id: 'en3', title: 'Readme y documentación', slug: 'readme-documentacion', quiz: [
+        { question: '¿Qué debe tener un buen README?', options: ['Solo título', 'Qué es, cómo instalar, cómo usar', 'Código completo', 'Solo screenshots'], correctAnswer: 1 },
+        { question: '¿Qué es "getting started"?', options: ['Empezar a codear', 'Guía para nuevos usuarios del proyecto', 'Un comando', 'Documentación técnica'], correctAnswer: 1 },
+        { question: '¿Por qué documentar APIs?', options: ['No es necesario', 'Para que otros (o vos en 6 meses) entiendan cómo usar', 'Solo en open source', 'Solo para clientes'], correctAnswer: 1 },
+        { question: '¿Qué es JSDoc/TSDoc?', options: ['Un lenguaje', 'Comentarios que generan documentación', 'Solo para TypeScript', 'Deprecated'], correctAnswer: 1 },
+        { question: '¿Cuándo actualizar docs?', options: ['Nunca', 'Cuando cambia el código que documentan', 'Solo en release', 'Solo el líder'], correctAnswer: 1 }
+    ]},
+    { id: 'en4', title: 'Slack, email y reuniones', slug: 'slack-email-reuniones', quiz: [
+        { question: '¿Qué es "async communication"?', options: ['Reuniones', 'Comunicación que no requiere respuesta inmediata', 'Solo email', 'Slack'], correctAnswer: 1 },
+        { question: '¿Qué poner en un mensaje de Slack efectivo?', options: ['Solo "hola"', 'Contexto, pregunta clara, qué necesitás', 'Todo el historial', 'Solo emojis'], correctAnswer: 1 },
+        { question: '¿Qué es "standup"?', options: ['Una reunión larga', 'Reunión corta diaria: qué hiciste, qué harás, bloqueos', 'Solo para managers', 'Opcional'], correctAnswer: 1 },
+        { question: '¿Qué significa "blocker"?', options: ['Un error', 'Algo que te impide avanzar', 'Un bug', 'Una reunión'], correctAnswer: 1 },
+        { question: '¿Qué es "follow-up"?', options: ['Primera reunión', 'Seguimiento posterior a una conversación', 'Un email', 'Un recordatorio'], correctAnswer: 1 }
+    ]},
+];
+
+export const JOB_MODULES: Module[] = [
+    { id: 'job1', title: 'CV y LinkedIn', slug: 'cv-linkedin', quiz: [
+        { question: '¿Qué debe destacar un CV técnico?', options: ['Solo estudios', 'Proyectos, tecnologías, logros medibles', 'Experiencia laboral únicamente', 'Referencias'], correctAnswer: 1 },
+        { question: '¿Cuántas páginas ideal para un CV junior?', options: ['5', '1, máximo 2', '3', 'No importa'], correctAnswer: 1 },
+        { question: '¿Qué poner en LinkedIn para tech?', options: ['Solo foto', 'Headline claro, resumen, proyectos, skills', 'Nada', 'Solo empleos'], correctAnswer: 1 },
+        { question: '¿Qué son "keywords" en un CV?', options: ['Palabras largas', 'Términos que buscan los reclutadores (tecnologías, roles)', 'Solo en LinkedIn', 'No importan'], correctAnswer: 1 },
+        { question: '¿CV en PDF o Word?', options: ['Word', 'PDF para preservar formato', 'Ambos', 'Solo online'], correctAnswer: 1 }
+    ]},
+    { id: 'job2', title: 'Búsqueda de empleo', slug: 'busqueda-empleo', quiz: [
+        { question: '¿Dónde buscar empleo tech en LATAM?', options: ['Solo LinkedIn', 'LinkedIn, Computrabajo, páginas de empresas, referidos', 'Solo agencias', 'Solo headhunters'], correctAnswer: 1 },
+        { question: '¿Por qué un referido ayuda?', options: ['No ayuda', 'Salteás filtros iniciales, más visibilidad', 'Solo en grandes empresas', 'Solo para seniors'], correctAnswer: 1 },
+        { question: '¿Qué es "cold outreach"?', options: ['Spam', 'Contactar a reclutadores/devs sin conocerlos', 'Solo email', 'Ilegal'], correctAnswer: 1 },
+        { question: '¿Cuántas aplicaciones hacer?', options: ['1', 'Muchas, es un juego de volumen al principio', 'Solo las perfectas', '10 máximo'], correctAnswer: 1 },
+        { question: '¿Qué trackear en la búsqueda?', options: ['Nada', 'Empresas, fechas, estado, feedback', 'Solo ofertas', 'Solo rechazos'], correctAnswer: 1 }
+    ]},
+    { id: 'job3', title: 'Proceso de entrevistas', slug: 'proceso-entrevistas', quiz: [
+        { question: '¿Qué suele venir después del CV?', options: ['Oferta', 'Screening (HR o técnico), luego entrevistas técnicas', 'Solo técnica', 'Solo con el CTO'], correctAnswer: 1 },
+        { question: '¿Qué es un "take-home assignment"?', options: ['Entrevista en vivo', 'Proyecto para hacer en casa con plazo', 'Un test', 'Opcional'], correctAnswer: 1 },
+        { question: '¿Qué preguntar al final de una entrevista?', options: ['Nada', 'Sobre el equipo, stack, expectativas, próximos pasos', 'Solo el salario', 'Solo beneficios'], correctAnswer: 1 },
+        { question: '¿Qué hacer después de una entrevista?', options: ['Nada', 'Enviar thank-you email, seguir el proceso', 'Llamar todos los días', 'Esperar sin hacer nada'], correctAnswer: 1 },
+        { question: '¿Cuánto suele tardar un proceso?', options: ['1 día', '1-4 semanas según la empresa', 'Siempre 1 semana', '3 meses'], correctAnswer: 1 }
+    ]},
+    { id: 'job4', title: 'Negociación salarial', slug: 'negociacion-salarial', quiz: [
+        { question: '¿Cuándo hablar de salario?', options: ['En la primera llamada', 'Cuando hay interés mutuo, idealmente después de oferta', 'Nunca', 'Solo si preguntan'], correctAnswer: 1 },
+        { question: '¿Qué investigar antes de negociar?', options: ['Nada', 'Rangos del mercado, glassdoor, niveles de la empresa', 'Solo tu número', 'Solo beneficios'], correctAnswer: 1 },
+        { question: '¿Qué hacer si la oferta es baja?', options: ['Aceptar igual', 'Contraofertar con datos, no con emociones', 'Rechazar sin explicar', 'Pedir el doble'], correctAnswer: 1 },
+        { question: '¿Qué más negociar además de salario?', options: ['Nada', 'Equity, beneficios, remoto, vacaciones', 'Solo bonos', 'Solo título'], correctAnswer: 1 },
+        { question: '¿Qué significa "total compensation"?', options: ['Solo salario', 'Salario + bonus + equity + beneficios en valor', 'Solo beneficios', 'Lo que dice el contrato'], correctAnswer: 1 }
+    ]},
+    { id: 'job5', title: 'Primer día y onboarding', slug: 'primer-dia-onboarding', quiz: [
+        { question: '¿Qué hacer el primer día?', options: ['Codear solo', 'Conocer al equipo, setup, leer docs, hacer preguntas', 'Fingir que sabés todo', 'Solo reuniones'], correctAnswer: 1 },
+        { question: '¿Qué es onboarding?', options: ['Un curso', 'Proceso de integración a la empresa/equipo', 'Solo para juniors', 'Opcional'], correctAnswer: 1 },
+        { question: '¿Cuándo hacer preguntas?', options: ['Nunca', 'Siempre que no entiendas, es esperado al principio', 'Solo al manager', 'Después de 6 meses'], correctAnswer: 1 },
+        { question: '¿Qué es un "buddy" o "mentor"?', options: ['Un amigo', 'Persona asignada para guiarte en los primeros días', 'Solo en grandes empresas', 'El jefe'], correctAnswer: 1 },
+        { question: '¿Cuánto tarda ser "productivo"?', options: ['1 día', 'Semanas a meses según la complejidad', '1 año', 'Nunca'], correctAnswer: 1 }
+    ]},
+];
+
+export function getModulesForPath(path: string): Module[] {
+    switch (path) {
+        case 'dsa': return DSA_MODULES;
+        case 'flutter': return FLUTTER_MODULES;
+        case 'fullstack': return FS_MODULES;
+        case 'nextjs': return NEXTJS_MODULES;
+        case 'database': return DB_MODULES;
+        case 'english': return ENGLISH_MODULES;
+        case 'jobhunting': return JOB_MODULES;
+        default: return [];
+    }
+}
+

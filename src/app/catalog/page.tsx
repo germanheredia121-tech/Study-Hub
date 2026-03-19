@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-import { DSA_MODULES, FLUTTER_MODULES, FS_MODULES } from '@/lib/data';
+import { DSA_MODULES, FLUTTER_MODULES, FS_MODULES, NEXTJS_MODULES, DB_MODULES, ENGLISH_MODULES, JOB_MODULES } from '@/lib/data';
 import { getProgress } from '@/lib/utils';
 import { isSimulatorUnlocked } from '@/lib/interview-simulator-utils';
 import { getTotalModulesCount, getCompletedModulesCount } from '@/lib/dashboard-utils';
 
-type TrackFilter = 'all' | 'dsa' | 'flutter' | 'fullstack';
+type TrackFilter = 'all' | 'dsa' | 'flutter' | 'fullstack' | 'nextjs' | 'database' | 'english' | 'jobhunting';
 
 export default function CatalogPage() {
   const [mounted, setMounted] = useState(false);
@@ -26,14 +26,18 @@ export default function CatalogPage() {
     { id: 'dsa', name: 'DSA & LeetCode', modules: DSA_MODULES, slug: 'dsa', badge: 'DSA', badgeColor: 'bg-green-500/20 text-green-400' },
     { id: 'flutter', name: 'Flutter Expert', modules: FLUTTER_MODULES, slug: 'flutter', badge: 'FL', badgeColor: 'bg-violet-500/20 text-violet-400' },
     { id: 'fullstack', name: 'Full Stack Web', modules: FS_MODULES, slug: 'fullstack', badge: 'FS', badgeColor: 'bg-blue-500/20 text-blue-400' },
+    { id: 'nextjs', name: 'Next.js Moderno', modules: NEXTJS_MODULES, slug: 'nextjs', badge: 'NJ', badgeColor: 'bg-emerald-500/20 text-emerald-400' },
+    { id: 'database', name: 'Base de Datos Moderna', modules: DB_MODULES, slug: 'database', badge: 'DB', badgeColor: 'bg-cyan-500/20 text-cyan-400' },
+    { id: 'english', name: 'Inglés Técnico', modules: ENGLISH_MODULES, slug: 'english', badge: 'EN', badgeColor: 'bg-amber-500/20 text-amber-400' },
+    { id: 'jobhunting', name: 'Conseguir el Trabajo', modules: JOB_MODULES, slug: 'jobhunting', badge: 'JOB', badgeColor: 'bg-rose-500/20 text-rose-400' },
   ];
 
   const filteredTracks = filter === 'all' ? tracks : tracks.filter((t) => t.id === filter);
 
   const getModuleStatus = (trackId: string, moduleIndex: number) => {
     if (!mounted) return 'locked';
-    const path = trackId as 'dsa' | 'flutter' | 'fullstack';
-    const modules = trackId === 'dsa' ? DSA_MODULES : trackId === 'flutter' ? FLUTTER_MODULES : FS_MODULES;
+    const path = trackId as 'dsa' | 'flutter' | 'fullstack' | 'nextjs';
+    const modules = trackId === 'dsa' ? DSA_MODULES : trackId === 'flutter' ? FLUTTER_MODULES : trackId === 'nextjs' ? NEXTJS_MODULES : trackId === 'database' ? DB_MODULES : trackId === 'english' ? ENGLISH_MODULES : trackId === 'jobhunting' ? JOB_MODULES : FS_MODULES;
     const progress = getProgress(path);
     const mod = modules[moduleIndex];
     if (!mod) return 'locked';
@@ -52,7 +56,7 @@ export default function CatalogPage() {
         <header className="mb-12">
           <h1 className="text-3xl md:text-4xl font-black mb-2">Tracks de estudio</h1>
           <p className="text-[var(--text-2)] text-lg">
-            3 rutas de aprendizaje estructuradas para conseguir tu primer empleo en tech
+            7 rutas de aprendizaje estructuradas para conseguir tu primer empleo en tech
           </p>
           {mounted && (
             <div className="mt-6">
@@ -71,7 +75,7 @@ export default function CatalogPage() {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-2 mb-12">
-          {(['all', 'dsa', 'flutter', 'fullstack'] as TrackFilter[]).map((f) => (
+          {(['all', 'dsa', 'flutter', 'fullstack', 'nextjs', 'database', 'english', 'jobhunting'] as TrackFilter[]).map((f) => (
             <button
               key={f}
               onClick={() => setFilter(f)}
@@ -81,7 +85,7 @@ export default function CatalogPage() {
                   : 'bg-[var(--surface)] border border-[var(--border)] text-[var(--text-2)] hover:text-[var(--text)]'
               }`}
             >
-              {f === 'all' ? 'Todos' : f === 'dsa' ? 'DSA & LeetCode' : f === 'flutter' ? 'Flutter' : 'Full Stack Web'}
+              {f === 'all' ? 'Todos' : f === 'dsa' ? 'DSA' : f === 'flutter' ? 'Flutter' : f === 'fullstack' ? 'Full Stack' : f === 'nextjs' ? 'Next.js' : f === 'database' ? 'Base de Datos' : f === 'english' ? 'Inglés' : 'Conseguir Trabajo'}
             </button>
           ))}
         </div>
@@ -123,7 +127,7 @@ export default function CatalogPage() {
                 <ul className="mt-4 space-y-2 border-t border-[var(--border)] pt-4">
                   {track.modules.map((mod, idx) => {
                     const status = getModuleStatus(track.id, idx);
-                    const progress = mounted ? getProgress(track.id as 'dsa' | 'flutter' | 'fullstack') : {};
+                    const progress = mounted ? getProgress(track.id as 'dsa' | 'flutter' | 'fullstack' | 'nextjs') : {};
                     const completed = !!progress[mod.id];
                     const content = (
                       <div className="flex items-center justify-between p-3 rounded-lg transition-colors">

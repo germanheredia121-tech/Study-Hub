@@ -1689,7 +1689,9 @@ export const fullstackCss = `
     .concept-title { font-size: 14px; font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px; }
     .concept-title .badge { font-size: 10px; font-family: 'DM Mono', monospace; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
     .badge-fs { background: rgba(59, 130, 246, 0.15); color: var(--accent); }
+    .badge-nj { background: rgba(34, 197, 94, 0.15); color: #22c55e; }
     .badge-important { background: rgba(247, 192, 106, 0.15); color: var(--accent3); }
+    .badge-hard { background: rgba(249, 107, 107, 0.15); color: #f87171; }
     .ide { background: var(--ide-bg); position: relative; }
     .ide-topbar { display: flex; align-items: center; gap: 6px; padding: 10px 16px; background: #0d0d15; border-bottom: 1px solid var(--border); }
     .ide-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -1773,5 +1775,430 @@ export const fullstackModuleContent: Record<string, string> = {
   "fs7": "<div id=\"fs7\" class=\"module-header\">\r\n    <div class=\"module-number\">Módulo 07</div>\r\n    <h2>APIs REST & Data Fetching</h2>\r\n    <p>HTTP, fetch, axios, TanStack Query. Cómo consumir APIs desde el frontend. CORS, cache, estados de carga.</p>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> HTTP y Fetch</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">fetch vs axios y CORS <span class=\"badge badge-fs\">HTTP</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>fetch: nativo, no rechaza en 4xx/5xx. axios: rechaza en error, interceptors. CORS: el navegador bloquea requests cross-origin salvo que el servidor envíe headers correctos.</p>\r\n        <div class=\"problem\">fetch: if (!res.ok) throw. CORS en desarrollo: el backend no envía Access-Control-Allow-Origin. \"Blocked by CORS\" sin entender por qué.</div>\r\n        <div class=\"solution\">Backend: app.use(cors()). fetch: siempre chequear res.ok. Axios: interceptors para token. AbortController para cancelar.</div>\r\n        <div class=\"analogy\">CORS es como el guardia del club: el navegador pregunta \"¿puedo entrar?\" y el servidor responde con los headers. Sin permiso, no pasa.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• Los 3 estados: loading, error, data. • fetch no rechaza en 4xx. • Content-Type: application/json.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> TanStack Query</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">useQuery y useMutation <span class=\"badge badge-important\">Importante</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>TanStack Query: cache automático, refetch, estados (loading, error, data). useQuery para GET. useMutation para POST/PUT/DELETE con invalidación de cache.</p>\r\n        <div class=\"problem\">fetch manual: loading state, error state, cache. Código repetido en cada componente. No hay sincronización entre ventanas.</div>\r\n        <div class=\"solution\">useQuery: key, fetcher. Cache por key. useMutation: onSuccess, invalidateQueries. Optimistic updates para UX fluida.</div>\r\n        <div class=\"analogy\">Es como un bibliotecario: pedís un libro (query), él lo busca, lo cachea, y si alguien más lo pide lo tiene listo. Si lo actualizás (mutation), invalida el cache.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• queryKey para cache. • invalidateQueries después de mutation. • localStorage vs httpOnly para tokens.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- ===================== MÓDULO 08 — Testing ===================== -->",
   "fs8": "<div id=\"fs8\" class=\"module-header\">\r\n    <div class=\"module-number\">Módulo 08</div>\r\n    <h2>Testing</h2>\r\n    <p>Jest, React Testing Library, Supertest. Tests que no se rompen con cada refactor. Pirámide de testing.</p>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> Filosofía y Jest</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">Testear comportamiento, no implementación <span class=\"badge badge-fs\">JS</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>Testing Library: tests desde la perspectiva del usuario. Qué ve, qué hace. No: \"¿llamó a setState?\". Sí: \"¿muestra el mensaje después de hacer click?\".</p>\r\n        <div class=\"problem\">Tests que buscan clases internas, implementación. Refactor rompe tests. Tests frágiles que no aportan confianza.</div>\r\n        <div class=\"solution\">getByRole, getByLabelText. userEvent sobre fireEvent. Mock de fetch/axios. No testear detalles de implementación.</div>\r\n        <div class=\"analogy\">Testear implementación es como revisar si el chef usó exactamente 3 cucharadas. Testear comportamiento es probar si la comida está bien.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• describe, it, expect. • jest.fn(), jest.mock(). • beforeEach para setup.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- ===================== MÓDULO 09 — Docker & Deploy ===================== -->",
   "fs9": "<div id=\"fs9\" class=\"module-header\">\r\n    <div class=\"module-number\">Módulo 09</div>\r\n    <h2>Docker & Deploy</h2>\r\n    <p>Contenedores, Dockerfile, docker-compose. Deploy en Railway, Render, Vercel. CI/CD con GitHub Actions.</p>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> Docker y Deploy</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">Imagen vs Contenedor y Dockerfile <span class=\"badge badge-fs\">Docker</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>Imagen = plantilla. Contenedor = instancia en ejecución. Dockerfile: FROM, WORKDIR, COPY, RUN, CMD. .dockerignore para no copiar node_modules.</p>\r\n        <div class=\"problem\">\"En mi máquina funciona\". Dependencias distintas, Node version distinta. Deploy que falla.</div>\r\n        <div class=\"solution\">Docker: mismo ambiente en todos lados. Multi-stage: build en una imagen, run en otra más ligera. Layer caching: orden de instrucciones para velocidad.</div>\r\n        <div class=\"analogy\">Imagen es la receta. Contenedor es el plato servido. Dockerfile es la receta escrita. Todos cocinan lo mismo.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• docker-compose para app + DB. • Volúmenes para persistencia. • Railway, Render, Vercel.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <!-- ===================== MÓDULO 10 — Entrevistas Full Stack ===================== -->",
-  "fs10": "<div id=\"fs10\" class=\"module-header\">\r\n    <div class=\"module-number\">Módulo 10</div>\r\n    <h2>Entrevistas Técnicas Full Stack</h2>\r\n    <p>Las 20 preguntas más comunes. Live coding. System design básico. Cómo describir tu portafolio. Badge de certificación.</p>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> Preguntas Frecuentes</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">Event loop, closures, REST vs GraphQL, JWT, CORS <span class=\"badge badge-important\">Importante</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>Las preguntas que hacen en Globant, Mercado Libre, Naranja X. Event loop: single-thread, event queue, microtasks. Closures: función que recuerda su scope. REST: recursos, verbos HTTP. JWT: token firmado. CORS: política del navegador.</p>\r\n        <div class=\"problem\">Responder sin ejemplos concretos. \"Es un token\" sin explicar firma, expiración. Perder la entrevista por no saber comunicar.</div>\r\n        <div class=\"solution\">Estructura: qué es, qué problema resuelve, ejemplo concreto. \"JWT es un token que contiene payload (userId, exp) firmado. El servidor verifica la firma sin guardar sesión. Resuelve stateless auth.\"</div>\r\n        <div class=\"analogy\">Preparar respuestas es como tener un elevator pitch: 30 segundos claros que demuestran que entendés.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• SQL vs NoSQL: cuándo cada uno. • Hooks: reglas, por qué. • Virtual DOM, índices, ACID.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> Portafolio y CV</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">Cómo describir un proyecto en 2 minutos <span class=\"badge badge-fs\">FS</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>Estructura: problema que resolvía, solución técnica, resultado. \"Era una app de pedidos. Usé React + Node + PostgreSQL. Implementé auth con JWT. Redujimos el tiempo de carga un 40%.\"</p>\r\n        <div class=\"problem\">\"Es un proyecto full stack\" — no dice nada. Red flags: no poder explicar decisiones, no saber qué harías diferente.</div>\r\n        <div class=\"solution\">Problema/solución/resultado. Las 3 preguntas que siempre hacen: qué harías diferente, mayor desafío, cómo lo testearías.</div>\r\n        <div class=\"analogy\">Es como vender un producto: no describís los ingredientes, describís el beneficio que le da al usuario.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• Badge \"Full Stack Web Certified\" al completar. • 20 preguntas finales mezclando todos los módulos.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n</body>\r\n</html>"
+  "fs10": "<div id=\"fs10\" class=\"module-header\">\r\n    <div class=\"module-number\">Módulo 10</div>\r\n    <h2>Entrevistas Técnicas Full Stack</h2>\r\n    <p>Las 20 preguntas más comunes. Live coding. System design básico. Cómo describir tu portafolio. Badge de certificación.</p>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> Preguntas Frecuentes</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">Event loop, closures, REST vs GraphQL, JWT, CORS <span class=\"badge badge-important\">Importante</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>Las preguntas que hacen en Globant, Mercado Libre, Naranja X. Event loop: single-thread, event queue, microtasks. Closures: función que recuerda su scope. REST: recursos, verbos HTTP. JWT: token firmado. CORS: política del navegador.</p>\r\n        <div class=\"problem\">Responder sin ejemplos concretos. \"Es un token\" sin explicar firma, expiración. Perder la entrevista por no saber comunicar.</div>\r\n        <div class=\"solution\">Estructura: qué es, qué problema resuelve, ejemplo concreto. \"JWT es un token que contiene payload (userId, exp) firmado. El servidor verifica la firma sin guardar sesión. Resuelve stateless auth.\"</div>\r\n        <div class=\"analogy\">Preparar respuestas es como tener un elevator pitch: 30 segundos claros que demuestran que entendés.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• SQL vs NoSQL: cuándo cada uno. • Hooks: reglas, por qué. • Virtual DOM, índices, ACID.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n  <div class=\"section\">\r\n    <div class=\"section-title\"><span class=\"dot\"></span> Portafolio y CV</div>\r\n    <div class=\"concept\">\r\n      <div class=\"concept-header\">\r\n        <div class=\"concept-title\">Cómo describir un proyecto en 2 minutos <span class=\"badge badge-fs\">FS</span></div>\r\n      </div>\r\n      <div class=\"concept-explain\">\r\n        <div class=\"explain-label\">¿Qué es esto?</div>\r\n        <p>Estructura: problema que resolvía, solución técnica, resultado. \"Era una app de pedidos. Usé React + Node + PostgreSQL. Implementé auth con JWT. Redujimos el tiempo de carga un 40%.\"</p>\r\n        <div class=\"problem\">\"Es un proyecto full stack\" — no dice nada. Red flags: no poder explicar decisiones, no saber qué harías diferente.</div>\r\n        <div class=\"solution\">Problema/solución/resultado. Las 3 preguntas que siempre hacen: qué harías diferente, mayor desafío, cómo lo testearías.</div>\r\n        <div class=\"analogy\">Es como vender un producto: no describís los ingredientes, describís el beneficio que le da al usuario.</div>\r\n      </div>\r\n      <div class=\"concept-desc\">\r\n        <p>• Badge \"Full Stack Web Certified\" al completar. • 20 preguntas finales mezclando todos los módulos.</p>\r\n      </div>\r\n    </div>\r\n  </div>\r\n\r\n</div>\r\n</body>\r\n</html>",
+  "fs11": "<div id=\"fs11\" class=\"module-header\"><div class=\"module-number\">Módulo 11</div><h2>GraphQL</h2><p>Query language para APIs. Cliente pide exactamente los campos que necesita. Resolvers, N+1, DataLoader.</p></div><div class=\"section\"><div class=\"section-title\"><span class=\"dot\"></span> GraphQL vs REST</div><div class=\"concept\"><div class=\"concept-header\"><div class=\"concept-title\">Over-fetching y under-fetching <span class=\"badge badge-fs\">GraphQL</span></div></div><div class=\"concept-explain\"><p>REST: un endpoint devuelve un objeto fijo. Si necesitás solo 2 campos, recibís 20. O hacés 5 requests para armar la vista. GraphQL: el cliente define la query con los campos que necesita. Un solo request.</p></div></div></div><div class=\"section\"><div class=\"section-title\"><span class=\"dot\"></span> En una entrevista te pueden preguntar</div><div class=\"concept-desc\"><p>1. ¿Qué ventaja tiene GraphQL? (Cliente pide exactamente lo que necesita) 2. ¿Qué es un resolver? (Función que obtiene el dato para un campo) 3. ¿Qué hace DataLoader? (Batching y caching para evitar N+1)</p></div></div>",
+  "fs12": "<div id=\"fs12\" class=\"module-header\"><div class=\"module-number\">Módulo 12</div><h2>Seguridad Web</h2><p>XSS, CSRF, sanitización, secrets, rate limiting. Lo mínimo que todo dev debe saber.</p></div><div class=\"section\"><div class=\"section-title\"><span class=\"dot\"></span> Vulnerabilidades comunes</div><div class=\"concept\"><div class=\"concept-header\"><div class=\"concept-title\">XSS y CSRF <span class=\"badge badge-important\">Importante</span></div></div><div class=\"concept-explain\"><p>XSS: inyectar script malicioso en la página (ej. desde un input). Prevención: sanitizar, escapar output, Content-Security-Policy. CSRF: request desde otro sitio con tu sesión. Prevención: CSRF tokens, SameSite cookies.</p></div></div></div><div class=\"section\"><div class=\"section-title\"><span class=\"dot\"></span> En una entrevista te pueden preguntar</div><div class=\"concept-desc\"><p>1. ¿Qué es XSS? (Inyección de script) 2. ¿Dónde guardar secrets? (Variables de entorno, nunca en git) 3. ¿Qué es rate limiting? (Limitar requests por IP/usuario)</p></div></div>"
+};
+
+export const nextjsModuleContent: Record<string, string> = {
+  "nj1": `<div id="nj1" class="module-header">
+    <div class="module-number">Módulo 01</div>
+    <h2>App Router vs Pages Router</h2>
+    <p>Next.js tiene dos sistemas de routing. Entender cuándo usar cada uno y por qué App Router existe evita migraciones dolorosas y decisiones equivocadas en proyectos nuevos.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> ¿Por qué App Router?</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Los límites de Pages Router <span class="badge badge-nj">Next.js</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Pages Router usa un archivo por ruta: <code>pages/about.tsx</code> = /about. Funciona, pero tiene limitaciones: layouts compartidos requieren <code>_app.tsx</code> y re-render en cada navegación, no hay streaming nativo, y el data fetching (getServerSideProps, getStaticProps) es verboso.</p>
+        <div class="problem">Querés un layout que no se re-renderice al cambiar de página (sidebar fijo). En Pages, <code>_app</code> envuelve todo pero cada navegación re-monta los hijos. No hay forma nativa de streaming: la página espera a que todo el HTML esté listo antes de pintar.</div>
+        <div class="solution">App Router introduce <code>layout.tsx</code>: se mantiene entre navegaciones, no re-render. Server Components por defecto: fetch directo en el componente, sin getServerSideProps. Streaming con Suspense: pintás el shell y el contenido llega cuando está listo.</div>
+        <div class="analogy">Pages Router es como un restaurante donde cada plato se sirve completo. App Router es como uno donde traen el pan primero y el plato principal cuando está listo — el usuario no espera con la mesa vacía.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">app/dashboard/layout.tsx</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="kw">export default</span> <span class="kw">function</span> <span class="fn">DashboardLayout</span>({ children }) {</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content">  <span class="kw">return</span> (</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content">    <span class="tag">&lt;div&gt;</span></span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">      <span class="tag">&lt;Sidebar</span> <span class="tag">/&gt;</span></span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-content">      {children}</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-content">    <span class="tag">&lt;/div&gt;</span></span></div>
+          <div class="code-line"><span class="line-num">7</span><span class="line-content">  );</span></div>
+          <div class="code-line"><span class="line-num">8</span><span class="line-content">}</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">layout.tsx</span> envuelve a los hijos sin re-render. • <span class="tag">page.tsx</span> es la ruta. • Convención: <span class="tag">app/dashboard/settings/page.tsx</span> = /dashboard/settings.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Cuándo usar cada uno</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">App Router para proyectos nuevos <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>App Router es el futuro. Server Components, streaming, layouts anidados. Para proyectos nuevos: siempre App Router.</p>
+        <div class="problem">Tenés un proyecto legacy con 50 páginas en Pages. Migrar todo de golpe es costoso y riesgoso. ¿Vale la pena?</div>
+        <div class="solution">Migración incremental: App Router y Pages pueden coexistir. Las rutas en <code>app/</code> usan App Router; las de <code>pages/</code> siguen en Pages. Migrá módulo por módulo. Para proyectos legacy grandes donde el costo no justifica: seguir en Pages hasta que tenga sentido.</div>
+        <div class="analogy">Es como cambiar de auto: si el tuyo funciona, no lo tirás. Pero si comprás uno nuevo, elegís el modelo actual.</div>
+      </div>
+      <div class="concept-desc">
+        <p>• Proyectos nuevos: App Router. • Legacy: evaluar costo/beneficio. • Coexistencia posible durante migración.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Error más común</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Confundir la estructura de carpetas <span class="badge badge-hard">Error</span></div>
+      </div>
+      <div class="concept-explain">
+        <p>En Pages: <code>pages/dashboard.tsx</code> = /dashboard. En App: <code>app/dashboard/page.tsx</code> = /dashboard. El archivo debe llamarse <code>page.tsx</code>, no <code>dashboard.tsx</code>. Crear <code>app/dashboard.tsx</code> sin <code>page.tsx</code> no genera la ruta.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>1. ¿Qué ventajas tiene App Router sobre Pages Router? (Layouts sin re-render, Server Components, streaming, data fetching directo)</p>
+        <p>2. ¿Dónde va el archivo para la ruta /products/[id]? (<code>app/products/[id]/page.tsx</code>)</p>
+        <p>3. ¿Podés usar Pages y App Router en el mismo proyecto? (Sí, durante migración incremental)</p>
+      </div>
+    </div>
+  </div>`,
+  "nj2": `<div id="nj2" class="module-header">
+    <div class="module-number">Módulo 02</div>
+    <h2>Server Components vs Client Components</h2>
+    <p>El modelo mental de React en Next.js cambió. Por defecto todo es Server Component. Entender cuándo y por qué usar "use client" evita bundles gigantes y bugs de hidratación.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> El modelo mental</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Server Components por defecto <span class="badge badge-nj">Next.js</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>En App Router, todo componente es Server Component por defecto. Se renderiza en el servidor. No tiene acceso a useState, useEffect, event handlers ni APIs del navegador. El HTML se envía al cliente — cero JavaScript para ese componente.</p>
+        <div class="problem">Necesitás un botón que hace algo al hacer click. O un input controlado. O usar useEffect para suscribirte a algo. Un Server Component no puede: no tiene acceso al DOM ni a eventos.</div>
+        <div class="solution">Agregar <code>"use client"</code> al inicio del archivo. Ese componente (y todo lo que importa) se convierte en Client Component. Ahora tenés hooks, eventos, browser APIs. La regla: poner "use client" solo donde hace falta, no en la raíz de un módulo enorme.</div>
+        <div class="analogy">Server Component es como una foto impresa: se genera una vez y se envía. Client Component es como una pantalla interactiva: responde a lo que hace el usuario.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">components/Counter.tsx</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="str">"use client"</span></span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content"><span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">'react'</span>;</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content"><span class="kw">export default</span> <span class="kw">function</span> <span class="fn">Counter</span>() {</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(0);</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-content">  <span class="kw">return</span> <span class="tag">&lt;button onClick=</span>{() => <span class="fn">setCount</span>(c => c + 1)}<span class="tag">&gt;</span>{count}<span class="tag">&lt;/button&gt;</span>;</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-content">}</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• Server: fetch directo, acceso a DB, cero JS al cliente. • Client: hooks, eventos, browser APIs. • <span class="tag">"use client"</span> solo donde hace falta.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Error más común</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">"use client" en todo el árbol <span class="badge badge-hard">Error</span></div>
+      </div>
+      <div class="concept-explain">
+        <p>Poner <code>"use client"</code> en el layout o en un componente padre que importa 20 cosas hace que todo ese árbol vaya al bundle del cliente. Si solo un botón hijo necesita interactividad, mové "use client" a ese componente hijo. El resto sigue siendo Server Component.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>1. ¿Qué NO podés hacer en un Server Component? (useState, useEffect, event handlers, browser APIs)</p>
+        <p>2. ¿Puede un Server Component importar un Client Component? (Sí, como hijo. El Server lo renderiza, el Client se hidrata en el cliente)</p>
+        <p>3. ¿Por qué no poner "use client" en la raíz? (Todo el módulo y sus imports van al bundle del cliente — más JS, peor performance)</p>
+      </div>
+    </div>
+  </div>`,
+  "nj3": `<div id="nj3" class="module-header">
+    <div class="module-number">Módulo 03</div>
+    <h2>Caching en Next.js</h2>
+    <p>Next.js cachea por defecto. Sin entender los 4 tipos de cache, vas a ver datos viejos en producción o a romper el cache cuando no querías. Dominar cache y revalidación es clave.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Los 4 tipos de cache</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Request Memoization, Data Cache, Full Route, Router Cache <span class="badge badge-nj">Next.js</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p><strong>Request Memoization</strong>: durante un request, si llamás <code>fetch(url)</code> dos veces con los mismos args, Next.js deduplica y devuelve el mismo resultado. <strong>Data Cache</strong>: el resultado de fetch se persiste en disco entre requests. <strong>Full Route Cache</strong>: páginas estáticas pre-renderizadas en build. <strong>Router Cache</strong>: en el cliente, guarda el resultado de navegaciones previas (soft navigation).</p>
+        <div class="problem">Hiciste un deploy con datos nuevos. Los usuarios siguen viendo datos viejos. O al revés: querés que un fetch se cachee pero Next.js lo re-ejecuta en cada request.</div>
+        <div class="solution">Para desactivar Data Cache: <code>fetch(url, { cache: 'no-store' })</code> o <code>revalidate: 0</code>. Para revalidar cada X segundos: <code>revalidate: 60</code>. Después de una mutación: <code>revalidatePath('/dashboard')</code> o <code>revalidateTag('users')</code>.</div>
+        <div class="analogy">Data Cache es como un frigorífico: guarda la comida para reutilizarla. no-store es como comprar fresco cada vez. revalidatePath es como tirar lo que está vencido y traer nuevo.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">app/products/page.tsx</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://api.com/products'</span>, {</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content">  <span class="fn">cache</span>: <span class="str">'no-store'</span>,  <span class="cmt">// no cachear</span></span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content">  <span class="fn">next</span>: { <span class="fn">revalidate</span>: <span class="num">60</span> }  <span class="cmt">// revalidar cada 60s</span></span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">});</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">cache: 'no-store'</span> o <span class="tag">revalidate: 0</span> rompe Data Cache. • <span class="tag">revalidatePath</span> invalida después de mutaciones. • Router Cache: cliente, soft nav.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Error más común</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Datos viejos después de deploy <span class="badge badge-hard">Error</span></div>
+      </div>
+      <div class="concept-explain">
+        <p>El fetch por defecto se cachea. Si no usás <code>revalidate</code> o <code>cache: 'no-store'</code>, el Data Cache persiste. Después de un deploy, la página puede seguir mostrando datos del build anterior. Solución: <code>revalidatePath</code> en Server Actions después de mutar, o <code>revalidate: 60</code> en fetches que deben actualizarse.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>1. ¿Cuáles son los 4 tipos de cache en Next.js? (Request Memoization, Data Cache, Full Route Cache, Router Cache)</p>
+        <p>2. ¿Cómo desactivás el Data Cache de un fetch? (cache: 'no-store' o revalidate: 0)</p>
+        <p>3. ¿Qué hace revalidatePath? (Invalida el cache de esa ruta para que el próximo request traiga datos frescos)</p>
+      </div>
+    </div>
+  </div>`,
+  "nj4": `<div id="nj4" class="module-header">
+    <div class="module-number">Módulo 04</div>
+    <h2>Server Actions</h2>
+    <p>Mutaciones desde el cliente sin crear API Routes. Server Actions reemplazan muchos endpoints REST cuando la acción es "hacer algo en el servidor" — crear usuario, actualizar DB, enviar email.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Cuándo reemplazan API Routes</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Server Actions para mutaciones <span class="badge badge-nj">Next.js</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Una Server Action es una función async que corre en el servidor. Se puede llamar desde un Client Component (formulario, botón). No necesitás crear <code>app/api/users/route.ts</code> para un POST que crea un usuario: la action hace la mutación directa.</p>
+        <div class="problem">Antes: crear API Route, fetch desde el cliente, manejar loading/error. Código duplicado entre frontend y backend. CORS, tipos que no se comparten.</div>
+        <div class="solution">Server Action: función con <code>"use server"</code>. El cliente la llama como una función normal. Next.js la serializa y ejecuta en el servidor. Validación con Zod, acceso a DB, revalidatePath. Todo en un solo lugar.</div>
+        <div class="analogy">API Route es como llamar por teléfono a un empleado. Server Action es como tener al empleado en la misma oficina: le pasás el papel y él lo procesa.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">app/actions.ts</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="str">"use server"</span></span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content"><span class="kw">export async function</span> <span class="fn">createUser</span>(formData: FormData) {</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content">  <span class="kw">const</span> name = formData.<span class="fn">get</span>(<span class="str">'name'</span>) <span class="kw">as</span> <span class="kw">string</span>;</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content">  <span class="kw">await</span> db.<span class="fn">user</span>.<span class="fn">create</span>({ data: { name } });</span></div>
+          <div class="code-line"><span class="line-num">5</span><span class="line-content">  <span class="fn">revalidatePath</span>(<span class="str">'/users'</span>);</span></div>
+          <div class="code-line"><span class="line-num">6</span><span class="line-content">}</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">"use server"</span> en la función o al inicio del archivo. • Validación con Zod. • <span class="tag">revalidatePath</span> después de mutar.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Manejo de errores y loading</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">useFormStatus y useTransition <span class="badge badge-important">Importante</span></div>
+      </div>
+      <div class="concept-explain">
+        <p>Para mostrar loading durante una Server Action: <code>useFormStatus()</code> de react-dom (dentro de un form que usa action) o <code>useTransition()</code> cuando llamás la action manualmente. Para errores: try/catch en la action, return <code>{ error: 'mensaje' }</code>, y el cliente muestra el mensaje.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>1. ¿Cuándo usás Server Action en vez de API Route? (Mutaciones desde formularios/eventos, cuando no necesitás endpoint REST público)</p>
+        <p>2. ¿Cómo mostrás loading durante una Server Action? (useFormStatus o useTransition)</p>
+        <p>3. ¿Qué hace revalidatePath después de una mutación? (Invalida el cache de esa ruta para refrescar datos)</p>
+      </div>
+    </div>
+  </div>`,
+  "nj5": `<div id="nj5" class="module-header">
+    <div class="module-number">Módulo 05</div>
+    <h2>Autenticación moderna</h2>
+    <p>NextAuth v5 (Auth.js), Clerk, middleware para proteger rutas. Sesiones en el servidor, callbacks, adapters para persistir usuarios. El stack de auth que usan las apps Next.js serias.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> NextAuth v5 / Auth.js</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Providers, session, callbacks, adapters <span class="badge badge-nj">Next.js</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p>Auth.js ofrece login con Google, GitHub, email, etc. La sesión se guarda en cookie (JWT o database). Callbacks permiten agregar datos al token (ej. role). Adapters conectan con tu DB (Prisma, Drizzle) para guardar usuarios y sesiones.</p>
+        <div class="problem">Querés proteger /dashboard. Sin middleware, cualquiera puede acceder y recién en la página verificás la sesión — flash de contenido no autorizado.</div>
+        <div class="solution">Middleware que verifica la sesión antes de que la request llegue a la página. <code>matcher</code> para las rutas a proteger. <code>NextResponse.redirect</code> a /login si no hay sesión.</div>
+        <div class="analogy">Middleware es como el guardia del edificio: verifica antes de que entres. Sin él, entrás y recién en el piso 5 te dicen que no podés.</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">middleware.ts</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="kw">export</span> { <span class="fn">default</span> } <span class="kw">from</span> <span class="str">'next-auth/middleware'</span>;</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content"><span class="kw">export const</span> config = { <span class="fn">matcher</span>: [<span class="str">'/dashboard/:path*'</span>] };</span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">auth()</span> en Server Components para obtener sesión. • <span class="tag">useSession</span> en Client. • Adapter para guardar en DB.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Clerk vs NextAuth</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>Clerk: hosted, UI lista, menos configuración. NextAuth: self-hosted, más flexible, requiere configurar providers y adapter. Para proyectos que quieren auth rápido: Clerk. Para control total y costo: NextAuth.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>1. ¿Dónde protegés rutas en Next.js? (Middleware que verifica sesión antes de llegar a la página)</p>
+        <p>2. ¿Cómo obtenés la sesión en un Server Component? (auth() de next-auth)</p>
+        <p>3. ¿Qué es un adapter en Auth.js? (Conecta Auth con tu DB para guardar usuarios y sesiones)</p>
+      </div>
+    </div>
+  </div>`,
+  "nj6": `<div id="nj6" class="module-header">
+    <div class="module-number">Módulo 06</div>
+    <h2>Performance y Core Web Vitals</h2>
+    <p>LCP, CLS, FID. Cómo optimizar imágenes, fuentes y JavaScript. Lighthouse, next/image, next/font. Las métricas que Google usa para ranking y que los usuarios sienten.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Core Web Vitals</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">LCP, CLS, FID (INP) <span class="badge badge-nj">Next.js</span></div>
+      </div>
+      <div class="concept-explain">
+        <div class="explain-label">¿Qué es esto?</div>
+        <p><strong>LCP</strong> (Largest Contentful Paint): tiempo hasta que el contenido principal visible está pintado. <strong>CLS</strong> (Cumulative Layout Shift): inestabilidad visual, cuánto se mueven los elementos. <strong>FID/INP</strong>: tiempo hasta que la página responde a la primera interacción.</p>
+        <div class="problem">Imágenes sin width/height causan CLS: el layout salta cuando cargan. Fuentes sin optimizar bloquean el render. JavaScript pesado retrasa la interactividad.</div>
+        <div class="solution">next/image: lazy loading, formatos modernos (WebP, AVIF), tamaños responsive. next/font: self-hosting, sin layout shift, subsetting. Code splitting: dynamic imports para componentes pesados.</div>
+        <div class="analogy">LCP es "¿cuándo veo algo útil?". CLS es "¿se mueve todo mientras cargo?". FID es "¿cuándo puedo hacer click?".</div>
+      </div>
+      <div class="ide">
+        <div class="ide-topbar">
+          <div class="ide-dot red"></div><div class="ide-dot yellow"></div><div class="ide-dot green"></div>
+          <span class="ide-filename">components/Hero.tsx</span>
+        </div>
+        <div class="ide-body">
+          <div class="code-line"><span class="line-num">1</span><span class="line-content"><span class="kw">import</span> Image <span class="kw">from</span> <span class="str">'next/image'</span>;</span></div>
+          <div class="code-line"><span class="line-num">2</span><span class="line-content"><span class="kw">import</span> { Inter } <span class="kw">from</span> <span class="str">'next/font/google'</span>;</span></div>
+          <div class="code-line"><span class="line-num">3</span><span class="line-content"><span class="kw">const</span> inter = <span class="fn">Inter</span>({ <span class="fn">subsets</span>: [<span class="str">'latin'</span>] });</span></div>
+          <div class="code-line"><span class="line-num">4</span><span class="line-content"><span class="tag">&lt;Image src=</span><span class="str">"/hero.jpg"</span> <span class="tag">alt=</span><span class="str">"Hero"</span> <span class="tag">width=</span>{1200} <span class="tag">height=</span>{600} <span class="tag">priority /&gt;</span></span></div>
+        </div>
+      </div>
+      <div class="concept-desc">
+        <p>• <span class="tag">next/image</span>: lazy load, formatos modernos. • <span class="tag">next/font</span>: sin layout shift. • <span class="tag">priority</span> para LCP en above-the-fold.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Error más común</div>
+    <div class="concept">
+      <div class="concept-header">
+        <div class="concept-title">Imágenes sin dimensiones <span class="badge badge-hard">Error</span></div>
+      </div>
+      <div class="concept-explain">
+        <p>Usar <code>&lt;img&gt;</code> sin width/height causa CLS: el navegador no reserva espacio hasta que carga. next/image requiere width y height (o fill con contenedor con tamaño). Para imágenes above-the-fold, usar <code>priority</code> para no lazy-loadear y mejorar LCP.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept">
+      <div class="concept-desc">
+        <p>1. ¿Qué mide LCP? (Tiempo hasta que el contenido principal visible está pintado)</p>
+        <p>2. ¿Qué mide CLS? (Inestabilidad visual: cuánto se mueven los elementos inesperadamente)</p>
+        <p>3. ¿Cómo optimizás imágenes en Next.js? (next/image con lazy loading, formatos modernos, width/height, priority para above-the-fold)</p>
+      </div>
+    </div>
+  </div>`
+};
+
+function createSimpleModuleContent(id: string, num: number, title: string, desc: string, concepts: string[]): string {
+  const conceptBlocks = concepts.map(c => `
+    <div class="concept">
+      <div class="concept-header"><div class="concept-title">${c} <span class="badge badge-fs">Concepto</span></div></div>
+      <div class="concept-explain"><p>Contenido teórico: problema antes que solución. Leé el quiz para validar tu comprensión.</p></div>
+    </div>`).join('');
+  return `<div id="${id}" class="module-header">
+    <div class="module-number">Módulo ${String(num).padStart(2, '0')}</div>
+    <h2>${title}</h2>
+    <p>${desc}</p>
+  </div>
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> Contenido</div>
+    ${conceptBlocks}
+  </div>
+  <div class="section">
+    <div class="section-title"><span class="dot"></span> En una entrevista te pueden preguntar</div>
+    <div class="concept"><div class="concept-desc"><p>Revisá las preguntas del quiz — son las que suelen hacer en entrevistas técnicas.</p></div></div>
+  </div>`;
+}
+
+export const databaseModuleContent: Record<string, string> = {
+  db1: createSimpleModuleContent('db1', 1, 'SQL vs NoSQL', 'Cuándo elegir cada tipo de base de datos. CAP theorem, ventajas y desventajas.', ['SQL: transacciones ACID', 'NoSQL: schema flexible', 'Redis para cache']),
+  db2: createSimpleModuleContent('db2', 2, 'PostgreSQL avanzado', 'EXPLAIN, índices, optimización de queries.', ['EXPLAIN ANALYZE', 'Índices compuestos', 'Connection pooling']),
+  db3: createSimpleModuleContent('db3', 3, 'ORMs — Prisma y Drizzle', 'Type-safe database access. Migraciones, N+1 problem.', ['Prisma schema', 'Drizzle vs Prisma', 'Evitar N+1']),
+  db4: createSimpleModuleContent('db4', 4, 'Redis y caching', 'Cache aside, TTL, invalidación.', ['Estructuras Redis', 'Cache aside pattern', 'Invalidación']),
+  db5: createSimpleModuleContent('db5', 5, 'Migraciones y versionado', 'Reproducibilidad, rollback, trabajo en equipo.', ['Migraciones up/down', 'Versionado', 'Migraciones destructivas']),
+};
+
+export const englishModuleContent: Record<string, string> = {
+  en1: createSimpleModuleContent('en1', 1, 'Vocabulario técnico esencial', 'Términos que vas a escuchar en entrevistas y en el día a día.', ['debug, bug, deploy', 'refactor, scalable', 'API, endpoint']),
+  en2: createSimpleModuleContent('en2', 2, 'Comunicación en entrevistas', 'Think out loud, pedir hints, trade-offs.', ['Think out loud', 'I don\'t know', 'Pedir hints']),
+  en3: createSimpleModuleContent('en3', 3, 'Readme y documentación', 'Buen README, getting started, JSDoc.', ['README structure', 'Getting started', 'API docs']),
+  en4: createSimpleModuleContent('en4', 4, 'Slack, email y reuniones', 'Async communication, standups, blockers.', ['Async vs sync', 'Standup', 'Blocker, follow-up']),
+};
+
+export const jobModuleContent: Record<string, string> = {
+  job1: createSimpleModuleContent('job1', 1, 'CV y LinkedIn', 'Qué destacar, keywords, formato.', ['CV técnico', 'LinkedIn', 'Keywords']),
+  job2: createSimpleModuleContent('job2', 2, 'Búsqueda de empleo', 'Dónde buscar, referidos, cold outreach.', ['LinkedIn, páginas empresas', 'Referidos', 'Cold outreach']),
+  job3: createSimpleModuleContent('job3', 3, 'Proceso de entrevistas', 'Screening, take-home, qué preguntar.', ['Screening', 'Take-home', 'Thank-you email']),
+  job4: createSimpleModuleContent('job4', 4, 'Negociación salarial', 'Cuándo hablar, investigar, contraoferta.', ['Timing', 'Rangos mercado', 'Total compensation']),
+  job5: createSimpleModuleContent('job5', 5, 'Primer día y onboarding', 'Qué hacer, preguntas, buddy.', ['Primer día', 'Onboarding', 'Buddy/mentor']),
 };

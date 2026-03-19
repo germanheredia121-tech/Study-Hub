@@ -6,7 +6,7 @@
 import { getProgress } from './utils';
 import { getLeetCodeProgress, getLeetCodeCounts } from './leetcode-utils';
 import { getInterviewHistory } from './interview-simulator-utils';
-import { DSA_MODULES, FLUTTER_MODULES, FS_MODULES } from './data';
+import { DSA_MODULES, FLUTTER_MODULES, FS_MODULES, NEXTJS_MODULES, DB_MODULES, ENGLISH_MODULES, JOB_MODULES } from './data';
 
 const NAME_KEY = 'studyhub_name';
 const STREAK_KEY = 'studyhub_streak';
@@ -23,7 +23,8 @@ export function setUserName(name: string): void {
 }
 
 export function getTotalModulesCount(): number {
-  return DSA_MODULES.length + FLUTTER_MODULES.length + FS_MODULES.length;
+  return DSA_MODULES.length + FLUTTER_MODULES.length + FS_MODULES.length + NEXTJS_MODULES.length
+    + DB_MODULES.length + ENGLISH_MODULES.length + JOB_MODULES.length;
 }
 
 export function getCompletedModulesCount(): number {
@@ -31,10 +32,18 @@ export function getCompletedModulesCount(): number {
   const dsa = getProgress('dsa');
   const flutter = getProgress('flutter');
   const fs = getProgress('fullstack');
+  const nextjs = getProgress('nextjs');
+  const db = getProgress('database');
+  const english = getProgress('english');
+  const job = getProgress('jobhunting');
   const dsaCount = DSA_MODULES.filter((m) => dsa[m.id]).length;
   const flutterCount = FLUTTER_MODULES.filter((m) => flutter[m.id]).length;
   const fsCount = FS_MODULES.filter((m) => fs[m.id]).length;
-  return dsaCount + flutterCount + fsCount;
+  const nextjsCount = NEXTJS_MODULES.filter((m) => nextjs[m.id]).length;
+  const dbCount = DB_MODULES.filter((m) => db[m.id]).length;
+  const englishCount = ENGLISH_MODULES.filter((m) => english[m.id]).length;
+  const jobCount = JOB_MODULES.filter((m) => job[m.id]).length;
+  return dsaCount + flutterCount + fsCount + nextjsCount + dbCount + englishCount + jobCount;
 }
 
 export function getLeetCodeCompletedCount(): number {

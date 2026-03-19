@@ -66,6 +66,7 @@ function EntrevistaContent() {
         hiddenTestsPassed: full.passed - basic.passed,
         hiddenTestsTotal: full.total - basic.total,
         userCode: c,
+        suggestedModule: p.suggestedModule,
       };
       saveInterviewRecord(record);
       sessionStorage.setItem('interview-result', JSON.stringify({ record, problem: p, full }));

@@ -6,7 +6,7 @@ import ModuleViewer from './ModuleViewer';
 import Quiz from './Quiz';
 import InteractiveExercise from './InteractiveExercise';
 import { useRouter } from 'next/navigation';
-import { DSA_MODULES, FLUTTER_MODULES, FS_MODULES } from '@/lib/data';
+import { getModulesForPath } from '@/lib/data';
 import { getExercisesForModule } from '@/lib/interactive-exercises';
 
 interface ModuleContentWrapperProps {
@@ -21,7 +21,7 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
     const [isQuizMode, setIsQuizMode] = useState(false);
 
     const handleComplete = () => {
-        const modules = path === 'dsa' ? DSA_MODULES : path === 'flutter' ? FLUTTER_MODULES : FS_MODULES;
+        const modules = getModulesForPath(path);
         const currentIndex = modules.findIndex(m => m.id === module.id);
         const nextModule = modules[currentIndex + 1];
 
@@ -53,7 +53,7 @@ export default function ModuleContentWrapper({ module, htmlContent, css, path }:
         );
     }
 
-    const exercises = path === 'fullstack' ? getExercisesForModule(module.id) : [];
+    const exercises = (path === 'fullstack' || path === 'nextjs') ? getExercisesForModule(module.id) : [];
 
     return (
         <div className="px-3 pt-16 md:p-8 pb-32 max-w-5xl mx-auto animate-in fade-in module-content-container">
